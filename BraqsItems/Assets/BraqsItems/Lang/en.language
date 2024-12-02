@@ -1,0 +1,68 @@
+{
+  "strings": {
+    //Tier1//
+    "BIGGEREXPLOSIONS": "Accelerant",
+    "ITEM_BIGGEREXPLOSIONS_NAME": "Accelerant",
+    "ITEM_BIGGEREXPLOSIONS_PICKUP": "Increase explosion radius.",
+    "ITEM_BIGGEREXPLOSIONS_DESC": "Increases <style=cIsDamage>explosion radius</style> by <style=cIsDamage>5%</style> <style=cStack>(+5% per stack)</style>.",
+    "ITEM_BIGGEREXPLOSIONS_LORE": "",
+
+    "ATTACKSPEEDONHIT": "Hundreds and Thousands",
+    "ITEM_ATTACKSPEEDONHIT_NAME": "Hundreds and Thousands",
+    "ITEM_ATTACKSPEEDONHIT_PICKUP": "Recieve an attack speed bonus for every living enemy you have landed a hit on.",
+    "ITEM_ATTACKSPEEDONHIT_DESC": "For each enemy you have hit, increase <style=cIsDamage>attack speed</style> by <style=cIsDamage>1%</style> <style=cStack>(+1% per stack)</style> while that enemy lives.",
+    "ITEM_ATTACKSPEEDONHIT_LORE": "Order: \"Ultra Value brand Nonpareils\"  \nTracking Number: 100*****  \nEstimatedDelivery: 02/29/2056  \nShipping Method: Standard  \nShipping Address: Saturn's Sweets Bakery, New Boston, Mars  \nShipping Details:\n\nDazzle customers and housewives alike at half the cost of the name-brand edible ornaments with Ultra-Value's rainbow colored confectionary decoration system! Now with 25% less plastic!",
+
+    "KILLOVERFLOW": "Jumper Cables",
+    "ITEM_KILLOVERFLOW_NAME": "Jumper Cables",
+    "ITEM_KILLOVERFLOW_PICKUP": "Excess damage from kills is applied to nearby enemies.",
+    "ITEM_KILLOVERFLOW_DESC": "On kill, fire <style=cIsDamage>chain lightning</style> for <style=cIsDamage>%50</style> <style=cStack>(+50% per stack)</style> excess damage of the killing blow at <style=cIsDamage>3</style> <style=cStack>(+2 per stack)</style> enemies within <style=cIsDamage>15m</style> <style=cStack>(+2m per stack)</style>.",
+    "ITEM_KILLOVERFLOW_LORE": "\"You're going to tell us what we want to know.\"  \n\nThe man struck the alligator clips together, producing a spark that illuminated his face for a moment.  \n\n\"You'll... You'll have to kill me. I'll die before I talk.\"  \n\n\"So be it. After I kill you, I suppose I'll just have to ask your friend what he knows instead.\"",
+
+
+    //Tier2//
+    "EXPLODEAGAIN": "Inert Bomblet",
+    "ITEM_EXPLODEAGAIN_NAME": "Inert Bomblet",
+    "ITEM_EXPLODEAGAIN_PICKUP": "Your explosives can scatter smaller bombs.",
+    "ITEM_EXPLODEAGAIN_DESC": "Explosions scatter up to <style=cIsDamage>3</style> <style=cStack>(+2 per stack)</style> bomblets, each dealing <style=cIsDamage>75%</style> TOTAL damage within <style=cIsDamage>75%</style> of the radius of the original explosion.",
+    "ITEM_EXPLODEAGAIN_LORE": "",
+
+    "PERMABLEED": "Jar of Leeches",
+    "ITEM_PERMABLEED_NAME": "Jar of Leeches",
+    "ITEM_PERMABLEED_PICKUP": "Heal from a bleeding enemy. Leeched enemies cannot stop bleeding.",
+    "ITEM_PERMABLEED_DESC": "Attach a <style=cIsDamage>leech</style> on hit, making bleed effects <style=cIsUtility>permanent</style><style=cStack> and healing <style=cIsHealth>1%</style> health per <style=cIsDamage>100%</style> bleed damage on that enemy. The jar contains <style=cIsUtility>1</style><style=cStack>(+1 per stack)</style> leech.",
+    "ITEM_PERMABLEED_LORE": "",
+
+    "REPAIRBROKENITEMS": "Refabricator",
+    "ITEM_REPAIRBROKENITEMS_NAME": "Refabricator",
+    "ITEM_REPAIRBROKENITEMS_PICKUP": "Repairs some of your items on stage advance.",
+    "ITEM_REPAIRBROKENITEMS_DESC": "Repair up to <style=cIsUtility>2</style> <style=cStack>(+2 per stack)</style> broken items on stage advance. May fail for rarer items.",
+    "ITEM_REPAIRBROKENITEMS_LORE": "",
+
+
+    //Tier3//
+    "EXPLOSIONFRENZY": "My Manifesto",
+    "ITEM_EXPLOSIONFRENZY_NAME": "My Manifesto",
+    "ITEM_EXPLOSIONFRENZY_PICKUP": "All explosions ignite. Explosions are larger while your enemies burn.",
+    "ITEM_EXPLOSIONFRENZY_DESC": "Explosions <style=cIsDamage>ignite</style> for an additional <style=cIsDamage>50%</style> <style=cStack>(+50% per stack)</style> total damage. While you burn an enemy, gain <style=cIsDamage>10%</style> explosion radius, up to <style=cIsUtility>100%</style> <style=cStack>(+100% per stack)</style> times.",
+    "ITEM_EXPLOSIONFRENZY_LORE": "\"By the way Sir before I forget, uhh... I found these documents on your desk while I was cleaning out your quarters called \"My Manifesto,\" and I just, I read a little bit, and I'm just wondering... why would you... what is that, why would you write something like that?\"\n-Signal echoes, UES Safe Travels",
+
+    "HUNDREDRENDINGFISTS": "North Star Hand Wraps",
+    "ITEM_HUNDREDRENDINGFISTS_NAME": "North Star Hand Wraps",
+    "ITEM_HUNDREDRENDINGFISTS_PICKUP": "Store damage inside of enemies to be released at once later.",
+    "ITEM_HUNDREDRENDINGFISTS_DESC": "On hit store <style=cIsDamage>25%</style> <style=cStack>(+25% per stack)</style> total damage inside the victim. After <style=cIsUtility>3</style> seconds without storing damage, all stored damage is applied plus an additional <style=cIsDamage>5%</style> total damage for every instance of stored damage.",
+    "ITEM_HUNDREDRENDINGFISTS_LORE": "",
+
+    "SPREADDEBUFFS": "Sympathetic Pathogen",
+    "ITEM_SPREADDEBUFFS_NAME": "Sympathetic Pathogen",
+    "ITEM_SPREADDEBUFFS_PICKUP": "Your debuffs are contagious.",
+    "ITEM_SPREADDEBUFFS_DESC": "<style=cIsUtility>Infect</style> enemies on hit. At <style=cIsUtility>1</style> <style=cStack>(+1 per stack)</style> health threshold, <style=cIsUtility>infected</style> enemies infect up to <style=cIsUtility>6</style> other enemies, applying all stacks of the original enemy's debuffs for 3 seconds.",
+    "ITEM_SPREADDEBUFFS_LORE": "",
+
+    "LIGHTNINGDAMAGEBOOST": "Induction Coil",
+    "ITEM_LIGHTNINGDAMAGEBOOST_NAME": "Induction Coil",
+    "ITEM_LIGHTNINGDAMAGEBOOST_PICKUP": "Your chain attacks increase in damage with each bounce.",
+    "ITEM_LIGHTNINGDAMAGEBOOST_DESC": "Chain attacks deal <style=cIsDamage>50%</style> <style=cStack>(+20% per stack)</style> more damage, plus an additional <style=cIsDamage>50%</style> <style=cStack>(+20% per stack)</style> with each hit.",
+    "ITEM_LIGHTNINGDAMAGEBOOST_LORE": "Order: \"Anti Runaway Solenoid\"  \nTracking Number: 88******  \nEstimatedDelivery: 07/22/2056  \nShipping Method: High Priority  \nShipping Address: 73421, Calorum St., Saturn  \nShipping Details:\n\nSafety stop for the new turbine. Detects voltage fluctuations and amplifies the signal to disengage the magnetic field. Please install BEFORE utilizing the turbine! We don't want a repeat of recent accidents.'"
+  }
+}
