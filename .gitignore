@@ -89,5 +89,6 @@ BraqsItems/Packages/*
 
 #Dont add test pipeline or pipeline output
 BraqsItems/Output/
+BraqsItems/braqsitems.zip
 BraqsItems/Assets/BraqsItems/Testing.meta
 BraqsItems/Assets/BraqsItems/Testing/
