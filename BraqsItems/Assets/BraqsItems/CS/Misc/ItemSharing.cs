@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace BraqsItems.Misc
 {
+    //Nothing yet
     public static class ItemSharing
     {
 

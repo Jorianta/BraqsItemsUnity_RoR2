@@ -59,7 +59,7 @@ namespace BraqsItems
 
             HG.ReadOnlyArray<ItemDef.Pair> relationships = ItemCatalog.GetItemPairsForRelationship(BrokenItemRelationships.brokenItemRelationship);
 
-            int relationshipCount = ItemCatalog.itemRelationships[BrokenItemRelationships.brokenItemRelationship].Length;
+            int relationshipCount = relationships.Length;
             float[] weights = new float[relationshipCount];
             float[] chances = new float[relationshipCount];
             float totalWeight = 0;

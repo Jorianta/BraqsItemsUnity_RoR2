@@ -71,7 +71,7 @@ MonoBehaviour:
     description: R2API_Core
     dependedncyID: RiskofThunder-R2API_Core
     shouldInstall: 1
-    isHardDependency: 0
+    isHardDependency: 1
     dependencies:
     - BepInExPack
     - HookGenPatcher
@@ -79,7 +79,7 @@ MonoBehaviour:
     description: R2API_ContentManagement
     dependedncyID: RiskofThunder-R2API_ContentManagement
     shouldInstall: 1
-    isHardDependency: 0
+    isHardDependency: 1
     dependencies:
     - BepInExPack
     - HookGenPatcher
@@ -88,7 +88,7 @@ MonoBehaviour:
     description: R2API_Addressables
     dependedncyID: RiskofThunder-R2API_Addressables
     shouldInstall: 1
-    isHardDependency: 0
+    isHardDependency: 1
     dependencies:
     - BepInExPack
     - HookGenPatcher
@@ -114,7 +114,7 @@ MonoBehaviour:
     description: R2API_Colors
     dependedncyID: RiskofThunder-R2API_Colors
     shouldInstall: 1
-    isHardDependency: 0
+    isHardDependency: 1
     dependencies:
     - BepInExPack
     - HookGenPatcher

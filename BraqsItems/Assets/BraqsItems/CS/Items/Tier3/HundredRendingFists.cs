@@ -146,6 +146,7 @@ namespace BraqsItems
 
             private void storeDamage(GameObject attacker, float damage, int itemStacks)
             {
+                //store damage per attacker, so proper credit can be given. 
                 bool temp = true;
                 for (int i = 0; i < damageStores.Count; i++)
                 {

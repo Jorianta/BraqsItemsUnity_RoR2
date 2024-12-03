@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace BraqsItems.Misc
 {
-    //for use with goobo sr.
+    //for use with refabricator.
     public static class BrokenItemRelationships
     {
 
@@ -29,28 +29,6 @@ namespace BraqsItems.Misc
 
             ContentAddition.AddItemRelationshipProvider(itemRelationshipProvider);
 
-            //ItemCatalog.availability.CallWhenAvailable(() =>
-            //{
-            //    ItemCatalog.itemRelationships.Add(brokenItemRelationship, Array.Empty<ItemDef.Pair>());
-
-            //    addBrokenItemRelationship(RoR2Content.Items.ExtraLife, RoR2Content.Items.ExtraLifeConsumed);
-            //    addBrokenItemRelationship(DLC1Content.Items.FragileDamageBonus, DLC1Content.Items.FragileDamageBonusConsumed);
-            //    addBrokenItemRelationship(DLC1Content.Items.HealingPotion, DLC1Content.Items.HealingPotionConsumed);
-            //    addBrokenItemRelationship(DLC1Content.Items.ExtraLifeVoid, DLC1Content.Items.ExtraLifeVoidConsumed);
-
-            //    BraqsItemsContent.BraqsItems_ContentPack.itemRelationshipProviders.Add(new ItemRelationshipProvider[] { itemRelationshipProvider });
-            //});
         }
-
-        //Make sure the second item is the broken version
-        //public static void addBrokenItemRelationship(ItemDef normalitem, ItemDef brokenItem)
-        //{
-        //    ItemDef.Pair pair = new ItemDef.Pair()
-        //    {
-        //        itemDef1 = normalitem,
-        //        itemDef2 = brokenItem,
-        //    };
-        //    itemRelationshipProvider.relationships = itemRelationshipProvider.relationships.AddToArray(pair);
-        //}
     }
 }

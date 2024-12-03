@@ -71,6 +71,7 @@ namespace BraqsItems
             On.RoR2.GlobalEventManager.OnHitEnemy += GlobalEventManager_OnHitEnemy;
         }
 
+        //This actually works great, just too great. It successfully procs your onkill effects, it just ALSO procs the enemies ondeath effects.
         private static void GlobalEventManager_OnHitEnemy(On.RoR2.GlobalEventManager.orig_OnHitEnemy orig, GlobalEventManager self, DamageInfo damageInfo, GameObject victim)
         {
             if (!damageInfo.rejected && damageInfo.procCoefficient > 0f && (bool)damageInfo.attacker &&  damageInfo.attacker.TryGetComponent(out CharacterBody attackerBody) && attackerBody.inventory
@@ -83,8 +84,6 @@ namespace BraqsItems
                 float procChance = (damageInfo.procCoefficient * 100f * 0.07f * stacks)/(0.07f * stacks + 1);
 
                 if (stacks > 0 && attackerBody.master && RoR2.Util.CheckRoll(procChance, attackerBody.master)) {
-
-                    HealthComponent dummyHealthComponent = makeDummy(victim, victimBody.healthComponent, victimBody);
  
 
                     EffectData effectData = new EffectData
@@ -104,37 +103,14 @@ namespace BraqsItems
                         damageColorIndex = DamageColorIndex.Item
                     };
 
-                    DamageReport damageReport = new DamageReport(damageInfo2, dummyHealthComponent, damageInfo.damage, victimBody.healthComponent.combinedHealth);
+                    DamageReport damageReport = new DamageReport(damageInfo2, victimBody.healthComponent, damageInfo.damage, victimBody.healthComponent.combinedHealth);
                     GlobalEventManager.instance.OnCharacterDeath(damageReport);
-
-                    
-
-                    UnityEngine.Object.Destroy(dummyHealthComponent.gameObject);
-
-
-                }
+                  }
             }
 
 
 
             orig(self, damageInfo, victim);
-        }
-
-        private static HealthComponent makeDummy(GameObject gameObject, HealthComponent healthComponent, CharacterBody characterBody)
-        {
-            Log.Debug("makeDummy");
-
-            GameObject dummy = new GameObject();
-            HealthComponent dummyHealthComponent = dummy.AddComponent<HealthComponent>();
-            dummy.TryGetComponent(out CharacterBody dummyBody);
-            dummyBody.healthComponent = dummyHealthComponent;
-            dummyHealthComponent.body = dummyBody;
-
-            dummyBody.bodyIndex = characterBody.bodyIndex;
-            dummyBody.isElite = characterBody.isElite;
-            if (characterBody.HasBuff(RoR2Content.Buffs.Bleeding)) dummyBody.AddBuff(RoR2Content.Buffs.Bleeding);
-
-            return dummyHealthComponent;
         }
     }
 }

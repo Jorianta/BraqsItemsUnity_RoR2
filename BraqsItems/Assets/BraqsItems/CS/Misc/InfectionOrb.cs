@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace BraqsItems.Misc
 {
-    //A altered lightningOrb for our purposes
+    //A altered lightningOrb for spread debuff purposes. I don't like
     class InfectionOrb : Orb
     {
         public int infectionStacks;

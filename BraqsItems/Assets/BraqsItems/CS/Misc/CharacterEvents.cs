@@ -7,6 +7,7 @@ using static BraqsItems.Misc.Stats;
 
 namespace BraqsItems.Misc
 {
+    //Per Character events, so you can subscribe to specific events on that character
     internal class CharacterEvents
     {
         public static void Init()

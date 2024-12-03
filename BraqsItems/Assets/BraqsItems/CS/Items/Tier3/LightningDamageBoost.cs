@@ -58,6 +58,8 @@ namespace BraqsItems
             orig(self);
         }
 
+        //There IS a damagecoefficientperbounce attribute that does this.
+        //Unfortunately, every bounce instantiates a new lightning orb that calls begin, so any changes to this number are applied EVERY BOUNCE
         private static void LightningOrb_Begin(LightningOrb.orig_Begin orig, RoR2.Orbs.LightningOrb self)
         {
             Log.Debug("LightningDamageBoost:LightningOrb_Begin");

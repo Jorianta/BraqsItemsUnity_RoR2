@@ -9,6 +9,7 @@ using UnityEngine.Networking;
 
 namespace BraqsItems.Misc
 {
+    //Right now this whole thing is a bit overengineered, given theres only one stat and only two items affect it, but I may add more stats in the future
     public static class Stats
     {
         public static void Init()
@@ -19,7 +20,6 @@ namespace BraqsItems.Misc
 
         private static void CharacterBody_Start(CharacterBody body)
         {
-
             if (body.masterObject && !body.masterObject.GetComponent<BraqsItems_StatsComponent>())
             {
                 body.masterObject.AddComponent<BraqsItems_StatsComponent>();

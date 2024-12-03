@@ -47,7 +47,6 @@ namespace BraqsItems
             On.RoR2.BlastAttack.Fire += BlastAttack_Fire;
 
             DotController.onDotInflictedServerGlobal += DotController_onDotInflictedServerGlobal;
-            On.RoR2.DotController.OnDotStackRemovedServer += DotController_OnDotStackRemovedServer;
 
 
             Stats.StatsCompEvent.StatsCompRecalc += StatsCompEvent_StatsCompRecalc;
@@ -60,23 +59,9 @@ namespace BraqsItems
                 if (dotController.victimBody && dotController.victimHealthComponent && dotController.victimHealthComponent.alive && dotController.victimBody.master && dotController.victimBody.master.TryGetComponent(out BraqsItems_CharacterEventComponent eventComponent) &&
                     inflictDotInfo.attackerObject.TryGetComponent(out CharacterBody body) && body.TryGetComponent(out BraqsItems_ExplosionFrenzyBehavior component))
                 {
-                    component.AddVictimBurnStack(dotController.victimBody);
-                    eventComponent.OnCharacterDeath += component.RemoveAllVictimBurnStacks;
+                    component.AddVictim(dotController.victimObject);
                 }
             }
-        }
-
-        private static void DotController_OnDotStackRemovedServer(On.RoR2.DotController.orig_OnDotStackRemovedServer orig, DotController self, object dotStack)
-        {
-            DotController.DotStack stack = (DotController.DotStack)dotStack;
-
-            if (stack.attackerObject && stack.attackerObject.TryGetComponent(out CharacterBody body) && body.TryGetComponent(out BraqsItems_ExplosionFrenzyBehavior component) && self.victimHealthComponent
-                && (stack.dotIndex == DotController.DotIndex.Burn || stack.dotIndex == DotController.DotIndex.StrongerBurn))
-            {
-                component.RemoveVictimBurnStack(self.victimBody);
-            }
-
-            orig(self, dotStack);
         }
 
         private static void CharacterBody_OnInventoryChanged(On.RoR2.CharacterBody.orig_OnInventoryChanged orig, CharacterBody self)
@@ -129,7 +114,7 @@ namespace BraqsItems
             {
                 if (args.Stats.body && args.Stats.body.TryGetComponent(out BraqsItems_ExplosionFrenzyBehavior component))
                 {
-                    int bonus = Math.Min(component.victims.Count, component.maxBonus);
+                    int bonus = component.bonus;
                     if (bonus > 0)
                     {
                         args.Stats.blastRadiusBoostAdd *= (bonus) * explosionBoost + 1;
@@ -140,9 +125,11 @@ namespace BraqsItems
 
         public class BraqsItems_ExplosionFrenzyBehavior : CharacterBody.ItemBehavior
         {
-            public int maxBonus;
+            private int maxBonus;
+            public int bonus;
             //TODO: not use dictionary, very slow
-            public Dictionary<CharacterBody, int> victims = new Dictionary<CharacterBody, int>();
+            public Dictionary<CharacterBody, int> old = new Dictionary<CharacterBody, int>();
+            private List<BraqsItems_BurnTracker> victims = new List<BraqsItems_BurnTracker>();
 
             private void Start()
             {
@@ -155,45 +142,67 @@ namespace BraqsItems
                 Log.Debug("ExplosionFrenzyBehavior:OnDestroy()");
             }
 
-            public void AddVictimBurnStack(CharacterBody body)
+            public void AddVictim(GameObject victim)
             {
-                if (!victims.ContainsKey(body))
+                victim.TryGetComponent(out BraqsItems_BurnTracker component);
+
+                //If they dont have a tracker, add it. If they do and we have it already, quit.
+                if (!component)
                 {
-                    victims.Add(body, 1);
-                    base.body.RecalculateStats();
-                    Log.Debug(victims.Count + " burning enemies");
+                    component = victim.AddComponent<BraqsItems_BurnTracker>();
+                    component.victimBodyObject = victim;
                 }
-                else
+                else if (victims.Contains(component)) return;
+
+                component.AddAttacker(this);
+                victims.Add(component);
+                ApplyBonus();
+            }
+
+            //Its a little odd these funtion take different types, but its better this way
+            public void RemoveVictim(BraqsItems_BurnTracker victim)
+            {
+                victims.Remove(victim);
+                ApplyBonus();
+            }
+
+            private void ApplyBonus()
+            {
+                bonus = Math.Min(victims.Count, maxBonus);
+                body.RecalculateStats();
+            }
+        }
+
+        public class BraqsItems_BurnTracker : MonoBehaviour
+        {
+            public List<BraqsItems_ExplosionFrenzyBehavior> attackers = new List<BraqsItems_ExplosionFrenzyBehavior> { };
+
+            public GameObject victimBodyObject;
+            private CharacterBody victimCharacterBody;
+
+
+            public void Start()
+            {
+                victimCharacterBody = (victimBodyObject ? victimBodyObject.GetComponent<CharacterBody>() : null);
+            }
+
+            public void OnDestroy()
+            {
+                foreach(BraqsItems_ExplosionFrenzyBehavior a in attackers)
                 {
-                    victims[body]++;
+                    a.RemoveVictim(this);
                 }
             }
 
-            public void RemoveVictimBurnStack(CharacterBody body)
+            public void FixedUpdate()
             {
-                if (victims.ContainsKey(body))
-                {
-                    victims[body]--;
-
-                    if (victims[body] <= 0)
-                    {
-                        victims.Remove(body);
-                        base.body.RecalculateStats();
-                        Log.Debug(victims.Count + " burning enemies");
-                    }
-                }
+                if (!victimCharacterBody || !victimCharacterBody.HasBuff(RoR2Content.Buffs.OnFire)) Destroy(this);
             }
 
-            public void RemoveAllVictimBurnStacks(CharacterBody body)
+            public void AddAttacker(BraqsItems_ExplosionFrenzyBehavior attacker)
             {
-                if (victims.ContainsKey(body))
-                {
-
-                    victims.Remove(body);
-                    base.body.RecalculateStats();
-                    Log.Debug(victims.Count + " burning enemies");
-
-                }
+                if(attackers.Contains(attacker)) return;
+                attackers.Add(attacker);
             }
         }
     }
