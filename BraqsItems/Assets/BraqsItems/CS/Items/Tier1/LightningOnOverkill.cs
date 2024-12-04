@@ -14,13 +14,9 @@ namespace BraqsItems
     {
         public static ItemDef itemDef;
 
-        public static bool isEnabled = true;
-        public static float percentPerStack = 0.02f;
-        public static float basePercent = 0.02f;
-
         internal static void Init()
         {
-            if (!isEnabled) return;
+            if (!ConfigManager.LightningOnOverkill_isEnabled.Value) return;
 
             Log.Info("Initializing Jumper Cables Item");
 
@@ -48,7 +44,8 @@ namespace BraqsItems
                 int stack = obj.attackerBody.inventory.GetItemCount(itemDef);
                 if (stack <= 0) return;
                 
-                float damage = RoR2.Util.OnHitProcDamage((obj.damageDealt - obj.combinedHealthBeforeDamage), obj.attackerBody.baseDamage, (stack * 0.50f));
+                float damage = RoR2.Util.OnHitProcDamage((obj.damageDealt - obj.combinedHealthBeforeDamage), obj.attackerBody.baseDamage, 
+                    (stack - 1) * ConfigManager.LightningOnOverkill_damagePercentPerStack.Value + ConfigManager.LightningOnOverkill_damagePercentBase.Value);
 
                 if (damage <= 0) return;
 
@@ -57,14 +54,14 @@ namespace BraqsItems
                     origin = obj.victimBody.corePosition,
                     damageValue = damage,
                     isCrit = obj.damageInfo.crit,
-                    bouncesRemaining = 2 * stack,
+                    bouncesRemaining = ConfigManager.LightningOnOverkill_bounceBase.Value + (stack-1) * ConfigManager.LightningOnOverkill_bouncePerStack.Value,
                     teamIndex = obj.attackerBody.teamComponent.teamIndex,
                     attacker = obj.attacker,
                     procCoefficient = 1f,
                     bouncedObjects = new List<HealthComponent> { obj.victim },
                     lightningType = LightningOrb.LightningType.Ukulele,
                     damageColorIndex = DamageColorIndex.Item,
-                    range = 15f + 2*stack,
+                    range = ConfigManager.LightningOnOverkill_rangeBase.Value + (stack-1) * ConfigManager.LightningOnOverkill_rangePerStack.Value,
                 };
                 HurtBox hurtBox = lightningOrb.PickNextTarget(obj.victimBody.corePosition);
                 if ((bool)hurtBox)

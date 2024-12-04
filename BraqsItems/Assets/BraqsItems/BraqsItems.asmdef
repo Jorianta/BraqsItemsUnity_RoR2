@@ -40,7 +40,8 @@
         "Mono.Cecil.Pdb.dll",
         "Assembly-CSharp.dll",
         "Unity.Addressables.dll",
-        "RoR2.dll"
+        "RoR2.dll",
+        "RiskOfOptions.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [],

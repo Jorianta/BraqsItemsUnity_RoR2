@@ -12,13 +12,9 @@ namespace BraqsItems
     {
         public static ItemDef itemDef;
 
-        public static bool isEnabled = true;
-        public static float percentPerStack = 0.05f;
-        public static float basePercent = 0.1f;
-
         internal static void Init()
         {
-            if (!isEnabled) return;
+            if (!ConfigManager.BiggerExplosions_isEnabled.Value) return;
 
             Log.Info("Initializing Accelerant Item");
             //ITEM//
@@ -46,7 +42,7 @@ namespace BraqsItems
                 {
                     int stack = args.Stats.inventory.GetItemCount(itemDef);
                     if (stack > 0) {
-                        args.Stats.blastRadiusBoostAdd *= 1 + (stack-1) * percentPerStack + basePercent;
+                        args.Stats.blastRadiusBoostAdd *= 1 + (stack-1) * ConfigManager.BiggerExplosions_percentPerStack.Value + ConfigManager.BiggerExplosions_percentBase.Value;
                     }
                 }
             }

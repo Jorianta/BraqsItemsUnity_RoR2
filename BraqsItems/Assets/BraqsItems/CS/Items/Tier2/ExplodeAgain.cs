@@ -13,16 +13,11 @@ namespace BraqsItems
     {
         public static ItemDef itemDef;
 
-        public static bool isEnabled = true;
-        public static float percentChance = 25f;
-        public static float percentRadius = 75f;
-        public static float damageCoefficient = 0.75f;
-
         public static GameObject bomblettePrefab;
 
         internal static void Init()
         {
-            if (!isEnabled) return;
+            if (!ConfigManager.ExplodeAgain_isEnabled.Value) return;
 
             Log.Info("Initializing Bomblette Item");
             //ITEM//
@@ -66,7 +61,7 @@ namespace BraqsItems
             Vector3 vector2 = self.position;
             Vector3 vector3 = Vector3.up;
 
-            int maxbombs = items * 2 + 1;
+            int maxbombs = (items - 1) * ConfigManager.ExplodeAgain_maxBombsPerStack.Value + ConfigManager.ExplodeAgain_maxBombsBase.Value;
 
             EffectData effectData = new EffectData
             {
@@ -75,14 +70,14 @@ namespace BraqsItems
             };
 
             GameObject bomblette = bomblettePrefab;
-            if(!bomblette.TryGetComponent(out ProjectileExplosion explosion)) Log.Error("couldnt change blast radius");
-            explosion.blastRadius = self.radius * (percentRadius/100f);
+            ProjectileExplosion explosion = bomblette.GetComponent< ProjectileExplosion>();
+            explosion.blastRadius = self.radius * ConfigManager.ExplodeAgain_radiusCoefficient.Value;
 
-            float damage = RoR2.Util.OnHitProcDamage(self.baseDamage, body.damage, damageCoefficient);
+            float damage = RoR2.Util.OnHitProcDamage(self.baseDamage, body.damage, ConfigManager.ExplodeAgain_damageCoefficient.Value);
 
             for (int n = 0; n < maxbombs; n++)
             {
-                if (!RoR2.Util.CheckRoll(percentChance * self.procCoefficient, body.master)) continue;
+                if (!RoR2.Util.CheckRoll(ConfigManager.ExplodeAgain_chance.Value * self.procCoefficient, body.master)) continue;
 
                 float speedOverride = UnityEngine.Random.Range(0.5f, 1f) * self.radius * 3;
 

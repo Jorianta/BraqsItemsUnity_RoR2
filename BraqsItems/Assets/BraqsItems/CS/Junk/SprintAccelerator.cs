@@ -10,7 +10,7 @@ using static BraqsItems.AttackSpeedOnHit;
 using System.Linq;
 using UnityEngine.Networking;
 
-namespace BraqsItems
+namespace BraqsItems.Junk
 {
     internal class SprintAccelerator
     {

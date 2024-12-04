@@ -13,12 +13,10 @@ namespace BraqsItems
         public static ItemDef itemDef;
 
         public static bool isEnabled = true;
-        public static float percentPerStack = 0.02f;
-        public static float basePercent = 0.02f;
 
         internal static void Init()
         {
-            if (!isEnabled) return;
+            if (!ConfigManager.AttackSpeedOnHit_isEnabled.Value) return;
 
             Log.Info("Initializing Hundreds and Thousands Item");
 
@@ -65,7 +63,7 @@ namespace BraqsItems
         {
             if (sender.TryGetComponent(out BraqsItems_AttackSpeedOnHitTracker component))
             {
-                args.attackSpeedMultAdd += component.victims.Count * ((component.stack - 1) * percentPerStack + basePercent);
+                args.attackSpeedMultAdd += component.victims.Count * ((component.stack - 1) * ConfigManager.AttackSpeedOnHit_percentPerStack.Value + ConfigManager.AttackSpeedOnHit_percentBase.Value);
             }
         }
 

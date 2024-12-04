@@ -14,18 +14,12 @@ namespace BraqsItems
     {
         public static ItemDef itemDef;
 
-        public static bool isEnabled = true;
-        public static int baseRepairs = 2;
-        public static int repairsPerStack = 2;
-        public static float whiteRepairChance = 100f;
-        public static float greenRepairChance = 75f;
-        public static float redRepairChance = 50f;
 
         public static Dictionary<ItemTier, int> tierWeights;
 
         internal static void Init()
         {
-            if (!isEnabled) return;
+            if (!ConfigManager.RepairBrokenItems_isEnabled.Value) return;
 
             Log.Info("Initializing Goobo Sr. Item");
 
@@ -53,11 +47,12 @@ namespace BraqsItems
             int totalRepairAttempts = self.inventory.GetItemCount(itemDef);
             if (totalRepairAttempts <= 0 || !self ||!stage) return;
 
-            totalRepairAttempts = (totalRepairAttempts - 1) * repairsPerStack + baseRepairs;
+            totalRepairAttempts = (totalRepairAttempts - 1) * ConfigManager.RepairBrokenItems_repairsPerStack.Value + ConfigManager.RepairBrokenItems_repairsBase.Value;
 
             Log.Debug("RepairBrokenItems: Attempting " + totalRepairAttempts + " repairs");
 
             HG.ReadOnlyArray<ItemDef.Pair> relationships = ItemCatalog.GetItemPairsForRelationship(BrokenItemRelationships.brokenItemRelationship);
+            Log.Debug(relationships.Length);
 
             int relationshipCount = relationships.Length;
             float[] weights = new float[relationshipCount];
@@ -69,9 +64,10 @@ namespace BraqsItems
                 ItemDef.Pair pair = relationships[i];
                 int temp = self.inventory.GetItemCount(pair.itemDef2);
 
-                if (pair.itemDef1.tier == ItemTier.Tier1 || pair.itemDef1.tier == ItemTier.VoidTier1) chances[i] = whiteRepairChance;
-                else if (pair.itemDef1.tier == ItemTier.Tier3 || pair.itemDef1.tier == ItemTier.VoidTier3) chances[i] = redRepairChance;
-                else chances[i] = greenRepairChance;
+                if (pair.itemDef1.tier == ItemTier.Tier1 || pair.itemDef1.tier == ItemTier.VoidTier1) chances[i] = ConfigManager.RepairBrokenItems_whiteChance.Value;
+                else if (pair.itemDef1.tier == ItemTier.Tier3 || pair.itemDef1.tier == ItemTier.VoidTier3) chances[i] = ConfigManager.RepairBrokenItems_redChance.Value;
+                //Greens and any modded rarity items have the same chance. May be unbalanced, but who adds breakables that aren't white?
+                else chances[i] = ConfigManager.RepairBrokenItems_defaultChance.Value;
 
                 weights[i] = temp;
                 totalWeight += temp;

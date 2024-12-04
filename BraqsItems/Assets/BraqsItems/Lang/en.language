@@ -1,5 +1,9 @@
 {
   "strings": {
+    //EXPANSION//
+    "EXP_BRAQSITEMS_DESC":  "Adds content from Braq's Items to the game.",
+
+    //ITEMS//
     //Tier1//
     "BIGGEREXPLOSIONS": "Accelerant",
     "ITEM_BIGGEREXPLOSIONS_NAME": "Accelerant",
@@ -16,7 +20,7 @@
     "KILLOVERFLOW": "Jumper Cables",
     "ITEM_KILLOVERFLOW_NAME": "Jumper Cables",
     "ITEM_KILLOVERFLOW_PICKUP": "Excess damage from kills is applied to nearby enemies.",
-    "ITEM_KILLOVERFLOW_DESC": "On kill, fire <style=cIsDamage>chain lightning</style> for <style=cIsDamage>%50</style> <style=cStack>(+50% per stack)</style> excess damage of the killing blow at <style=cIsDamage>3</style> <style=cStack>(+2 per stack)</style> enemies within <style=cIsDamage>15m</style> <style=cStack>(+2m per stack)</style>.",
+    "ITEM_KILLOVERFLOW_DESC": "On kill, fire <style=cIsDamage>chain lightning</style> for <style=cIsDamage>%100</style> <style=cStack>(+50% per stack)</style> excess damage of the killing blow at <style=cIsDamage>3</style> <style=cStack>(+1 per stack)</style> enemies within <style=cIsDamage>15m</style> <style=cStack>(+2m per stack)</style>.",
     "ITEM_KILLOVERFLOW_LORE": "\"You're going to tell us what we want to know.\"  \n\nThe man struck the alligator clips together, producing a spark that illuminated his face for a moment.  \n\n\"You'll... You'll have to kill me. I'll die before I talk.\"  \n\n\"So be it. After I kill you, I suppose I'll just have to ask your friend what he knows instead.\"",
 
 
@@ -27,16 +31,16 @@
     "ITEM_EXPLODEAGAIN_DESC": "Explosions scatter up to <style=cIsDamage>3</style> <style=cStack>(+2 per stack)</style> bomblets, each dealing <style=cIsDamage>75%</style> TOTAL damage within <style=cIsDamage>75%</style> of the radius of the original explosion.",
     "ITEM_EXPLODEAGAIN_LORE": "",
 
-    "PERMABLEED": "Jar of Leeches",
-    "ITEM_PERMABLEED_NAME": "Jar of Leeches",
-    "ITEM_PERMABLEED_PICKUP": "Heal from a bleeding enemy. Leeched enemies cannot stop bleeding.",
-    "ITEM_PERMABLEED_DESC": "Attach a <style=cIsDamage>leech</style> on hit, making bleed effects <style=cIsUtility>permanent</style><style=cStack> and healing <style=cIsHealth>1%</style> health per <style=cIsDamage>100%</style> bleed damage on that enemy. The jar contains <style=cIsUtility>1</style><style=cStack>(+1 per stack)</style> leech.",
-    "ITEM_PERMABLEED_LORE": "",
+    "HEALFROMBLEED": "Jar of Medium Leeches",
+    "ITEM_HEALFROMBLEED_NAME": "Jar of Leeches",
+    "ITEM_HEALFROMBLEED_PICKUP": "Bleed effects heal you.",
+    "ITEM_HEALFROMBLEED_DESC": "Bleed effects heal you <style=cIsHealth>1%</style> health per <style=cIsDamage>100%</style> bleed damage dealt.",
+    "ITEM_HEALFROMBLEED_LORE": "",
 
     "REPAIRBROKENITEMS": "Refabricator",
     "ITEM_REPAIRBROKENITEMS_NAME": "Refabricator",
     "ITEM_REPAIRBROKENITEMS_PICKUP": "Repairs some of your items on stage advance.",
-    "ITEM_REPAIRBROKENITEMS_DESC": "Repair up to <style=cIsUtility>2</style> <style=cStack>(+2 per stack)</style> broken items on stage advance. May fail for rarer items.",
+    "ITEM_REPAIRBROKENITEMS_DESC": "Repair up to <style=cIsUtility>3</style> <style=cStack>(+2 per stack)</style> broken items on stage advance. May fail for rarer items.",
     "ITEM_REPAIRBROKENITEMS_LORE": "",
 
 
@@ -44,7 +48,7 @@
     "EXPLOSIONFRENZY": "My Manifesto",
     "ITEM_EXPLOSIONFRENZY_NAME": "My Manifesto",
     "ITEM_EXPLOSIONFRENZY_PICKUP": "All explosions ignite. Explosions are larger while your enemies burn.",
-    "ITEM_EXPLOSIONFRENZY_DESC": "Explosions <style=cIsDamage>ignite</style> for an additional <style=cIsDamage>50%</style> <style=cStack>(+50% per stack)</style> total damage. While you burn an enemy, gain <style=cIsDamage>10%</style> explosion radius, up to <style=cIsUtility>100%</style> <style=cStack>(+100% per stack)</style> times.",
+    "ITEM_EXPLOSIONFRENZY_DESC": "Explosions <style=cIsDamage>ignite</style> for an additional <style=cIsDamage>50%</style> <style=cStack>(+50% per stack)</style> total damage. After igniting an enemy, gain <style=cIsDamage>10%</style> explosion radius until they stop burning, up to <style=cIsUtility>100%</style> <style=cStack>(+100% per stack)</style>.",
     "ITEM_EXPLOSIONFRENZY_LORE": "\"By the way Sir before I forget, uhh... I found these documents on your desk while I was cleaning out your quarters called \"My Manifesto,\" and I just, I read a little bit, and I'm just wondering... why would you... what is that, why would you write something like that?\"\n-Signal echoes, UES Safe Travels",
 
     "HUNDREDRENDINGFISTS": "North Star Hand Wraps",

@@ -10,6 +10,7 @@ using RoR2;
 using RoR2.Stats;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using BepInEx.Configuration;
 
 namespace BraqsItems
 {
@@ -32,18 +33,19 @@ namespace BraqsItems
 
         public static ExpansionDef BraqsItemsExpansion;
 
-        public static PluginInfo pluginInfo { get; private set; }
+        public static PluginInfo PluginInfo { get; private set; }
         public static BraqsItemsMain instance { get; private set; }
         internal static AssetBundle assetBundle;
-        internal static string assetBundleDir => System.IO.Path.Combine(System.IO.Path.GetDirectoryName(pluginInfo.Location), "braqsitemsassets");
+        internal static string assetBundleDir => System.IO.Path.Combine(System.IO.Path.GetDirectoryName(PluginInfo.Location), "braqsitemsassets");
 
         private void Awake()
         {
             Log.Init(Logger);
             
             instance = this;
-            pluginInfo = Info;
+            PluginInfo = Info;
             assetBundle = AssetBundle.LoadFromFile(assetBundleDir); // Load mainassets into stream
+            ConfigManager.Init(Paths.ConfigPath);
 
             Helpers.Init();
             Stats.Init();
@@ -59,7 +61,7 @@ namespace BraqsItems
             LightningOnOverkill.Init();
             ExplodeAgain.Init();
             RepairBrokenItems.Init();
-            PermaBleed.Init();
+            HealFromBleed.Init();
             ExplosionFrenzy.Init();
             HundredRendingFists.Init();
             LightningDamageBoost.Init();
@@ -76,7 +78,7 @@ namespace BraqsItems
                 // And then drop our defined item in front of the player.
 
                 Log.Info($"Player pressed F2. Spawning our custom item at coordinates {transform.position}");
-                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(AttackSpeedOnHit.itemDef.itemIndex), transform.position, transform.forward * 20f);
+                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(HealFromBleed.itemDef.itemIndex), transform.position, transform.forward * 20f);
             }
         }
     }

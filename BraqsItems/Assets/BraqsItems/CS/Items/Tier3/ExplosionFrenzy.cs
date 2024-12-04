@@ -16,17 +16,10 @@ namespace BraqsItems
     {
         public static ItemDef itemDef;
 
-        public static bool isEnabled = true;
-        public static float baseBurn = 0.5f;
-        public static float burnPerStack = 0.5f;
-        public static float explosionBoost = 0.1f;
-        public static int baseMaxBonus = 10;
-        public static int maxBonusPerStack = 10;
-
 
         internal static void Init()
         {
-            if (!isEnabled) return;
+            if (!ConfigManager.ExplosionFrenzy_isEnabled.Value) return;
 
             Log.Info("Initializing My Manifesto Item");
             //ITEM//
@@ -81,7 +74,7 @@ namespace BraqsItems
                 int stacks = body.inventory.GetItemCount(itemDef);
                 if (stacks > 0 && result.hitCount > 0)
                 {
-                    float damage = ((stacks - 1) * burnPerStack + baseBurn) * self.baseDamage;
+                    float damage = ((stacks - 1) * ConfigManager.ExplosionFrenzy_igniteDamagePerStack.Value + ConfigManager.ExplosionFrenzy_igniteDamageBase.Value) * self.baseDamage;
 
                     for (int i = 0; i < result.hitCount; i++)
                     {
@@ -117,7 +110,7 @@ namespace BraqsItems
                     int bonus = component.bonus;
                     if (bonus > 0)
                     {
-                        args.Stats.blastRadiusBoostAdd *= (bonus) * explosionBoost + 1;
+                        args.Stats.blastRadiusBoostAdd *= (bonus) * ConfigManager.ExplosionFrenzy_bonusPerBurn.Value + 1;
                     }
                 }
             }
@@ -127,14 +120,12 @@ namespace BraqsItems
         {
             private int maxBonus;
             public int bonus;
-            //TODO: not use dictionary, very slow
-            public Dictionary<CharacterBody, int> old = new Dictionary<CharacterBody, int>();
             private List<BraqsItems_BurnTracker> victims = new List<BraqsItems_BurnTracker>();
 
             private void Start()
             {
                 Log.Debug("ExplosionFrenzyBehavior:Start()");
-                maxBonus = maxBonus * (stack-1) + baseMaxBonus;
+                maxBonus = ConfigManager.ExplosionFrenzy_bonusCapPerStack.Value * (stack-1) + ConfigManager.ExplosionFrenzy_bonusCapBase.Value;
             }
 
             private void OnDestroy()

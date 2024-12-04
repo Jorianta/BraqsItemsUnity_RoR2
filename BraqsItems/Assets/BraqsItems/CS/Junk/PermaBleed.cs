@@ -4,12 +4,10 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using System.Collections.Generic;
 using RoR2.Orbs;
-using UnityEngine.Networking;
-using System.Runtime.InteropServices;
 using static RoR2.DotController;
 using static BraqsItems.Util.Helpers;
 
-namespace BraqsItems
+namespace BraqsItems.Junk
 {
     internal class PermaBleed
     {
@@ -229,7 +227,7 @@ namespace BraqsItems
             private void OnDestroy()
             {
                 Log.Debug("Attempting to return leech");
-                healAttacker();
+                HealAttacker();
                 leechMaster.ReturnLeech(this);
             }
 
@@ -247,7 +245,7 @@ namespace BraqsItems
                 if (healingTimer <= 0f)
                 {
                     healingTimer = 0.5f;
-                    healAttacker();
+                    HealAttacker();
                 }
             }
 
@@ -256,7 +254,7 @@ namespace BraqsItems
                 storedHeal += heal;
             }
 
-            private void healAttacker()
+            private void HealAttacker()
             {
                 if(ownerHealthComponent && storedHeal > 0)
                 {

@@ -14,13 +14,9 @@ namespace BraqsItems
     {
         public static ItemDef itemDef;
 
-        public static bool isEnabled = true;
-        public static float percentPerStack = 0.3f;
-        public static float basePercent = 0.5f;
-
         internal static void Init()
         {
-            if (!isEnabled) return;
+            if (!ConfigManager.InductionCoil_isEnabled.Value) return;
 
             Log.Info("Initializing Induction Coil Item");
             //ITEM//
@@ -50,7 +46,7 @@ namespace BraqsItems
 
                 if (count > 0)
                 {
-                    self.damageValue *= 1 + (count - 1) * percentPerStack + basePercent;
+                    self.damageValue *= 1 + (count - 1) * ConfigManager.InductionCoil_damageBonusPerStack.Value + ConfigManager.InductionCoil_damageBonusBase.Value;
                     Log.Debug("Chain damage = " + self.damageValue);
                 }
             }
@@ -70,7 +66,7 @@ namespace BraqsItems
 
                 if (count > 0)
                 {
-                    self.damageValue *= 1 + (count-1) * percentPerStack + basePercent;
+                    self.damageValue *= 1 + (count - 1) * ConfigManager.InductionCoil_damageBonusPerStack.Value + ConfigManager.InductionCoil_damageBonusBase.Value;
                     Log.Debug("Chain damage = " + self.damageValue);
                 }
             }

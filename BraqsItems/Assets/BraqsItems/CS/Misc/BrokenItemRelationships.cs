@@ -12,7 +12,7 @@ namespace BraqsItems.Misc
     {
 
         public static ItemRelationshipType brokenItemRelationship;
-        public static ItemRelationshipProvider itemRelationshipProvider { get; private set; }
+        public static ItemRelationshipProvider itemRelationshipProvider;
 
         internal static void CreateBrokenItemProvider()
         {
@@ -27,6 +27,7 @@ namespace BraqsItems.Misc
             new ItemDef.Pair() {itemDef1 = DLC1Content.Items.ExtraLifeVoid, itemDef2 = DLC1Content.Items.ExtraLifeVoidConsumed },
             };
 
+            ContentAddition.AddItemRelationshipType(brokenItemRelationship);
             ContentAddition.AddItemRelationshipProvider(itemRelationshipProvider);
 
         }

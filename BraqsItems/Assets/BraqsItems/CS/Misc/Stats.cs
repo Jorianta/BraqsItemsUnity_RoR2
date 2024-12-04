@@ -106,7 +106,7 @@ namespace BraqsItems.Misc
 
                     if (stats.blastRadiusBoost > 1)
                     {
-                        Util.Helpers.doExtraExplosionEffect(self.position, self.radius);
+                        Util.Helpers.DoExtraExplosionEffect(self.position, self.radius);
                     }
                 }
             }

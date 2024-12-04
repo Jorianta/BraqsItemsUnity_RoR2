@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
 
 
-namespace BraqsItems
+namespace BraqsItems.Junk
 {
     public class SpreadDebuffs
     {

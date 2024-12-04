@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace BraqsItems.Misc
+namespace BraqsItems.Junk
 {
     //Nothing yet
     public static class ItemSharing

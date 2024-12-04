@@ -8,7 +8,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine;
 using static RoR2.OverlapAttack;
 
-namespace BraqsItems
+namespace BraqsItems.Junk
 {
     public class OnKillOnHit
     {

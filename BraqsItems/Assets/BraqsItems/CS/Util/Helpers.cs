@@ -11,7 +11,8 @@ namespace BraqsItems.Util
         {
             ExplosionEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/StickyBomb/BehemothVFX.prefab").WaitForCompletion();
         }
-        public static void doExtraExplosionEffect(Vector3 position, float scale)
+        //Unfortunately, it is very difficult to scale a blastattack's vfx with its radius. Spawn another explosion to indicate the size increase.
+        public static void DoExtraExplosionEffect(Vector3 position, float scale)
         {
             EffectManager.SpawnEffect(GlobalEventManager.CommonAssets.igniteOnKillExplosionEffectPrefab, new EffectData
             {

@@ -16,12 +16,9 @@ namespace BraqsItems
         public static BuffDef RendDebuff;
         public static GameObject delayedDamageEffect;
 
-        public static bool isEnabled = true;
-        public static float duration = 3f;
-
         internal static void Init()
         {
-            if (!isEnabled) return;
+            if (!ConfigManager.HundredRendingFists_isEnabled.Value) return;
 
             Log.Info("Initializing North Star Hand Wraps Item");
             //ITEM//
@@ -120,6 +117,8 @@ namespace BraqsItems
             {
                 //Rend
                 Log.Debug("RendController:ApplyRend()");
+                var duration = ConfigManager.HundredRendingFists_rendDuration.Value;
+
                 victim.TryGetComponent(out BraqsItems_RendController rendController);
                 if (!rendController)
                 {
@@ -138,22 +137,24 @@ namespace BraqsItems
                 victim.AddTimedBuff(RendDebuff, duration);
                 rendController.firstStackApplied = true;
 
-                rendController.storeDamage(attacker, damage, itemStacks);
+                rendController.StoreDamage(attacker, damage, itemStacks);
 
                 rendController.UpdateDelayedDamageEffect();
 
             }
 
-            private void storeDamage(GameObject attacker, float damage, int itemStacks)
+            private void StoreDamage(GameObject attacker, float damage, int itemStacks)
             {
                 //store damage per attacker, so proper credit can be given. 
+                var damageCoefficient = (itemStacks - 1) * ConfigManager.HundredRendingFists_storedDamagePerStack.Value + ConfigManager.HundredRendingFists_storedDamageBase.Value;
+
                 bool temp = true;
                 for (int i = 0; i < damageStores.Count; i++)
                 {
                     if (damageStores[i].attackerObject == attacker)
                     {
                         damageStores[i].damage += damage;
-                        damageStores[i].damageCoefficient = itemStacks * 0.25f;
+                        damageStores[i].damageCoefficient = damageCoefficient;
                         temp = false;
                     }
                 }
@@ -163,10 +164,11 @@ namespace BraqsItems
                     {
                         attackerObject = attacker,
                         damage = damage,
-                        damageCoefficient = itemStacks * 0.25f
+                        damageCoefficient = damageCoefficient,
                     });
                 }
 
+                //the extra damage is based on TOTAL stores, rather than per attacker stores. Team up for big bonuses!
                 stores++;
             }
 
@@ -181,7 +183,7 @@ namespace BraqsItems
 
                         DamageInfo damageInfo = new DamageInfo();
                         damageInfo.crit = false;
-                        damageInfo.damage = damageStore.damage * (damageStore.damageCoefficient + (stores * 0.05f));
+                        damageInfo.damage = damageStore.damage * (damageStore.damageCoefficient + (stores * ConfigManager.HundredRendingFists_storeBonus.Value));
                         damageInfo.force = Vector3.zero;
                         damageInfo.inflictor = base.gameObject;
                         damageInfo.position = body.corePosition;
@@ -202,7 +204,14 @@ namespace BraqsItems
                 {
                     Destroy(delayedDamageIndicator);
                 }
-                delayedDamageIndicator = Object.Instantiate(delayedDamageEffect, body.mainHurtBox ? body.mainHurtBox.transform.position : body.transform.position, Quaternion.identity, body.mainHurtBox ? body.mainHurtBox.transform : body.transform);
+                EffectData effectData = new EffectData()
+                {
+                    origin = body.mainHurtBox ? body.mainHurtBox.transform.position : body.transform.position,
+                    rotation = Quaternion.identity,
+                    rootObject = body.gameObject
+                };
+               EffectManager.SpawnEffect(delayedDamageEffect, effectData, true);
+
             }
         }
     }
