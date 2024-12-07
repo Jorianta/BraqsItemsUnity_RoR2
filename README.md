@@ -1,6 +1,6 @@
 
 # Braq's Items
-A big ol' mod adding a variety of new items. Currently just a handful designed to synergize with eachother.
+A big ol' mod for Risk of Rain 2 adding a variety of new items. Currently just a handful designed to synergize with eachother.
 
 ## Tier 1
 #### Accelerant
