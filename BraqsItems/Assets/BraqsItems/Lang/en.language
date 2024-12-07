@@ -17,11 +17,11 @@
     "ITEM_ATTACKSPEEDONHIT_DESC": "For each enemy you have hit, increase <style=cIsDamage>attack speed</style> by <style=cIsDamage>1%</style> <style=cStack>(+1% per stack)</style> while that enemy lives.",
     "ITEM_ATTACKSPEEDONHIT_LORE": "Order: \"Ultra Value brand Nonpareils\"  \nTracking Number: 100*****  \nEstimatedDelivery: 02/29/2056  \nShipping Method: Standard  \nShipping Address: Saturn's Sweets Bakery, New Boston, Mars  \nShipping Details:\n\nDazzle customers and housewives alike at half the cost of the name-brand edible ornaments with Ultra-Value's rainbow colored confectionary decoration system! Now with 25% less plastic!",
 
-    "KILLOVERFLOW": "Jumper Cables",
-    "ITEM_KILLOVERFLOW_NAME": "Jumper Cables",
-    "ITEM_KILLOVERFLOW_PICKUP": "Excess damage from kills is applied to nearby enemies.",
-    "ITEM_KILLOVERFLOW_DESC": "On kill, fire <style=cIsDamage>chain lightning</style> for <style=cIsDamage>%100</style> <style=cStack>(+50% per stack)</style> excess damage of the killing blow at <style=cIsDamage>3</style> <style=cStack>(+1 per stack)</style> enemies within <style=cIsDamage>15m</style> <style=cStack>(+2m per stack)</style>.",
-    "ITEM_KILLOVERFLOW_LORE": "\"You're going to tell us what we want to know.\"  \n\nThe man struck the alligator clips together, producing a spark that illuminated his face for a moment.  \n\n\"You'll... You'll have to kill me. I'll die before I talk.\"  \n\n\"So be it. After I kill you, I suppose I'll just have to ask your friend what he knows instead.\"",
+    "LIGHTNINGONOVERKILL": "Jumper Cables",
+    "ITEM_LIGHTNINGONOVERKILL_NAME": "Jumper Cables",
+    "ITEM_LIGHTNINGONOVERKILL_PICKUP": "Excess damage from kills is applied to nearby enemies.",
+    "ITEM_LIGHTNINGONOVERKILL_DESC": "On kill, fire <style=cIsDamage>chain lightning</style> for <style=cIsDamage>%100</style> <style=cStack>(+50% per stack)</style> excess damage of the killing blow at <style=cIsDamage>3</style> <style=cStack>(+1 per stack)</style> enemies within <style=cIsDamage>15m</style> <style=cStack>(+2m per stack)</style>.",
+    "ITEM_LIGHTNINGONOVERKILL_LORE": "\"You're going to tell us what we want to know.\"  \n\nThe man struck the alligator clips together, producing a spark that illuminated his face for a moment.  \n\n\"You'll... You'll have to kill me. I'll die before I talk.\"  \n\n\"So be it. After I kill you, I suppose I'll just have to ask your friend what he knows instead.\"",
 
 
     //Tier2//

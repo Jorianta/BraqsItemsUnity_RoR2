@@ -41,7 +41,9 @@
         "Assembly-CSharp.dll",
         "Unity.Addressables.dll",
         "RoR2.dll",
-        "RiskOfOptions.dll"
+        "RiskOfOptions.dll",
+        "Grumpy.dll",
+        "AK.Wwise.Unity.API.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [],

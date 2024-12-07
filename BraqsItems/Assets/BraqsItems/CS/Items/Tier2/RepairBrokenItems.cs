@@ -77,8 +77,8 @@ namespace BraqsItems
 
             int[] repairs = new int[relationshipCount];
 
-
-            for (int i = 0; i < totalRepairAttempts; i++)
+            int r = 0;
+            while (r < totalRepairAttempts && totalWeight > 0)
             {
                 float cursor = 0;
                 float random = UnityEngine.Random.Range(0f, totalWeight);
@@ -90,11 +90,13 @@ namespace BraqsItems
                     if (cursor >= random)
                     {   
                         //Try to repair
-                        if(RoR2.Util.CheckRoll(chances[i], self)) repairs[j]++;
+                        if(RoR2.Util.CheckRoll(chances[j], self)) repairs[j]++;
                         weights[j] -= 1;
+                        totalWeight -= 1;
                         break; 
                     }
                 }
+                r++;
             }
 
 

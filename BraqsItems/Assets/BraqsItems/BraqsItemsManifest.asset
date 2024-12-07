@@ -89,7 +89,13 @@ MonoBehaviour:
   Name: BraqsItems
   Description: A mod adding some new items
   Version: 0.0.1
-  Dependencies: []
+  Dependencies:
+  - {fileID: 11400000, guid: e8166746ca0c6d98ee8c97fe787f2b80, type: 2}
+  - {fileID: 11400000, guid: 7fb5b3d290bed6011ed7e8daf230df89, type: 2}
+  - {fileID: 11400000, guid: 8c9ed384953b63ba1583044b317f670f, type: 2}
+  - {fileID: 11400000, guid: a644a53693d44639c70550096ce74b93, type: 2}
+  - {fileID: 11400000, guid: 014c4e162aebc6b9c7c87be504a1bd10, type: 2}
+  - {fileID: 11400000, guid: bff73382628f698c89c1d9ae43c8f350, type: 2}
 --- !u!114 &9090770326576237841
 MonoBehaviour:
   m_ObjectHideFlags: 0

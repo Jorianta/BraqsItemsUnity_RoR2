@@ -131,8 +131,8 @@ namespace BraqsItems
 
             HundredRendingFists_isEnabled = Config.Bind("HUNDREDRENDINGFISTS", "Enable", true, "Load this item.");
             HundredRendingFists_rendDuration = Config.Bind("HUNDREDRENDINGFISTS", "Buff Duration", 3f, "The window of time before stored damage is applied.");
-            HundredRendingFists_storedDamagePerStack = Config.Bind("HUNDREDRENDINGFISTS", "Base Total Damage", 0.25f, "Total damage stored on hit per additional stack.");
-            HundredRendingFists_storedDamageBase = Config.Bind("HUNDREDRENDINGFISTS", "Total Damage Per Stack", 0.25f, "Total damage stored on hit with one stack.");
+            HundredRendingFists_storedDamagePerStack = Config.Bind("HUNDREDRENDINGFISTS", "Base Total Damage", 0.30f, "Total damage stored on hit per additional stack.");
+            HundredRendingFists_storedDamageBase = Config.Bind("HUNDREDRENDINGFISTS", "Total Damage Per Stack", 0.30f, "Total damage stored on hit with one stack.");
             HundredRendingFists_storeBonus = Config.Bind("HUNDREDRENDINGFISTS", "Bonus Total Damage", 0.05f, "Extra total damage applied for every instance of stored damage.");
 
             InductionCoil_isEnabled = Config.Bind("LIGHTNINGDAMAGEBOOST", "Enable", true, "Load this item.");

@@ -78,7 +78,7 @@ namespace BraqsItems
                 // And then drop our defined item in front of the player.
 
                 Log.Info($"Player pressed F2. Spawning our custom item at coordinates {transform.position}");
-                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(HealFromBleed.itemDef.itemIndex), transform.position, transform.forward * 20f);
+                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(HundredRendingFists.itemDef.itemIndex), transform.position, transform.forward * 20f);
             }
         }
     }

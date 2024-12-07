@@ -14,7 +14,8 @@ namespace BraqsItems
 
         public static ItemDef itemDef;
         public static BuffDef RendDebuff;
-        public static GameObject delayedDamageEffect;
+        private static GameObject delayedDamageEffect;
+        private static GameObject delayedDamageActivateEffect;
 
         internal static void Init()
         {
@@ -35,12 +36,15 @@ namespace BraqsItems
             RendDebuff.isDebuff = true;
             RendDebuff.buffColor = Color.white;
             RendDebuff.isCooldown = false;
-            RendDebuff.iconSprite = Addressables.LoadAssetAsync<Sprite>("RoR2/DLC1/BleedOnHitVoid/texBuffFractureIcon.tif").WaitForCompletion();
+            RendDebuff.iconSprite = BraqsItemsMain.assetBundle.LoadAsset<Sprite>("texBuffRendIcon");
 
             ContentAddition.AddBuffDef(RendDebuff);
 
             //EFFECTS//
             delayedDamageEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC2/Items/DelayedDamage/DelayedDamageIndicator.prefab").WaitForCompletion();
+            delayedDamageActivateEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/BleedOnHitVoid/FractureImpactEffect.prefab").WaitForCompletion();
+
+
 
             Hooks();
 
@@ -58,11 +62,11 @@ namespace BraqsItems
                 && victim.TryGetComponent(out CharacterBody victimBody) && (bool)victimBody.healthComponent)
             {
                 int stacks = attackerBody.inventory.GetItemCount(itemDef);
-                float procChance = (damageInfo.procCoefficient * 100f);
 
-                if (stacks > 0 && attackerBody.master && RoR2.Util.CheckRoll(procChance, attackerBody.master))
+                if (stacks > 0 && attackerBody.master)
                 {
-                    BraqsItems_RendController.ApplyRend(damageInfo.attacker, victimBody, damageInfo.damage, stacks);
+                    var damageCoefficient = (stacks - 1) * ConfigManager.HundredRendingFists_storedDamagePerStack.Value + ConfigManager.HundredRendingFists_storedDamageBase.Value;
+                    BraqsItems_RendController.ApplyRend(damageInfo.attacker, victimBody, damageInfo, damageCoefficient);
 
                 }
             }
@@ -82,7 +86,7 @@ namespace BraqsItems
             private GameObject delayedDamageIndicator;
 
             private List<DamageStore> damageStores = new List<DamageStore>();
-            public int stores;
+            public float storeBonus;
             private bool firstStackApplied = false;
 
             public CharacterBody body;
@@ -102,6 +106,10 @@ namespace BraqsItems
 
             private void OnDestroy()
             {
+                if (delayedDamageIndicator)
+                {
+                    Object.Destroy(delayedDamageIndicator);
+                }
                 Log.Debug("RendController:OnDestroy()");
             }
 
@@ -113,11 +121,10 @@ namespace BraqsItems
                 }
             }
 
-            public static void ApplyRend(GameObject attacker, CharacterBody victim, float damage, int itemStacks)
+            public static void ApplyRend(GameObject attacker, CharacterBody victim, DamageInfo damage, float damageCoefficient)
             {
                 //Rend
                 Log.Debug("RendController:ApplyRend()");
-                var duration = ConfigManager.HundredRendingFists_rendDuration.Value;
 
                 victim.TryGetComponent(out BraqsItems_RendController rendController);
                 if (!rendController)
@@ -126,29 +133,18 @@ namespace BraqsItems
                     rendController.body = victim;
                 }
 
-                for (var i = 0; i < victim.timedBuffs.Count; i++)
-                {
-                    var timedBuff = victim.timedBuffs[i];
-                    if (timedBuff.buffIndex == RendDebuff.buffIndex)
-                    {
-                        timedBuff.timer = duration;
-                    }
-                }
-                victim.AddTimedBuff(RendDebuff, duration);
+                rendController.StoreDamage(attacker, damage, damageCoefficient);
                 rendController.firstStackApplied = true;
-
-                rendController.StoreDamage(attacker, damage, itemStacks);
-
-                rendController.UpdateDelayedDamageEffect();
 
             }
 
-            private void StoreDamage(GameObject attacker, float damage, int itemStacks)
+            private void StoreDamage(GameObject attacker, DamageInfo damageInfo, float damageCoefficient)
             {
                 //store damage per attacker, so proper credit can be given. 
-                var damageCoefficient = (itemStacks - 1) * ConfigManager.HundredRendingFists_storedDamagePerStack.Value + ConfigManager.HundredRendingFists_storedDamageBase.Value;
 
                 bool temp = true;
+                float damage = damageInfo.damage;
+
                 for (int i = 0; i < damageStores.Count; i++)
                 {
                     if (damageStores[i].attackerObject == attacker)
@@ -169,7 +165,9 @@ namespace BraqsItems
                 }
 
                 //the extra damage is based on TOTAL stores, rather than per attacker stores. Team up for big bonuses!
-                stores++;
+                //Lower proc coefficents give lower bonuses.
+                storeBonus += damageInfo.procCoefficient;
+                UpdateBuffStacks();
             }
 
             private void DealStoredDamage()
@@ -177,13 +175,27 @@ namespace BraqsItems
                 Log.Debug("RendController:DealStoredDamage()");
                 if (body && healthComponent)
                 {
+
+                    //RoR2.Util.PlaySound("Play_bleedOnCritAndExplode_explode", body.gameObject);
+                    float percentBonus = storeBonus * ConfigManager.HundredRendingFists_storeBonus.Value;
+
+                    //don't think this does anything
+                    float effectScale = Mathf.Min(ConfigManager.HundredRendingFists_storedDamageBase.Value + percentBonus, 3);
+
+                    EffectManager.SpawnEffect(delayedDamageActivateEffect, new EffectData()
+                    {
+                        origin = body.corePosition,
+                        color = Color.white,
+                        scale = effectScale,
+                    }, true);
+
                     for (int i = 0; i < damageStores.Count; i++)
                     {
                         DamageStore damageStore = damageStores[i];
 
                         DamageInfo damageInfo = new DamageInfo();
                         damageInfo.crit = false;
-                        damageInfo.damage = damageStore.damage * (damageStore.damageCoefficient + (stores * ConfigManager.HundredRendingFists_storeBonus.Value));
+                        damageInfo.damage = damageStore.damage * (damageStore.damageCoefficient + percentBonus);
                         damageInfo.force = Vector3.zero;
                         damageInfo.inflictor = base.gameObject;
                         damageInfo.position = body.corePosition;
@@ -195,24 +207,45 @@ namespace BraqsItems
                         healthComponent.TakeDamage(damageInfo);
                     }
                 }
+
+
                 Destroy(this);
             }
 
-            private void UpdateDelayedDamageEffect()
+            private void UpdateBuffStacks()
             {
-                if(delayedDamageIndicator)
+                var duration = ConfigManager.HundredRendingFists_rendDuration.Value;
+                //Refresh all stacks
+                for (var i = 0; i < body.timedBuffs.Count; i++)
                 {
-                    Destroy(delayedDamageIndicator);
+                    var timedBuff = body.timedBuffs[i];
+                    if (timedBuff.buffIndex == RendDebuff.buffIndex)
+                    {
+                        timedBuff.timer = duration;
+                    }
                 }
-                EffectData effectData = new EffectData()
-                {
-                    origin = body.mainHurtBox ? body.mainHurtBox.transform.position : body.transform.position,
-                    rotation = Quaternion.identity,
-                    rootObject = body.gameObject
-                };
-               EffectManager.SpawnEffect(delayedDamageEffect, effectData, true);
 
+                //bool effectsDirty = false;
+                //Add 1 stack per store rounded up. This way, x stacks = x * 5% bonus
+                for (var i = 0; i < storeBonus - body.GetBuffCount(RendDebuff); i++)
+                {
+                    body.AddTimedBuff(RendDebuff, duration);
+                    //effectsDirty = true;
+                }
+
+                //if(effectsDirty) UpdateDelayedDamageEffect();
             }
+            
+            //private void UpdateDelayedDamageEffect()
+            //{
+
+            //    if (delayedDamageIndicator)
+            //    {
+            //        Object.Destroy(delayedDamageIndicator);
+            //    }
+            //    delayedDamageIndicator = UnityEngine.Object.Instantiate(delayedDamageEffect, body.mainHurtBox ? body.mainHurtBox.transform.position : body.transform.position, Quaternion.identity, body.mainHurtBox ? body.mainHurtBox.transform : body.transform);
+                
+            //}
         }
     }
 }

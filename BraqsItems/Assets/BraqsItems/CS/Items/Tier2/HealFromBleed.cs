@@ -43,6 +43,7 @@ namespace BraqsItems
                     if (stack > 0)
                     {
                         //heal 1% for 100% damage dealt
+                        //2 bleed = 1 wungus
                         float percentHeal = (stack - 1) * ConfigManager.HealFromBleed_percentPerStack.Value + ConfigManager.HealFromBleed_percentBase.Value;
                         float heal = percentHeal * attackerBody.maxHealth * damageInfo.damage / (attackerBody.damage);
 
