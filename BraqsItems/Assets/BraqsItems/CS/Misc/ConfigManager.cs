@@ -97,10 +97,10 @@ namespace BraqsItems
             LightningOnOverkill_isEnabled = Config.Bind("LIGHTNINGONOVERKILL", "Enable", true, "Load this item.");
             LightningOnOverkill_damagePercentPerStack = Config.Bind("LIGHTNINGONOVERKILL", "Damage Per Stack", 0.50f, "Excess damage per additional stack.");
             LightningOnOverkill_damagePercentBase = Config.Bind("LIGHTNINGONOVERKILL", "Base Damage", 1f, "Fraction of excess damage from a kill dealt to nearby enemies with one stack.");
-            LightningOnOverkill_bouncePerStack = Config.Bind("LIGHTNINGONOVERKILL", "Bounces Per Stack", 1, "Number of enemies hit per additional stack.");
+            LightningOnOverkill_bouncePerStack = Config.Bind("LIGHTNINGONOVERKILL", "Bounces Per Stack", 2, "Number of enemies hit per additional stack.");
             LightningOnOverkill_bounceBase = Config.Bind("LIGHTNINGONOVERKILL", "Base Bounces", 3, "Number of enemies hit with one stack.");
-            LightningOnOverkill_rangePerStack = Config.Bind("LIGHTNINGONOVERKILL", "Range Per Stack", 2f, "Range of the lightning per additional stack.");
-            LightningOnOverkill_rangeBase = Config.Bind("LIGHTNINGONOVERKILL", "Range", 15f, "Range of the lightning with one stack.");
+            LightningOnOverkill_rangePerStack = Config.Bind("LIGHTNINGONOVERKILL", "Range Per Stack", 3f, "Range of the lightning per additional stack.");
+            LightningOnOverkill_rangeBase = Config.Bind("LIGHTNINGONOVERKILL", "Range", 12f, "Range of the lightning with one stack.");
 
             //Green
             ExplodeAgain_isEnabled = Config.Bind("EXPLODEAGAIN", "Enable", true, "Load this item.");
@@ -116,7 +116,7 @@ namespace BraqsItems
 
             RepairBrokenItems_isEnabled = Config.Bind("REPAIRBROKENITEMS", "Enable", true, "Load this item.");
             RepairBrokenItems_repairsBase = Config.Bind("REPAIRBROKENITEMS", "Base Repair Attempts", 3, "Number of repairs attempted on stage advance with one stack.");
-            RepairBrokenItems_repairsPerStack = Config.Bind("REPAIRBROKENITEMS", "Repair Attempts Per Stack", 2, "Number of repairs attempted on stage advance per additional stack.");
+            RepairBrokenItems_repairsPerStack = Config.Bind("REPAIRBROKENITEMS", "Repair Attempts Per Stack", 3, "Number of repairs attempted on stage advance per additional stack.");
             RepairBrokenItems_whiteChance = Config.Bind("REPAIRBROKENITEMS", "White Success Chance", 100f, "Repair success chance for white/void white items.");
             RepairBrokenItems_redChance = Config.Bind("REPAIRBROKENITEMS", "Red Success Chance", 50f, "Repair success chance for red/void red items.");
             RepairBrokenItems_defaultChance = Config.Bind("REPAIRBROKENITEMS", "Default Success Chance", 75f, "Repair success chance for all other items.");
@@ -130,7 +130,7 @@ namespace BraqsItems
             ExplosionFrenzy_bonusCapPerStack = Config.Bind("EXPLOSIONFRENZY", "Maximum Bonus Per Stack", 10, "The number of possible bonuses per additional stack.");
 
             HundredRendingFists_isEnabled = Config.Bind("HUNDREDRENDINGFISTS", "Enable", true, "Load this item.");
-            HundredRendingFists_rendDuration = Config.Bind("HUNDREDRENDINGFISTS", "Buff Duration", 3f, "The window of time before stored damage is applied.");
+            HundredRendingFists_rendDuration = Config.Bind("HUNDREDRENDINGFISTS", "Buff Duration", 2f, "The window of time before stored damage is applied.");
             HundredRendingFists_storedDamagePerStack = Config.Bind("HUNDREDRENDINGFISTS", "Base Total Damage", 0.30f, "Total damage stored on hit per additional stack.");
             HundredRendingFists_storedDamageBase = Config.Bind("HUNDREDRENDINGFISTS", "Total Damage Per Stack", 0.30f, "Total damage stored on hit with one stack.");
             HundredRendingFists_storeBonus = Config.Bind("HUNDREDRENDINGFISTS", "Bonus Total Damage", 0.05f, "Extra total damage applied for every instance of stored damage.");

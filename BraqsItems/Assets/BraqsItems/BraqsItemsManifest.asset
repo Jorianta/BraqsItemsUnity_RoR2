@@ -18,7 +18,7 @@ MonoBehaviour:
   files:
   - {fileID: 4900000, guid: bdb3721c183a99c439b9591c4a6d2bb1, type: 3}
   - {fileID: 4900000, guid: 423761a40cc6e3344934cd179cbd6206, type: 3}
-  - {fileID: 2800000, guid: 68a56c6d23e32bf4aa660e0298b91e96, type: 3}
+  - {fileID: 2800000, guid: e331a70c71d8fb64e9dfacd4ecd7076e, type: 3}
   - {fileID: 102900000, guid: 082c1c12cfb1d2e468e2684fcc78d407, type: 3}
 --- !u!114 &-7512997945990895017
 MonoBehaviour:
@@ -88,7 +88,7 @@ MonoBehaviour:
   Author: Braquen
   Name: BraqsItems
   Description: A mod adding some new items
-  Version: 0.0.1
+  Version: 1.0.0
   Dependencies:
   - {fileID: 11400000, guid: e8166746ca0c6d98ee8c97fe787f2b80, type: 2}
   - {fileID: 11400000, guid: 7fb5b3d290bed6011ed7e8daf230df89, type: 2}
@@ -96,6 +96,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a644a53693d44639c70550096ce74b93, type: 2}
   - {fileID: 11400000, guid: 014c4e162aebc6b9c7c87be504a1bd10, type: 2}
   - {fileID: 11400000, guid: bff73382628f698c89c1d9ae43c8f350, type: 2}
+  - {fileID: 11400000, guid: 1938606488471c579b629a339fdab043, type: 2}
+  - {fileID: 11400000, guid: 19f404b4f1d413a691a8b0edda7faba9, type: 2}
 --- !u!114 &9090770326576237841
 MonoBehaviour:
   m_ObjectHideFlags: 0

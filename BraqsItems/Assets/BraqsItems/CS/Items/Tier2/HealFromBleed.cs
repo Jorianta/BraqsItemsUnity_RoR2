@@ -32,6 +32,7 @@ namespace BraqsItems
             On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
         }
 
+        //May wan to move this to a different hook.
         private static void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
         {
             if (!damageInfo.rejected && damageInfo.dotIndex == DotController.DotIndex.Bleed || damageInfo.dotIndex == DotController.DotIndex.SuperBleed)

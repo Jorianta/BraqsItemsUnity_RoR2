@@ -1,4 +1,5 @@
 ﻿using BepInEx.Logging;
+using System.Diagnostics;
 
 namespace BraqsItems
 {
@@ -11,6 +12,7 @@ namespace BraqsItems
             _logSource = logSource;
         }
 
+        [Conditional("DEBUG")]
         internal static void Debug(object data) => _logSource.LogDebug(data);
         internal static void Error(object data) => _logSource.LogError(data);
         internal static void Fatal(object data) => _logSource.LogFatal(data);

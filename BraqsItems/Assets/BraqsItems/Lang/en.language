@@ -1,10 +1,8 @@
 {
   "strings": {
-    //EXPANSION//
-    "EXP_BRAQSITEMS_DESC":  "Adds content from Braq's Items to the game.",
+    "BQI_EXPANSION_NAME": "Braq's Items",
+    "BQI_EXPANSION_DESC": "Adds content from the 'Braq's Items' mod into the game.",
 
-    //ITEMS//
-    //Tier1//
     "BIGGEREXPLOSIONS": "Accelerant",
     "ITEM_BIGGEREXPLOSIONS_NAME": "Accelerant",
     "ITEM_BIGGEREXPLOSIONS_PICKUP": "Increase explosion radius.",
@@ -20,11 +18,9 @@
     "LIGHTNINGONOVERKILL": "Jumper Cables",
     "ITEM_LIGHTNINGONOVERKILL_NAME": "Jumper Cables",
     "ITEM_LIGHTNINGONOVERKILL_PICKUP": "Excess damage from kills is applied to nearby enemies.",
-    "ITEM_LIGHTNINGONOVERKILL_DESC": "On kill, fire <style=cIsDamage>chain lightning</style> for <style=cIsDamage>%100</style> <style=cStack>(+50% per stack)</style> excess damage of the killing blow at <style=cIsDamage>3</style> <style=cStack>(+1 per stack)</style> enemies within <style=cIsDamage>15m</style> <style=cStack>(+2m per stack)</style>.",
+    "ITEM_LIGHTNINGONOVERKILL_DESC": "On kill, fire <style=cIsDamage>chain lightning</style> for <style=cIsDamage>%100</style> <style=cStack>(+50% per stack)</style> excess damage of the killing blow at <style=cIsDamage>3</style> <style=cStack>(+2 per stack)</style> enemies within <style=cIsDamage>12m</style> <style=cStack>(+3m per stack)</style>.",
     "ITEM_LIGHTNINGONOVERKILL_LORE": "\"You're going to tell us what we want to know.\"  \n\nThe man struck the alligator clips together, producing a spark that illuminated his face for a moment.  \n\n\"You'll... You'll have to kill me. I'll die before I talk.\"  \n\n\"So be it. After I kill you, I suppose I'll just have to ask your friend what he knows instead.\"",
 
-
-    //Tier2//
     "EXPLODEAGAIN": "Inert Bomblet",
     "ITEM_EXPLODEAGAIN_NAME": "Inert Bomblet",
     "ITEM_EXPLODEAGAIN_PICKUP": "Your explosives can scatter smaller bombs.",
@@ -40,11 +36,9 @@
     "REPAIRBROKENITEMS": "Refabricator",
     "ITEM_REPAIRBROKENITEMS_NAME": "Refabricator",
     "ITEM_REPAIRBROKENITEMS_PICKUP": "Repairs some of your items on stage advance.",
-    "ITEM_REPAIRBROKENITEMS_DESC": "Repair up to <style=cIsUtility>3</style> <style=cStack>(+2 per stack)</style> broken items on stage advance. May fail for rarer items.",
+    "ITEM_REPAIRBROKENITEMS_DESC": "Repair up to <style=cIsUtility>3</style> <style=cStack>(+3 per stack)</style> broken items on stage advance. May fail for rarer items.",
     "ITEM_REPAIRBROKENITEMS_LORE": "",
 
-
-    //Tier3//
     "EXPLOSIONFRENZY": "My Manifesto",
     "ITEM_EXPLOSIONFRENZY_NAME": "My Manifesto",
     "ITEM_EXPLOSIONFRENZY_PICKUP": "All explosions ignite. Explosions are larger while your enemies burn.",
@@ -54,7 +48,7 @@
     "HUNDREDRENDINGFISTS": "North Star Hand Wraps",
     "ITEM_HUNDREDRENDINGFISTS_NAME": "North Star Hand Wraps",
     "ITEM_HUNDREDRENDINGFISTS_PICKUP": "Store damage inside of enemies to be released at once later.",
-    "ITEM_HUNDREDRENDINGFISTS_DESC": "On hit store <style=cIsDamage>25%</style> <style=cStack>(+25% per stack)</style> total damage inside the victim. After <style=cIsUtility>3</style> seconds without storing damage, all stored damage is applied plus an additional <style=cIsDamage>5%</style> total damage for every instance of stored damage.",
+    "ITEM_HUNDREDRENDINGFISTS_DESC": "On hit store <style=cIsDamage>30%</style> <style=cStack>(+30% per stack)</style> total damage inside the victim. After <style=cIsUtility>2</style> seconds without storing damage, all stored damage is applied plus an additional <style=cIsDamage>5%</style> total damage for every instance of stored damage.",
     "ITEM_HUNDREDRENDINGFISTS_LORE": "",
 
     "SPREADDEBUFFS": "Sympathetic Pathogen",

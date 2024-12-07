@@ -36,6 +36,7 @@ namespace BraqsItems
             VoidLightningOrb.Begin += VoidLightningOrb_Begin;
         }
 
+        //void lightning too!
         private static void VoidLightningOrb_Begin(VoidLightningOrb.orig_Begin orig, RoR2.Orbs.VoidLightningOrb self)
         {
             Log.Debug("LightningDamageBoost:VoidLightningOrb_Begin");
