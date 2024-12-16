@@ -5,6 +5,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using UnityEngine.Networking;
+using UnityEngine.UIElements;
+using UnityEngine.AddressableAssets;
 
 
 namespace BraqsItems.Misc
@@ -12,10 +14,29 @@ namespace BraqsItems.Misc
     //Right now this whole thing is a bit overengineered, given theres only one stat and only two items affect it, but I may add more stats in the future
     public static class Stats
     {
+        public static GameObject ExplosionEffect;
         public static void Init()
         {
             CharacterBody.onBodyStartGlobal += CharacterBody_Start;
             On.RoR2.BlastAttack.Fire += BlastAttack_Fire;
+
+            GenerateEffects();
+        }
+
+        private static void GenerateEffects()
+        {
+            try
+            {
+                ExplosionEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/IgniteOnKill/IgniteExplosionVFX.prefab").WaitForCompletion().InstantiateClone("AccelerantBoost");
+                UnityEngine.Object.Destroy(ExplosionEffect.transform.Find("OmniDirectionals").gameObject);
+                UnityEngine.Object.Destroy(ExplosionEffect.transform.Find("Flames").gameObject);
+                UnityEngine.Object.Destroy(ExplosionEffect.transform.Find("Flash").gameObject);
+            }
+            catch (Exception e) {
+                Log.Warning("Stats:GenerateEffect() ; Could not create accelerant effect." +
+                    "\n" + e);
+            }
+            ContentAddition.AddEffect(ExplosionEffect);
         }
 
         private static void CharacterBody_Start(CharacterBody body)
@@ -106,7 +127,11 @@ namespace BraqsItems.Misc
 
                     if (stats.blastRadiusBoost > 1)
                     {
-                        Util.Helpers.DoExtraExplosionEffect(self.position, self.radius);
+                        EffectManager.SpawnEffect(ExplosionEffect, new EffectData
+                        {
+                            origin = self.position,
+                            scale = self.radius,
+                        }, transmit: true);
                     }
                 }
             }

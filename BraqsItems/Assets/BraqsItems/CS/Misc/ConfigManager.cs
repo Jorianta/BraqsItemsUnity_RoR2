@@ -75,11 +75,11 @@ namespace BraqsItems
 
             var Config = new ConfigFile(Path.Combine(configPath, "braquen-BraqsItems.cfg"), true);
 
-            //Remake Config on major update
+            //Remake Config on minor update
             ConfigVersion = Config.Bind("Version", "Version", BraqsItemsMain.VERSION, "Don't touch. Used to determine if a config file is out of date.");
-            var ConfigMajor = ConfigVersion.Value.Split('.')[0];
-            var Major = BraqsItemsMain.VERSION.Split('.')[0];
-            if (ConfigMajor != Major)
+            var ConfigMinor = ConfigVersion.Value.Split('.')[1];
+            var Minor = BraqsItemsMain.VERSION.Split('.')[1];
+            if (ConfigMinor != Minor)
             {
                 Config.Clear();
                 Config.Save();
@@ -153,7 +153,7 @@ namespace BraqsItems
                 }
                 if (configEntryBase.DefaultValue.GetType() == typeof(float))
                 {
-                    ModSettingsManager.AddOption(new StepSliderOption((ConfigEntry<float>)configEntryBase, new StepSliderConfig() { min = 0, max = Mathf.Max(((ConfigEntry<float>)configEntryBase).Value * 10f, 1f), increment = ((ConfigEntry<float>)configEntryBase).Value / 10f }));
+                    ModSettingsManager.AddOption(new StepSliderOption((ConfigEntry<float>)configEntryBase, new StepSliderConfig() { min = 0, max = Mathf.Max(((ConfigEntry<float>)configEntryBase).Value * 10f, 1f), increment = Mathf.Max(((ConfigEntry<float>)configEntryBase).Value / 10f , 0.001f)}));
                 }
             }
         }    

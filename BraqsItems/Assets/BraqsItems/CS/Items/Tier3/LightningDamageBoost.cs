@@ -28,7 +28,7 @@ namespace BraqsItems
 
             Hooks();
 
-            chargedColor = ColorsAPI.RegisterDamageColor(new Color(104f, 194f, 211f));
+            chargedColor = ColorsAPI.RegisterDamageColor(new Color(0.37f, 0.50f, 0.924f));
 
             Log.Info("Induction Coil Initialized");
         }
