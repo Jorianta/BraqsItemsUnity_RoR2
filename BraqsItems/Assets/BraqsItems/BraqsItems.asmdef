@@ -43,7 +43,8 @@
         "RoR2.dll",
         "RiskOfOptions.dll",
         "Grumpy.dll",
-        "AK.Wwise.Unity.API.dll"
+        "AK.Wwise.Unity.API.dll",
+        "R2API.Colors.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [],

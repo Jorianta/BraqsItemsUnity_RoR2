@@ -19,11 +19,11 @@ namespace BraqsItems.Util
                 origin = position,
                 scale = scale,
             }, transmit: true);
-            EffectManager.SpawnEffect(ExplosionEffect, new EffectData
-            {
-                origin = position,
-                scale = scale,
-            }, transmit: true);
+            //EffectManager.SpawnEffect(ExplosionEffect, new EffectData
+            //{
+            //    origin = position,
+            //    scale = scale,
+            //}, transmit: true);
         }
 
         public static ItemDef GetItemDef(string name)
@@ -40,8 +40,14 @@ namespace BraqsItems.Util
 
             ModelPanelParameters ModelParams = itemDef.pickupModelPrefab.AddComponent<ModelPanelParameters>();
 
-            ModelParams.minDistance = 5;
-            ModelParams.maxDistance = 10;
+            ModelParams.minDistance = 3;
+            ModelParams.maxDistance = 6;
+
+            ModelParams.cameraPositionTransform = new GameObject("CameraPosition").transform;
+            ModelParams.cameraPositionTransform.SetParent(itemDef.pickupModelPrefab.transform);
+
+            ModelParams.focusPointTransform = new GameObject("FocusPoint").transform;
+            ModelParams.focusPointTransform.SetParent(itemDef.pickupModelPrefab.transform);
 
             return itemDef;
         }

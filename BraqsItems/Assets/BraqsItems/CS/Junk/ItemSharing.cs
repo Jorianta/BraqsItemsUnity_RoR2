@@ -3,24 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace BraqsItems.Junk
 {
     //Nothing yet
-    public static class ItemSharing
+    public class ItemShareController : ItemStealController
     {
-
-        public static void Init()
-        {
-
-        }
-
-        public class SharedItemController : ItemStealController
-        {
-            private CharacterMaster minionMaster;
-            private Inventory sharedInventory;
+        public List<Inventory> lendeeInventories = new List<Inventory>();
 
 
-        }
+
     }
 }

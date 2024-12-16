@@ -6,7 +6,7 @@ using static BraqsItems.Util.Helpers;
 
 namespace BraqsItems
 {
-    internal class HealFromBleed
+    public class HealFromBleed
     {
         public static ItemDef itemDef;
 
@@ -27,17 +27,23 @@ namespace BraqsItems
             Log.Info("Leech Jar Initialized");
         }
 
-        public static void Hooks()
+        private static void Hooks()
         {
             On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
+            //RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
         }
 
-        //May wan to move this to a different hook.
+        private static void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
+        {
+           
+        }
+
+        //May want to move this to a different hook.
         private static void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
         {
             if (!damageInfo.rejected && damageInfo.dotIndex == DotController.DotIndex.Bleed || damageInfo.dotIndex == DotController.DotIndex.SuperBleed)
             {
-                if (damageInfo.attacker.TryGetComponent(out CharacterBody attackerBody) && attackerBody.inventory)
+                if ((bool)damageInfo.attacker && damageInfo.attacker.TryGetComponent(out CharacterBody attackerBody) && attackerBody.inventory)
                 {
                     int stack = attackerBody.inventory.GetItemCount(itemDef);
 

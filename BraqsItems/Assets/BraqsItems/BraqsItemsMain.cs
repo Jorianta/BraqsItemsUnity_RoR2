@@ -11,6 +11,7 @@ using RoR2.Stats;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using BepInEx.Configuration;
+using System.Diagnostics;
 
 namespace BraqsItems
 {
@@ -62,29 +63,36 @@ namespace BraqsItems
 
             BiggerExplosions.Init();
             AttackSpeedOnHit.Init();
-            VoidLightningOnOverkill.Init();
+            LightningOnOverkill.Init();
+            
+            //LightningOnOverkillVoid.Init();
+
             ExplodeAgain.Init();
             RepairBrokenItems.Init();
             HealFromBleed.Init();
+
+            //HealFromBleedVoid.Init();
+
+            //ConfusionOnHit.Init();
             ExplosionFrenzy.Init();
             HundredRendingFists.Init();
             LightningDamageBoost.Init();
         }
 
+        [Conditional("DEBUG")]
+        private void Update()
+        {
+            // This if statement checks if the player has currently pressed F2.
+            if (Input.GetKeyDown(KeyCode.F2))
+            {
+                // Get the player body to use a position:
+                var transform = PlayerCharacterMasterController.instances[0].master.GetBodyObject().transform;
 
-        //private void Update()
-        //{
-        //    // This if statement checks if the player has currently pressed F2.
-        //    if (Input.GetKeyDown(KeyCode.F2))
-        //    {
-        //        // Get the player body to use a position:
-        //        var transform = PlayerCharacterMasterController.instances[0].master.GetBodyObject().transform;
+                // And then drop our defined item in front of the player.
 
-        //        // And then drop our defined item in front of the player.
-
-        //        Log.Info($"Player pressed F2. Spawning our custom item at coordinates {transform.position}");
-        //        PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(HundredRendingFists.itemDef.itemIndex), transform.position, transform.forward * 20f);
-        //    }
-        //}
+                Log.Info($"Player pressed F2. Spawning our custom item at coordinates {transform.position}");
+                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(ConfusionOnHit.itemDef.itemIndex), transform.position, transform.forward * 20f);
+            }
+        }
     }
 }

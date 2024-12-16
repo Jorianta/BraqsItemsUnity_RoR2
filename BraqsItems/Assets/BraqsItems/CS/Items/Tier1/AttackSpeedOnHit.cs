@@ -31,7 +31,7 @@ namespace BraqsItems
             Log.Info("Hundreds and Thousands Initialized");
         }
 
-        public static void Hooks()
+        private static void Hooks()
         {
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
             On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;

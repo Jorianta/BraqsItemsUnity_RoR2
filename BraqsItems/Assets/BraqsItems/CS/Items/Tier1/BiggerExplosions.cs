@@ -29,7 +29,7 @@ namespace BraqsItems
             Log.Info("Acclerant Initialized");
         }
 
-        public static void Hooks()
+        private static void Hooks()
         {
             Stats.StatsCompEvent.StatsCompRecalc += StatsCompEvent_StatsCompRecalc;
         }
