@@ -9,13 +9,16 @@ using static BraqsItems.Util.Helpers;
 
 namespace BraqsItems
 {
-    internal class HundredRendingFists
+    public class HundredRendingFists
     {
 
         public static ItemDef itemDef;
         public static BuffDef RendDebuff;
-        private static GameObject delayedDamageEffect;
         private static GameObject delayedDamageActivateEffect;
+
+        //unused
+        private static GameObject delayedDamageEffect;
+        
 
         internal static void Init()
         {
@@ -51,7 +54,7 @@ namespace BraqsItems
             Log.Info("North Star Hand Wraps Initialized");
         }
 
-        public static void Hooks()
+        private static void Hooks()
         {
             On.RoR2.GlobalEventManager.OnHitEnemy += GlobalEventManager_OnHitEnemy;
         }
@@ -74,6 +77,7 @@ namespace BraqsItems
             orig(self, damageInfo, victim);
         }
 
+        //public, so others can stack rend if they need to.
         public class BraqsItems_RendController : MonoBehaviour
         {
             private class DamageStore

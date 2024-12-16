@@ -35,7 +35,7 @@ namespace BraqsItems
             Log.Info("Goobo Sr. Initialized");
         }
 
-        public static void Hooks()
+        private static void Hooks()
         {
             On.RoR2.CharacterMaster.OnServerStageBegin += CharacterMaster_OnServerStageBegin;
         }

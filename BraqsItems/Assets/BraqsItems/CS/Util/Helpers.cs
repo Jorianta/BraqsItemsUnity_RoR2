@@ -1,4 +1,5 @@
-﻿using RoR2;
+﻿using R2API;
+using RoR2;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -6,26 +7,6 @@ namespace BraqsItems.Util
 {
     static class Helpers
     {
-        public static GameObject ExplosionEffect;
-        public static void Init()
-        {
-            ExplosionEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/StickyBomb/BehemothVFX.prefab").WaitForCompletion();
-        }
-        //Unfortunately, it is very difficult to scale a blastattack's vfx with its radius. Spawn another explosion to indicate the size increase.
-        public static void DoExtraExplosionEffect(Vector3 position, float scale)
-        {
-            EffectManager.SpawnEffect(GlobalEventManager.CommonAssets.igniteOnKillExplosionEffectPrefab, new EffectData
-            {
-                origin = position,
-                scale = scale,
-            }, transmit: true);
-            EffectManager.SpawnEffect(ExplosionEffect, new EffectData
-            {
-                origin = position,
-                scale = scale,
-            }, transmit: true);
-        }
-
         public static ItemDef GetItemDef(string name)
         {
             ItemDef itemDef = BraqsItemsMain.assetBundle.LoadAsset<ItemDef>(name);
@@ -40,8 +21,14 @@ namespace BraqsItems.Util
 
             ModelPanelParameters ModelParams = itemDef.pickupModelPrefab.AddComponent<ModelPanelParameters>();
 
-            ModelParams.minDistance = 5;
-            ModelParams.maxDistance = 10;
+            ModelParams.minDistance = 3;
+            ModelParams.maxDistance = 6;
+
+            ModelParams.cameraPositionTransform = new GameObject("CameraPosition").transform;
+            ModelParams.cameraPositionTransform.SetParent(itemDef.pickupModelPrefab.transform);
+
+            ModelParams.focusPointTransform = new GameObject("FocusPoint").transform;
+            ModelParams.focusPointTransform.SetParent(itemDef.pickupModelPrefab.transform);
 
             return itemDef;
         }

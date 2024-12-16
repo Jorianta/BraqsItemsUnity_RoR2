@@ -10,9 +10,10 @@ using static BraqsItems.Util.Helpers;
 
 namespace BraqsItems
 {
-    internal class LightningDamageBoost
+    public class LightningDamageBoost
     {
         public static ItemDef itemDef;
+        private static DamageColorIndex chargedColor;
 
         internal static void Init()
         {
@@ -27,10 +28,12 @@ namespace BraqsItems
 
             Hooks();
 
+            chargedColor = ColorsAPI.RegisterDamageColor(new Color(0.37f, 0.50f, 0.924f));
+
             Log.Info("Induction Coil Initialized");
         }
 
-        public static void Hooks()
+        private static void Hooks()
         {
             LightningOrb.Begin += LightningOrb_Begin;
             VoidLightningOrb.Begin += VoidLightningOrb_Begin;
@@ -67,6 +70,7 @@ namespace BraqsItems
 
                 if (count > 0)
                 {
+                    self.damageColorIndex = chargedColor;
                     self.damageValue *= 1 + (count - 1) * ConfigManager.InductionCoil_damageBonusPerStack.Value + ConfigManager.InductionCoil_damageBonusBase.Value;
                     Log.Debug("Chain damage = " + self.damageValue);
                 }

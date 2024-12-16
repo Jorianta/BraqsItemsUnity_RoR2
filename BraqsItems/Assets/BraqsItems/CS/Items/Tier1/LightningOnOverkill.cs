@@ -10,7 +10,7 @@ using static BraqsItems.Util.Helpers;
 
 namespace BraqsItems
 {
-    public class VoidLightningOnOverkill
+    public class LightningOnOverkill
     {
         public static ItemDef itemDef;
 
@@ -32,7 +32,7 @@ namespace BraqsItems
             Log.Info("Jumper Cables Initialized");
         }
 
-        public static void Hooks()
+        private static void Hooks()
         {
             GlobalEventManager.onCharacterDeathGlobal += GlobalEventManager_onCharacterDeathGlobal;
         }
@@ -57,7 +57,7 @@ namespace BraqsItems
                     bouncesRemaining = ConfigManager.LightningOnOverkill_bounceBase.Value + (stack-1) * ConfigManager.LightningOnOverkill_bouncePerStack.Value,
                     teamIndex = obj.attackerBody.teamComponent.teamIndex,
                     attacker = obj.attacker,
-                    procCoefficient = 1f,
+                    procCoefficient = 0.2f,
                     bouncedObjects = new List<HealthComponent> { obj.victim },
                     lightningType = LightningOrb.LightningType.Ukulele,
                     damageColorIndex = DamageColorIndex.Item,

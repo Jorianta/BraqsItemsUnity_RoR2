@@ -12,7 +12,7 @@ using static BraqsItems.Util.Helpers;
 
 namespace BraqsItems
 {
-    internal class ExplosionFrenzy
+    public class ExplosionFrenzy
     {
         public static ItemDef itemDef;
 
@@ -34,7 +34,7 @@ namespace BraqsItems
             Log.Info("My Manifesto Initialized");
         }
 
-        public static void Hooks()
+        private static void Hooks()
         {
             On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;
             On.RoR2.BlastAttack.Fire += BlastAttack_Fire;

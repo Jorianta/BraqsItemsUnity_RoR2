@@ -11,6 +11,7 @@ using RoR2.Stats;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using BepInEx.Configuration;
+using System.Diagnostics;
 
 namespace BraqsItems
 {
@@ -31,7 +32,7 @@ namespace BraqsItems
     {
         public const string GUID = "com.Braquen.BraqsItems";
         public const string MODNAME = "Braqs Items";
-        public const string VERSION = "1.0.0";
+        public const string VERSION = "1.0.1";
 
         public static ExpansionDef BraqsItemsExpansion;
 
@@ -49,7 +50,6 @@ namespace BraqsItems
             assetBundle = AssetBundle.LoadFromFile(assetBundleDir); // Load mainassets into stream
             ConfigManager.Init(Paths.ConfigPath);
 
-            Helpers.Init();
             Stats.Init();
             CharacterEvents.Init();
 
@@ -62,16 +62,23 @@ namespace BraqsItems
 
             BiggerExplosions.Init();
             AttackSpeedOnHit.Init();
-            VoidLightningOnOverkill.Init();
+            LightningOnOverkill.Init();
+            
+            //LightningOnOverkillVoid.Init();
+
             ExplodeAgain.Init();
             RepairBrokenItems.Init();
             HealFromBleed.Init();
+
+            //HealFromBleedVoid.Init();
+
+            //ConfusionOnHit.Init();
             ExplosionFrenzy.Init();
             HundredRendingFists.Init();
             LightningDamageBoost.Init();
         }
 
-
+        //[Conditional("DEBUG")]
         //private void Update()
         //{
         //    // This if statement checks if the player has currently pressed F2.
@@ -83,7 +90,7 @@ namespace BraqsItems
         //        // And then drop our defined item in front of the player.
 
         //        Log.Info($"Player pressed F2. Spawning our custom item at coordinates {transform.position}");
-        //        PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(HundredRendingFists.itemDef.itemIndex), transform.position, transform.forward * 20f);
+        //        PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(ConfusionOnHit.itemDef.itemIndex), transform.position, transform.forward * 20f);
         //    }
         //}
     }

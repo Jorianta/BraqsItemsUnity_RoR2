@@ -4,6 +4,7 @@ using RiskOfOptions.OptionConfigs;
 using RiskOfOptions.Options;
 using System;
 using System.IO;
+using UnityEngine;
 
 
 namespace BraqsItems
@@ -74,11 +75,11 @@ namespace BraqsItems
 
             var Config = new ConfigFile(Path.Combine(configPath, "braquen-BraqsItems.cfg"), true);
 
-            //Remake Config on major update
+            //Remake Config on minor update
             ConfigVersion = Config.Bind("Version", "Version", BraqsItemsMain.VERSION, "Don't touch. Used to determine if a config file is out of date.");
-            var ConfigMajor = ConfigVersion.Value.Split('.')[0];
-            var Major = BraqsItemsMain.VERSION.Split('.')[0];
-            if (ConfigMajor != Major)
+            var ConfigMinor = ConfigVersion.Value.Split('.')[1];
+            var Minor = BraqsItemsMain.VERSION.Split('.')[1];
+            if (ConfigMinor != Minor)
             {
                 Config.Clear();
                 Config.Save();
@@ -95,9 +96,9 @@ namespace BraqsItems
             BiggerExplosions_percentPerStack = Config.Bind("BIGGEREXPLOSIONS", "Attack Speed Bonus Per Stack", 0.05f, "Blast radius increase per additional stack.");
 
             LightningOnOverkill_isEnabled = Config.Bind("LIGHTNINGONOVERKILL", "Enable", true, "Load this item.");
-            LightningOnOverkill_damagePercentPerStack = Config.Bind("LIGHTNINGONOVERKILL", "Damage Per Stack", 0.50f, "Excess damage per additional stack.");
+            LightningOnOverkill_damagePercentPerStack = Config.Bind("LIGHTNINGONOVERKILL", "Damage Per Stack", 0f, "Excess damage per additional stack.");
             LightningOnOverkill_damagePercentBase = Config.Bind("LIGHTNINGONOVERKILL", "Base Damage", 1f, "Fraction of excess damage from a kill dealt to nearby enemies with one stack.");
-            LightningOnOverkill_bouncePerStack = Config.Bind("LIGHTNINGONOVERKILL", "Bounces Per Stack", 2, "Number of enemies hit per additional stack.");
+            LightningOnOverkill_bouncePerStack = Config.Bind("LIGHTNINGONOVERKILL", "Bounces Per Stack", 1, "Number of enemies hit per additional stack.");
             LightningOnOverkill_bounceBase = Config.Bind("LIGHTNINGONOVERKILL", "Base Bounces", 3, "Number of enemies hit with one stack.");
             LightningOnOverkill_rangePerStack = Config.Bind("LIGHTNINGONOVERKILL", "Range Per Stack", 3f, "Range of the lightning per additional stack.");
             LightningOnOverkill_rangeBase = Config.Bind("LIGHTNINGONOVERKILL", "Range", 12f, "Range of the lightning with one stack.");
@@ -130,7 +131,7 @@ namespace BraqsItems
             ExplosionFrenzy_bonusCapPerStack = Config.Bind("EXPLOSIONFRENZY", "Maximum Bonus Per Stack", 10, "The number of possible bonuses per additional stack.");
 
             HundredRendingFists_isEnabled = Config.Bind("HUNDREDRENDINGFISTS", "Enable", true, "Load this item.");
-            HundredRendingFists_rendDuration = Config.Bind("HUNDREDRENDINGFISTS", "Buff Duration", 2f, "The window of time before stored damage is applied.");
+            HundredRendingFists_rendDuration = Config.Bind("HUNDREDRENDINGFISTS", "Buff Duration", 1.5f, "The window of time before stored damage is applied.");
             HundredRendingFists_storedDamagePerStack = Config.Bind("HUNDREDRENDINGFISTS", "Base Total Damage", 0.30f, "Total damage stored on hit per additional stack.");
             HundredRendingFists_storedDamageBase = Config.Bind("HUNDREDRENDINGFISTS", "Total Damage Per Stack", 0.30f, "Total damage stored on hit with one stack.");
             HundredRendingFists_storeBonus = Config.Bind("HUNDREDRENDINGFISTS", "Bonus Total Damage", 0.05f, "Extra total damage applied for every instance of stored damage.");
@@ -152,7 +153,7 @@ namespace BraqsItems
                 }
                 if (configEntryBase.DefaultValue.GetType() == typeof(float))
                 {
-                    ModSettingsManager.AddOption(new StepSliderOption((ConfigEntry<float>)configEntryBase, new StepSliderConfig() { min = 0, max = ((ConfigEntry<float>)configEntryBase).Value * 10f, increment = ((ConfigEntry<float>)configEntryBase).Value / 10f }));
+                    ModSettingsManager.AddOption(new StepSliderOption((ConfigEntry<float>)configEntryBase, new StepSliderConfig() { min = 0, max = Mathf.Max(((ConfigEntry<float>)configEntryBase).Value * 10f, 1f), increment = Mathf.Max(((ConfigEntry<float>)configEntryBase).Value / 10f , 0.001f)}));
                 }
             }
         }    
