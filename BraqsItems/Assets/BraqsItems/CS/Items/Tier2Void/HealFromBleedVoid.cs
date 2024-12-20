@@ -2,8 +2,11 @@
 using RoR2;
 using System.Collections.Generic;
 using UnityEngine;
+using MonoMod.Cil;
+using Mono.Cecil.Cil;
 using UnityEngine.AddressableAssets;
 using static BraqsItems.Util.Helpers;
+using System;
 
 namespace BraqsItems
 {
@@ -14,12 +17,13 @@ namespace BraqsItems
 
         internal static void Init()
         {
-            if (!ConfigManager.HealFromBleed_isEnabled.Value) return;
+            //if (!ConfigManager.HealFromBleed_isEnabled.Value) return;
 
-            Log.Info("Initializing Tick Queen Item");
+            Log.Info("Initializing Royal Tick Item");
 
             //ITEM//
             itemDef = GetItemDef("HealFromBleedVoid");
+            if (ConfigManager.HealFromBleed_isEnabled.Value) itemDef.AddContagiousRelationship(HealFromBleed.itemDef);
 
             ItemDisplayRuleDict displayRules = new ItemDisplayRuleDict(null);
             ItemAPI.Add(new CustomItem(itemDef, displayRules));
@@ -30,7 +34,7 @@ namespace BraqsItems
 
             Hooks();
 
-            Log.Info("Tick Queen Initialized");
+            Log.Info("Royal Tick Initialized");
         }
 
         private static GameObject generateEffects()
@@ -58,8 +62,8 @@ namespace BraqsItems
             var voidStarsRenderer = mushroomEffect.transform.Find("Visual/Stars").gameObject.GetComponent<ParticleSystemRenderer>();
 
 
-            Object.Destroy(prefab.transform.Find("Flash, White").gameObject);
-            Object.Destroy(prefab.transform.Find("Flash, Blue").gameObject);
+            UnityEngine.Object.Destroy(prefab.transform.Find("Flash, White").gameObject);
+            UnityEngine.Object.Destroy(prefab.transform.Find("Flash, Blue").gameObject);
 
             var chunks = prefab.transform.Find("Chunks").gameObject.GetComponent<ParticleSystemRenderer>();
             var chunksMaterial = chunks.material;
@@ -114,7 +118,45 @@ namespace BraqsItems
 
         private static void Hooks()
         {
+            IL.RoR2.GlobalEventManager.ProcessHitEnemy += GlobalEventManager_ProcessHitEnemy;
             On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
+        }
+
+        private static void GlobalEventManager_ProcessHitEnemy(ILContext il)
+        {
+            ILCursor c = new ILCursor(il);
+
+            Log.Debug("HealFromBleedVoid: Adding base collapse chance");
+            try
+            {
+                c.GotoNext(
+                    MoveType.Before,
+                    x => x.MatchLdloc(29),
+                    x => x.MatchLdcI4(0)
+                );
+                c.Remove();
+                c.Remove();
+                c.Remove();
+                c.GotoNext(
+                MoveType.After,
+                x => x.MatchLdarg(1),
+                x => x.MatchLdfld<DamageInfo>("procCoefficient"),
+                x => x.MatchLdloc(29),
+                x => x.MatchConvR4(),
+                x => x.MatchMul(),
+                x => x.MatchLdcR4(10),
+                x => x.MatchMul()
+                );
+                c.Emit(OpCodes.Ldloc, 7);
+                c.EmitDelegate<Func<Inventory, float>>(GetExtraCollapseChance);
+                c.Emit(OpCodes.Add);
+            }
+            catch (Exception e) { ErrorHookFailed("Add base collapse chance", e); }
+        }
+
+        private static float GetExtraCollapseChance(Inventory inventory)
+        {
+            return inventory.GetItemCount(itemDef) > 0 ? 5f : 0f;
         }
 
         //May want to move this to a different hook.
@@ -131,7 +173,7 @@ namespace BraqsItems
                         HealthComponent healthComponent = attackerBody.healthComponent;
 
                         //heal 1% for 100% damage dealt
-                        float percentHeal = ((stack - 1) * ConfigManager.HealFromBleed_percentPerStack.Value + ConfigManager.HealFromBleed_percentBase.Value) * damageInfo.damage / (attackerBody.damage);
+                        float percentHeal = ((stack - 1) * ConfigManager.HealFromBleedVoid_percentPerStack.Value + ConfigManager.HealFromBleedVoid_percentBase.Value) * damageInfo.damage / (attackerBody.damage);
 
                         FireHealBurst(percentHeal, stack, attackerBody);
                     }
@@ -148,7 +190,7 @@ namespace BraqsItems
                 return;
             }
 
-            float healRadius = 10f + 5f * (stack - 1);
+            float healRadius = ConfigManager.HealFromBleedVoid_radiusBase.Value + ConfigManager.HealFromBleedVoid_radiusPerStack.Value * (stack - 1);
 
             EffectData effectData = new EffectData
             {

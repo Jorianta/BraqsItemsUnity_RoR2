@@ -21,6 +21,7 @@
     "ITEM_LIGHTNINGONOVERKILL_DESC": "On kill, fire <style=cIsDamage>chain lightning</style> for <style=cIsDamage>%100</style> excess damage of the killing blow at <style=cIsDamage>3</style> <style=cStack>(+1 per stack)</style> enemies within <style=cIsDamage>12m</style> <style=cStack>(+3m per stack)</style>.",
     "ITEM_LIGHTNINGONOVERKILL_LORE": "\"You're going to tell us what we want to know.\"  \n\nThe man struck the alligator clips together, producing a spark that illuminated his face for a moment.  \n\n\"You'll... You'll have to kill me. I'll die before I talk.\"  \n\n\"So be it. After I kill you, I suppose I'll just have to ask your friend what he knows instead.\"",
 
+
     "EXPLODEAGAIN": "Inert Bomblet",
     "ITEM_EXPLODEAGAIN_NAME": "Inert Bomblet",
     "ITEM_EXPLODEAGAIN_PICKUP": "Your explosives can scatter smaller bombs.",
@@ -30,14 +31,28 @@
     "HEALFROMBLEED": "Jar of Medium Leeches",
     "ITEM_HEALFROMBLEED_NAME": "Jar of Leeches",
     "ITEM_HEALFROMBLEED_PICKUP": "Bleed effects heal you.",
-    "ITEM_HEALFROMBLEED_DESC": "Bleed effects heal you <style=cIsHealth>1%</style> health per <style=cIsDamage>100%</style> bleed damage dealt.",
-    "ITEM_HEALFROMBLEED_LORE": "",
+    "ITEM_HEALFROMBLEED_DESC": "Gain <style=cIsDamage>5%</style> bleed chance. Bleed effects heal you <style=cIsHealth>1%</style> <style=cStack>(+1% per stack)</style> health per <style=cIsDamage>100%</style> bleed damage dealt.",
+    "ITEM_HEALFROMBLEED_LORE": "Order: \"Medical Leeches\"  \nTracking Number: 817*****  \nEstimatedDelivery: 08/19/2056  \nShipping Method: Priority  \nShipping Address: Bit Hospital, Mars  \nShipping Details:\n\nSamples of a new species of leech for medical testing. They can eat meat, but at this stage in the life cycle they haven't developed the capacity yet and should be safe for treatment. They'll only grow as big as their habitat, so keep return them to the jar immediately after use. Apparently, they can get pretty massive.",
 
     "REPAIRBROKENITEMS": "Refabricator",
     "ITEM_REPAIRBROKENITEMS_NAME": "Refabricator",
     "ITEM_REPAIRBROKENITEMS_PICKUP": "Repairs some of your items on stage advance.",
     "ITEM_REPAIRBROKENITEMS_DESC": "Repair up to <style=cIsUtility>3</style> <style=cStack>(+3 per stack)</style> broken items on stage advance. May fail for rarer items.",
     "ITEM_REPAIRBROKENITEMS_LORE": "",
+
+
+    "HEALFROMBLEEDVOID": "Royal Tick",
+    "ITEM_HEALFROMBLEEDVOID_NAME": "Royal Tick",
+    "ITEM_HEALFROMBLEEDVOID_PICKUP": "Collapse effects heal all nearby allies",
+    "ITEM_HEALFROMBLEEDVOID_DESC": "Gain <style=cIsDamage>5%</style> collapse chance. On Collapse, release a <style=cIsHealth>10m</style> <style=cStack>(+5m per stack)</style> healing burst that heals allies <style=cIsHealth>1%</style> <style=cStack>(+1% per stack)</style> health per <style=cIsDamage>100%</style> collapse damage dealt.",
+    "ITEM_HEALFROMBLEEDVOID_LORE": "",
+
+
+    "CONFUSIONONHIT": "Pieces of Silver",
+    "ITEM_CONFUSIONONHIT_NAME": "Pieces of Silver",
+    "ITEM_CONFUSIONONHIT_PICKUP": "Your attacks sow discord in your enemies.",
+    "ITEM_CONFUSIONONHIT_DESC": "<style=cIsUtility>5%</style> <style=cStack>(+5% per stack)</style> chance on hit to mark enemies as <style=cIsDamage>betrayed</style> for <style=cIsUtility>5s</style> <style=cStack>(+5s per stack)</style>, making them vulnerable to friendly fire and baiting up to <style=cIsUtility>10</style> nearby enemies to attack them.",
+    "ITEM_CONFUSIONONHIT_LORE": "",
 
     "EXPLOSIONFRENZY": "My Manifesto",
     "ITEM_EXPLOSIONFRENZY_NAME": "My Manifesto",

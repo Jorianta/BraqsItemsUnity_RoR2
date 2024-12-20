@@ -12,7 +12,7 @@ namespace BraqsItems
     public class ExplodeAgain
     {
         public static ItemDef itemDef;
-        public static ModdedProcType BombletProc = ProcTypeAPI.ReserveProcType();
+        public static ModdedProcType procType;
 
         private static GameObject bomblettePrefab;
 
@@ -28,7 +28,7 @@ namespace BraqsItems
             ItemAPI.Add(new CustomItem(itemDef, displayRules));
 
             //PROC//
-            BombletProc = ProcTypeAPI.ReserveProcType();
+            procType = ProcTypeAPI.ReserveProcType();
 
             //EFFECTS//
             bomblettePrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Toolbot/CryoCanisterBombletsProjectile.prefab").WaitForCompletion().InstantiateClone("inertBomblet");
@@ -51,7 +51,7 @@ namespace BraqsItems
             {
                 var items = body.inventory.GetItemCount(itemDef);
 
-                if(items > 0 && !self.procChainMask.HasModdedProc(BombletProc)) FireChildExplosions(self, body, items);
+                if(items > 0 && !self.procChainMask.HasModdedProc(procType)) FireChildExplosions(self, body, items);
             }
 
             return orig(self);
@@ -60,6 +60,8 @@ namespace BraqsItems
         //Much of this code was taken from the molten perf, thanks hopoo
         private static void FireChildExplosions(BlastAttack self, CharacterBody body, int items)
         {
+            if (self.procCoefficient == 0 && !ConfigManager.ExplodeAgain_ignoreProcCoefficient.Value) return;
+
             Log.Debug("ExplodeAgain:FireChildExplosions");
             Vector3 vector2 = self.position;
             Vector3 vector3 = Vector3.up;
@@ -74,12 +76,13 @@ namespace BraqsItems
             float damage = RoR2.Util.OnHitProcDamage(self.baseDamage, body.damage, ConfigManager.ExplodeAgain_damageCoefficient.Value);
 
             ProcChainMask procChainMask = self.procChainMask;
-            procChainMask.AddModdedProc(BombletProc);
+            procChainMask.AddModdedProc(procType);
 
+            float num = ConfigManager.ExplodeAgain_ignoreProcCoefficient.Value ? 1f : self.procCoefficient;
 
             for (int n = 0; n < maxbombs; n++)
             {
-                if (!RoR2.Util.CheckRoll(ConfigManager.ExplodeAgain_chance.Value * self.procCoefficient, body.master)) continue;
+                if (!RoR2.Util.CheckRoll(ConfigManager.ExplodeAgain_chance.Value * num, body.master)) continue;
 
                 float speedOverride = UnityEngine.Random.Range(0.5f, 1f) * self.radius * 3;
 

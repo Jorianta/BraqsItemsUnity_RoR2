@@ -50,6 +50,7 @@ namespace BraqsItems
 
                 if (count > 0)
                 {
+                    self.damageColorIndex = chargedColor;
                     self.damageValue *= 1 + (count - 1) * ConfigManager.InductionCoil_damageBonusPerStack.Value + ConfigManager.InductionCoil_damageBonusBase.Value;
                     Log.Debug("Chain damage = " + self.damageValue);
                 }

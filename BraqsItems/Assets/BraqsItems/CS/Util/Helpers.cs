@@ -1,7 +1,10 @@
-﻿using R2API;
+﻿using BraqsItems.Misc;
+using R2API;
 using RoR2;
 using UnityEngine;
+using System.Linq;
 using UnityEngine.AddressableAssets;
+using System;
 
 namespace BraqsItems.Util
 {
@@ -31,6 +34,28 @@ namespace BraqsItems.Util
             ModelParams.focusPointTransform.SetParent(itemDef.pickupModelPrefab.transform);
 
             return itemDef;
+        }
+
+        public static void AddContagiousRelationship(this ItemDef itemDef, ItemDef itemToTransform)
+        {
+
+            On.RoR2.Items.ContagiousItemManager.Init += (orig) =>
+            {
+                ItemDef.Pair pair = new() { itemDef1 = itemToTransform, itemDef2 = itemDef };
+                ItemCatalog.itemRelationships[DLC1Content.ItemRelationshipTypes.ContagiousItem] = ItemCatalog.itemRelationships[DLC1Content.ItemRelationshipTypes.ContagiousItem].Union(new ItemDef.Pair[] { pair }).ToArray();
+                orig();
+            };
+
+            //ItemCatalog.availability.CallWhenAvailable(() =>
+            //{
+            //    ItemDef.Pair pair = new() { itemDef1 = itemDef, itemDef2 = itemToTransform };
+            //    ItemCatalog.itemRelationships[DLC1Content.ItemRelationshipTypes.ContagiousItem] = ItemCatalog.itemRelationships[DLC1Content.ItemRelationshipTypes.ContagiousItem].Union(new ItemDef.Pair[] { pair }).ToArray();
+            //});
+        }
+
+        internal static void ErrorHookFailed(string name, Exception e)
+        {
+            Log.Error(name + " hook failed: " + e.Message);
         }
     }
 }
