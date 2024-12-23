@@ -20,12 +20,13 @@ namespace BraqsItems
     {
         public static ItemDef itemDef;
         public static BuffDef buffDef;
+        public static DotController.DotIndex dotIndex;
 
         private static GameObject distractionOrbEffect;
 
         internal static void Init()
         {
-            if (!ConfigManager.ExplosionFrenzy_isEnabled.Value) return;
+            if (!ConfigManager.ConfusionOnHit_isEnabled.Value) return;
 
             Log.Info("Initializing Pieces of Silver Item");
             //ITEM//
@@ -36,15 +37,25 @@ namespace BraqsItems
 
             //DEBUFF//
             buffDef = ScriptableObject.CreateInstance<BuffDef>();
-            buffDef.name = "Branded";
+            buffDef.name = "Betrayed";
             buffDef.canStack = false;
             buffDef.isHidden = false;
             buffDef.isDebuff = true;
             buffDef.buffColor = Color.white;
             buffDef.isCooldown = false;
-            buffDef.iconSprite = BraqsItemsMain.assetBundle.LoadAsset<Sprite>("texBuffRendIcon");
+            buffDef.iconSprite = BraqsItemsMain.assetBundle.LoadAsset<Sprite>("texBuffBetrayedIcon");
 
             ContentAddition.AddBuffDef(buffDef);
+
+            //Does no damage, but annoys enemies.
+            DotController.DotDef dotDef = new DotController.DotDef()
+            {
+                interval = 0.2f,
+                damageCoefficient = 0,
+                damageColorIndex = DamageColorIndex.Item,
+                associatedBuff = buffDef,
+            };
+            DotAPI.RegisterDotDef(dotDef);
 
             //EFFECT// 
             distractionOrbEffect = GenerateEffect();
@@ -84,8 +95,8 @@ namespace BraqsItems
                 silverGradient.colorKeys = new GradientColorKey[]
                 {
                     new GradientColorKey{color = new Color(1f, 1f, 1f), time = 0f},
-                    new GradientColorKey{color = new Color(0.94f, 0.84f, 0.88f), time = 0.1f},
-                    new GradientColorKey{color = new Color(0.28f, 0.22f, 0.23f), time = 1f},
+                    new GradientColorKey{color = new Color(0.62f, 0.52f, 0.62f), time = 0.3f},
+                    new GradientColorKey{color = new Color(0.43f, 0.42f, 0.66f), time = 1f},
                 };
 
                 coreCol.color = new ParticleSystem.MinMaxGradient(silverGradient);
@@ -98,7 +109,7 @@ namespace BraqsItems
             {
                 var coinParticle = prefab.transform.Find("VFX/CoinParticle").gameObject.GetComponent<ParticleSystemRenderer>();
                 var coinParticleMaterial = coinParticle.material;
-                coinParticleMaterial.SetColor("_MainColor", new Color(0.94f, 0.84f, 0.88f));
+                coinParticleMaterial.SetColor("_Color", new Color(0.53f, 0.52f, 0.76f));
             }
             catch (Exception e) { Log.Warning("ConfusionOnHit:GenerateEffect() ; Could not edit coin orb particles." + 
                 "\n" + e); 
@@ -114,6 +125,7 @@ namespace BraqsItems
             On.RoR2.FriendlyFireManager.ShouldSeekingProceed += FriendlyFireManager_ShouldSeekingProceed;
 
             GlobalEventManager.onServerDamageDealt += GlobalEventManager_onServerDamageDealt;
+            On.RoR2.CharacterBody.OnBuffFirstStackGained += CharacterBody_OnBuffFirstStackGained;
         }
 
         private static bool FriendlyFireManager_ShouldSeekingProceed(On.RoR2.FriendlyFireManager.orig_ShouldSeekingProceed orig, HealthComponent victim, TeamIndex attackerTeamIndex)
@@ -136,17 +148,96 @@ namespace BraqsItems
 
         private static void GlobalEventManager_onServerDamageDealt(DamageReport obj)
         {
-            if (obj.damageInfo.procCoefficient > 0 && !obj.damageInfo.rejected && obj.attacker && obj.attackerMaster && obj.attackerMaster.inventory && obj.victimBody)
+            if (obj.damageInfo.procCoefficient > 0 && !obj.damageInfo.rejected && obj.attacker && obj.attackerMaster && obj.attackerMaster.inventory && obj.victim && obj.victimBody)
             {
                 int stack = obj.attackerMaster.inventory.GetItemCount(itemDef);
-                if(stack > 0 && RoR2.Util.CheckRoll(5f, obj.attackerMaster))
-                {
-                    float duration = 5f + (stack - 1) * 2f;
-                    int distractions = 10 + (stack - 1) * 5;
 
+                if(stack > 0)
+                {    
+                    float duration = ConfigManager.ConfusionOnHit_durationBase.Value + (stack - 1) * ConfigManager.ConfusionOnHit_durationPerStack.Value;
+                    int distractions = ConfigManager.ConfusionOnHit_enemiesAggroed.Value * stack;
+
+                    //DistractionOrb.FireDistractionOrbs(obj.victimBody.gameObject, distractions, duration);
                     obj.victimBody.AddTimedBuff(buffDef, duration);
+                    
+                }
+            }
+        }
 
-                    DistractionOrb.FireDistractionOrbs(obj.victimBody.gameObject, obj.attacker, distractions);
+        private static void CharacterBody_OnBuffFirstStackGained(On.RoR2.CharacterBody.orig_OnBuffFirstStackGained orig, CharacterBody self, BuffDef buff)
+        {
+            if(buff == buffDef)
+            {
+                BraqsItems_BetrayedBehavior comp = self.gameObject.AddComponent<BraqsItems_BetrayedBehavior>();
+                comp.body = self;
+                comp.enabled = true;
+            }
+            orig(self, buff);
+        }
+
+        public class BraqsItems_BetrayedBehavior : MonoBehaviour
+        {
+            public CharacterBody body;
+            private HealthComponent healthComponent;
+            private List<HealthComponent> previousTargetList = new List<HealthComponent>();
+
+            private float coinFireTimer = 0f;
+            private float resetListTimer = 0f;
+            private const float resetListInterval = 1f;
+            private const float coinFireInterval = 0.5f;
+            
+            private bool hasBuff => (body.GetBuffCount(buffDef) > 0 && healthComponent);
+
+            private void Start()
+            {
+                Log.Debug("BetrayedBehavior:Start()");
+                if (body.healthComponent)
+                {
+                    healthComponent = body.healthComponent;
+                    previousTargetList.Add(healthComponent);
+                }
+            }
+
+            private void OnDestroy()
+            {
+                Log.Debug("BetrayedBehavior:OnDestroy()");
+            }
+
+            private void FixedUpdate()
+            {
+                if (!hasBuff) Destroy(this);
+
+                coinFireTimer += Time.fixedDeltaTime;
+                resetListTimer += Time.fixedDeltaTime;
+                if(coinFireTimer >= coinFireInterval)
+                {
+                    coinFireTimer = 0;
+                    FireDistractionOrb();
+                    previousTargetList.Clear();
+                    if (healthComponent) previousTargetList.Add(healthComponent);
+                }
+                //if (resetListTimer >= resetListInterval)
+                //{
+                //    resetListTimer = 0;
+                //}
+            }
+
+            private void FireDistractionOrb()
+            {
+                Log.Debug("BetrayedBehavior:FireDistractionOrb()");
+                DistractionOrb distractionOrb = new()
+                {
+                    origin = body.transform.position,
+                    attacker = body.gameObject,
+                    victimTeam = body.teamComponent.teamIndex,
+                    bouncedObjects = previousTargetList
+                };
+                HurtBox hurtBox = distractionOrb.PickTarget();
+                if ((bool)hurtBox)
+                {
+                    distractionOrb.target = hurtBox;
+                    previousTargetList.Add(hurtBox.healthComponent);
+                    RoR2.Orbs.OrbManager.instance.AddOrb(distractionOrb);
                 }
             }
         }
@@ -158,9 +249,7 @@ namespace BraqsItems
             public float range = 50f;
             private BullseyeSearch search;
             public List<HealthComponent> bouncedObjects;
-
-            public GameObject distractor;
-            public TeamIndex distractorTeamIndex;
+            public TeamIndex victimTeam;
 
             public override void Begin()
             {
@@ -196,8 +285,8 @@ namespace BraqsItems
                 }
                 search.searchOrigin = origin;
                 search.searchDirection = Vector3.zero;
-                search.teamMaskFilter = TeamMask.allButNeutral;
-                search.teamMaskFilter.RemoveTeam(distractorTeamIndex);
+                search.teamMaskFilter = TeamMask.none;
+                search.teamMaskFilter.AddTeam(victimTeam);
                 search.filterByLoS = false;
                 search.sortMode = BullseyeSearch.SortMode.Distance;
                 search.maxDistanceFilter = range;
@@ -209,14 +298,24 @@ namespace BraqsItems
                 {
                     bouncedObjects.Add(hurtBox.healthComponent);
                 }
+                else { Debug.Log("DistractionOrb:PickTarget() | No Target Found"); };
                 return hurtBox;
             }
 
-            //The distraction is marked as the attacker to draw attention.
-            public static void FireDistractionOrbs(GameObject distraction, GameObject distractor, int count)
+            public override void OnArrival()
+            {
+                base.OnArrival();
+                
+                //if (target && target.healthComponent && target.healthComponent.body)
+                //{
+                //    target.healthComponent.body.AddTimedBuff(buffDef, buffDurationOnArrival);
+                //}
+            }
+
+            public static void FireDistractionOrbs(GameObject victim, int count, float buffDuration = 0)
             {
                 List<HealthComponent> targets = new List<HealthComponent>();
-                if (distraction.TryGetComponent(out HealthComponent healthComponent)) targets.Add(healthComponent);
+                if (victim.TryGetComponent(out HealthComponent healthComponent)) targets.Add(healthComponent);
 
                 BullseyeSearch search = new BullseyeSearch();
 
@@ -224,10 +323,9 @@ namespace BraqsItems
                 {
                     DistractionOrb distractionOrb = new DistractionOrb();
                     distractionOrb.search = search;
-                    distractionOrb.origin = distraction.transform.position;
-                    distractionOrb.attacker = distraction;
-                    distractionOrb.distractor = distractor;
-                    distractionOrb.distractorTeamIndex = distractor.TryGetComponent(out CharacterBody body) ? body.teamComponent.teamIndex : TeamIndex.None;
+                    distractionOrb.origin = victim.transform.position;
+                    distractionOrb.attacker = victim;
+                    distractionOrb.victimTeam = victim.TryGetComponent(out CharacterBody body) ? body.teamComponent.teamIndex : TeamIndex.None;
                     distractionOrb.bouncedObjects = targets;
                     HurtBox hurtBox = distractionOrb.PickTarget();
                     if ((bool)hurtBox)
@@ -238,7 +336,6 @@ namespace BraqsItems
                     }
 
                     else break;
-
                 }
             }
         }

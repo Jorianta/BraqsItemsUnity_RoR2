@@ -12,8 +12,6 @@ namespace BraqsItems
     {
         public static ItemDef itemDef;
 
-        public static bool isEnabled = true;
-
         internal static void Init()
         {
             if (!ConfigManager.AttackSpeedOnHit_isEnabled.Value) return;
@@ -21,7 +19,7 @@ namespace BraqsItems
             Log.Info("Initializing Hundreds and Thousands Item");
 
             //ITEM//
-             itemDef = GetItemDef("AttackSpeedOnHit");
+            itemDef = GetItemDef("AttackSpeedOnHit");
 
             ItemDisplayRuleDict displayRules = new ItemDisplayRuleDict(null);
             ItemAPI.Add(new CustomItem(itemDef, displayRules));
@@ -30,6 +28,7 @@ namespace BraqsItems
 
             Log.Info("Hundreds and Thousands Initialized");
         }
+
 
         private static void Hooks()
         {

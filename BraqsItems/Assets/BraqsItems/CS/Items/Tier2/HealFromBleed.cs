@@ -1,8 +1,10 @@
 ﻿using R2API;
 using RoR2;
 using RoR2.Orbs;
-using static RoR2.DotController;
+using MonoMod.Cil;
+using Mono.Cecil.Cil;
 using static BraqsItems.Util.Helpers;
+using System;
 
 namespace BraqsItems
 {
@@ -29,13 +31,43 @@ namespace BraqsItems
 
         private static void Hooks()
         {
+            //IL.RoR2.GlobalEventManager.ProcessHitEnemy += GlobalEventManager_ProcessHitEnemy;
             On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
-            //RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+            RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
         }
 
         private static void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
         {
-           
+            if (sender.inventory.GetItemCount(itemDef) > 0) 
+            {
+                args.bleedChanceAdd += 5f;
+            }
+        }
+
+        //private static void GlobalEventManager_ProcessHitEnemy(ILContext il)
+        //{
+        //    ILCursor c = new ILCursor(il);
+
+        //    Log.Debug("HealFromBleed: Adding base bleed chance");
+        //    try
+        //    {
+        //        c.GotoNext(
+        //        MoveType.After,
+        //        x => x.MatchLdarg(1),
+        //        x => x.MatchLdfld<DamageInfo>("procCoefficient"),
+        //        x => x.MatchLdloc(1),
+        //        x => x.MatchCallvirt<CharacterBody>("get_bleedChance")
+        //        );
+        //        c.Emit(OpCodes.Ldloc, 7);
+        //        c.EmitDelegate<Func<Inventory, float>>(GetExtraBleedChance);
+        //        c.Emit(OpCodes.Add);
+        //    }
+        //    catch (Exception e) { ErrorHookFailed("Add base bleed chance", e); }
+        //}
+
+        private static float GetExtraBleedChance(Inventory inventory)
+        {
+            return inventory.GetItemCount(itemDef) > 0 ? 5f : 0f;
         }
 
         //May want to move this to a different hook.

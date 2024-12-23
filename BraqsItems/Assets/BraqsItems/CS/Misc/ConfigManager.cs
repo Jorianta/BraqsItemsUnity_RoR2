@@ -12,7 +12,7 @@ namespace BraqsItems
     public class ConfigManager
     {
         public static ConfigEntry<string> ConfigVersion;
-
+        #region white
         //HundredsAndThousands
         public static ConfigEntry<bool> AttackSpeedOnHit_isEnabled;
         public static ConfigEntry<float> AttackSpeedOnHit_percentPerStack;
@@ -29,8 +29,15 @@ namespace BraqsItems
         public static ConfigEntry<int> LightningOnOverkill_bounceBase;
         public static ConfigEntry<float> LightningOnOverkill_rangePerStack;
         public static ConfigEntry<float> LightningOnOverkill_rangeBase;
-
-
+        //VOID
+        //JumperCables
+        public static ConfigEntry<bool> LightningOnOverkillVoid_isEnabled;
+        public static ConfigEntry<float> LightningOnOverkillVoid_damagePercentPerStack;
+        public static ConfigEntry<float> LightningOnOverkillVoid_damagePercentBase;
+        public static ConfigEntry<int> LightningOnOverkillVoid_hitsPerStack;
+        public static ConfigEntry<int> LightningOnOverkillVoid_hitsBase;
+        #endregion
+        #region green
         //Bomblet
         public static ConfigEntry<bool> ExplodeAgain_isEnabled;
         public static ConfigEntry<float> ExplodeAgain_chance;
@@ -38,6 +45,7 @@ namespace BraqsItems
         public static ConfigEntry<float> ExplodeAgain_damageCoefficient;
         public static ConfigEntry<int> ExplodeAgain_maxBombsBase;
         public static ConfigEntry<int> ExplodeAgain_maxBombsPerStack;
+        public static ConfigEntry<bool> ExplodeAgain_ignoreProcCoefficient;
         //Leeches
         public static ConfigEntry<bool> HealFromBleed_isEnabled;
         public static ConfigEntry<float> HealFromBleed_percentBase;
@@ -49,7 +57,23 @@ namespace BraqsItems
         public static ConfigEntry<float> RepairBrokenItems_whiteChance;
         public static ConfigEntry<float> RepairBrokenItems_defaultChance;
         public static ConfigEntry<float> RepairBrokenItems_redChance;
-
+        //VOID
+        //Tick Queen
+        public static ConfigEntry<bool> HealFromBleedVoid_isEnabled;
+        public static ConfigEntry<float> HealFromBleedVoid_percentBase;
+        public static ConfigEntry<float> HealFromBleedVoid_percentPerStack;
+        public static ConfigEntry<float> HealFromBleedVoid_radiusBase;
+        public static ConfigEntry<float> HealFromBleedVoid_radiusPerStack;
+        #endregion
+        #region red
+        //Pieces of Silver
+        public static ConfigEntry<bool> ConfusionOnHit_isEnabled;
+        public static ConfigEntry<float> ConfusionOnHit_chanceBase;
+        public static ConfigEntry<float> ConfusionOnHit_chancePerStack;
+        public static ConfigEntry<float> ConfusionOnHit_durationBase;
+        public static ConfigEntry<float> ConfusionOnHit_durationPerStack;
+        public static ConfigEntry<int> ConfusionOnHit_enemiesAggroed;
+        public static ConfigEntry<bool> ConfusionOnHit_spreadDebuff;
         //Manifesto
         public static ConfigEntry<bool> ExplosionFrenzy_isEnabled;
         public static ConfigEntry<float> ExplosionFrenzy_igniteDamageBase;
@@ -67,6 +91,7 @@ namespace BraqsItems
         public static ConfigEntry<bool> InductionCoil_isEnabled;
         public static ConfigEntry<float> InductionCoil_damageBonusBase;
         public static ConfigEntry<float> InductionCoil_damageBonusPerStack;
+        #endregion
 
 
         public static void Init(string configPath)
@@ -77,16 +102,15 @@ namespace BraqsItems
 
             //Remake Config on minor update
             ConfigVersion = Config.Bind("Version", "Version", BraqsItemsMain.VERSION, "Don't touch. Used to determine if a config file is out of date.");
-            var ConfigMinor = ConfigVersion.Value.Split('.')[1];
-            var Minor = BraqsItemsMain.VERSION.Split('.')[1];
+            var ConfigMinor = ConfigVersion.Value.Split('.')[0] +'.'+ ConfigVersion.Value.Split('.')[1];
+            var Minor = BraqsItemsMain.VERSION.Split('.')[0] + '.' + BraqsItemsMain.VERSION.Split('.')[1];
             if (ConfigMinor != Minor)
             {
                 Config.Clear();
                 Config.Save();
                 ConfigVersion = Config.Bind("Version", "Version", BraqsItemsMain.VERSION, "Don't touch. Used to determine if a config file is out of date.");
             }
-
-            //White
+            #region white
             AttackSpeedOnHit_isEnabled = Config.Bind("ATTACKSPEEDONHIT", "Enable", true, "Load this item.");
             AttackSpeedOnHit_percentBase = Config.Bind("ATTACKSPEEDONHIT", "Base Attack Speed Bonus", 0.01f, "Attack speed bonus gained on hit with one stack.");
             AttackSpeedOnHit_percentPerStack = Config.Bind("ATTACKSPEEDONHIT", "Attack Speed Bonus Per Stack", 0.01f, "Attack speed bonus gained on hit per additional stack.");
@@ -103,13 +127,21 @@ namespace BraqsItems
             LightningOnOverkill_rangePerStack = Config.Bind("LIGHTNINGONOVERKILL", "Range Per Stack", 3f, "Range of the lightning per additional stack.");
             LightningOnOverkill_rangeBase = Config.Bind("LIGHTNINGONOVERKILL", "Range", 12f, "Range of the lightning with one stack.");
 
-            //Green
+            LightningOnOverkillVoid_isEnabled = Config.Bind("LIGHTNINGONOVERKILLVOID", "Enable", true, "Load this item.");
+            LightningOnOverkillVoid_damagePercentPerStack = Config.Bind("LIGHTNINGONOVERKILLVOID", "Damage Per Stack", 0.5f, "Maximum possible bonus base damage per additional stack.");
+            LightningOnOverkillVoid_damagePercentBase = Config.Bind("LIGHTNINGONOVERKILLVOID", "Base Damage", 3f, "Maximum possible bonus base damage dealt on the next hit after kill.");
+            LightningOnOverkillVoid_hitsPerStack = Config.Bind("LIGHTNINGONOVERKILLVOID", "Hits Per Stack", 1, "Number of hits that recieve bonus damage per additional stack.");
+            LightningOnOverkillVoid_hitsBase = Config.Bind("LIGHTNINGONOVERKILLVOID", "Hits with bonus", 2, "Number of hits that recieve bonus damage after kill.");
+            #endregion
+
+            #region green
             ExplodeAgain_isEnabled = Config.Bind("EXPLODEAGAIN", "Enable", true, "Load this item.");
             ExplodeAgain_chance = Config.Bind("EXPLODEAGAIN", "Bomblet Chance", 25f, "The chance to fire a bomblet. This chance is rolled repeatedly to determine how many bomblets to fire.");
             ExplodeAgain_maxBombsBase = Config.Bind("EXPLODEAGAIN", "Number of Bombs", 3, "The maximum number of bomblets that can be fired with one stack.");
             ExplodeAgain_maxBombsPerStack = Config.Bind("EXPLODEAGAIN", "Number of Bombs Per Stack", 2, "The number of additinal bomblets that can be fired per additional stack.");
             ExplodeAgain_radiusCoefficient = Config.Bind("EXPLODEAGAIN", "Radius Coefficient", 0.75f, "Multiplied by the radius of the initial explosion to determine the bomblet's blast radius.");
             ExplodeAgain_damageCoefficient = Config.Bind("EXPLODEAGAIN", "Damage Coefficient", 0.75f, "Multiplied by the damage of the initial explosion to determine the bomblet's damage.");
+            ExplodeAgain_ignoreProcCoefficient = Config.Bind("EXPLODEAGAIN", "Ignore Proc Coefficients", false, "When enabled, bomblets have the same chance to fire regardless of the proc coefficient of the initial explosion. This allows Behemoth and Sticky bomb to fire bomblets. Turn on at your own risk.");
 
             HealFromBleed_isEnabled = Config.Bind("HEALFROMBLEED", "Enable", true, "Load this item.");
             HealFromBleed_percentBase = Config.Bind("HEALFROMBLEED", "Percent Health Healed", 0.01f, "Fraction of health healed for every 100% bleed damage with one stack.");
@@ -121,8 +153,22 @@ namespace BraqsItems
             RepairBrokenItems_whiteChance = Config.Bind("REPAIRBROKENITEMS", "White Success Chance", 100f, "Repair success chance for white/void white items.");
             RepairBrokenItems_redChance = Config.Bind("REPAIRBROKENITEMS", "Red Success Chance", 50f, "Repair success chance for red/void red items.");
             RepairBrokenItems_defaultChance = Config.Bind("REPAIRBROKENITEMS", "Default Success Chance", 75f, "Repair success chance for all other items.");
+            //Void
+            HealFromBleedVoid_isEnabled = Config.Bind("HEALFROMBLEEDVOID", "Enable", true, "Load this item.");
+            HealFromBleedVoid_percentBase = Config.Bind("HEALFROMBLEEDVOID", "Percent Health Healed", 0.01f, "Fraction of health healed for every 100% collapse damage with one stack.");
+            HealFromBleedVoid_percentPerStack = Config.Bind("HEALFROMBLEEDVOID", "Percent Health Healed Per Stack", 0.01f, "Fraction of health healed for every 100% collapse damage per additional stack.");
+            HealFromBleedVoid_radiusBase = Config.Bind("HEALFROMBLEEDVOID", "Heal Radius", 10f, "Radius of the healing burst with one stack.");
+            HealFromBleedVoid_radiusPerStack = Config.Bind("HEALFROMBLEEDVOID", "Heal Radius Per Stack", 5f, "Radius of the healing burst per additional stack.");
+            #endregion
 
-            //Red
+            #region red
+            ConfusionOnHit_isEnabled = Config.Bind("CONFUSIONONHIT", "Enable", true, "Load this item.");
+            ConfusionOnHit_chanceBase = Config.Bind("CONFUSIONONHIT", "Base Chance", 100f, "Chance to apply betrayed on hit.");
+            ConfusionOnHit_chancePerStack = Config.Bind("CONFUSIONONHIT", "Chance Per Stack", 0f, "Additional chance to apply betrayed on hit per additional stack. Hyperbolic.");
+            ConfusionOnHit_durationBase = Config.Bind("CONFUSIONONHIT", "Base Duration", 2f, "Duration of betrayed with one stack.");
+            ConfusionOnHit_durationPerStack = Config.Bind("CONFUSIONONHIT", "Duration Per Stack", 2f, "Additional duration of betrayed per additional stack.");
+            ConfusionOnHit_enemiesAggroed = Config.Bind("CONFUSIONONHIT", "Enemies Aggroed", 1, "The number of enemies baited to attack a victim on applying betrayed.");
+
             ExplosionFrenzy_isEnabled = Config.Bind("EXPLOSIONFRENZY", "Enable", true, "Load this item.");
             ExplosionFrenzy_igniteDamageBase = Config.Bind("EXPLOSIONFRENZY", "Base Total Damage", 0.5f, "Total Damage dealt by burn effects from explosions.");
             ExplosionFrenzy_igniteDamagePerStack = Config.Bind("EXPLOSIONFRENZY", "Total Damage Per Stack", 0.5f, "Additional Total Damage dealt by burn effects from explosions per additional stack.");
@@ -139,6 +185,7 @@ namespace BraqsItems
             InductionCoil_isEnabled = Config.Bind("LIGHTNINGDAMAGEBOOST", "Enable", true, "Load this item.");
             InductionCoil_damageBonusBase = Config.Bind("LIGHTNINGDAMAGEBOOST", "Base Damage Increase", 0.50f, "Damage increase per bounce with one stack.");
             InductionCoil_damageBonusPerStack = Config.Bind("LIGHTNINGDAMAGEBOOST", "Percent Damage Increase", 0.20f, "Damage increase per bounce per additional stack.");
+            #endregion
 
             foreach (ConfigDefinition def in Config.Keys)
             {
@@ -149,7 +196,7 @@ namespace BraqsItems
                 }
                 if (configEntryBase.DefaultValue.GetType() == typeof(int))
                 {
-                    ModSettingsManager.AddOption(new IntSliderOption((ConfigEntry<int>)configEntryBase, new IntSliderConfig() { min = 0, max = ((ConfigEntry<int>)configEntryBase).Value * 10 }));
+                    ModSettingsManager.AddOption(new IntSliderOption((ConfigEntry<int>)configEntryBase, new IntSliderConfig() { min = 0, max = Mathf.Max(((ConfigEntry<int>)configEntryBase).Value * 10, 10 )}));
                 }
                 if (configEntryBase.DefaultValue.GetType() == typeof(float))
                 {

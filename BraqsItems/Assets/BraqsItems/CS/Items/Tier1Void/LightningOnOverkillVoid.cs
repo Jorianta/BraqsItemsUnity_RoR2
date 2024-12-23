@@ -13,22 +13,23 @@ namespace BraqsItems
     public class LightningOnOverkillVoid
     {
         public static ItemDef itemDef;
-        public static ModdedProcType OverkillLightningVoidProc;
+        public static ModdedProcType procType;
 
         internal static void Init()
         {
-            if (!ConfigManager.LightningOnOverkill_isEnabled.Value) return;
+            if (!ConfigManager.LightningOnOverkillVoid_isEnabled.Value) return;
 
             Log.Info("Initializing Sunken Chains Item");
 
             //ITEM//
             itemDef = GetItemDef("LightningOnOverkillVoid");
+            if (ConfigManager.LightningOnOverkill_isEnabled.Value) itemDef.AddContagiousRelationship(LightningOnOverkill.itemDef);
 
             ItemDisplayRuleDict displayRules = new ItemDisplayRuleDict(null);
             ItemAPI.Add(new CustomItem(itemDef, displayRules));
 
             //PROC//
-            OverkillLightningVoidProc = ProcTypeAPI.ReserveProcType();
+            procType = ProcTypeAPI.ReserveProcType();
 
             Hooks();
 
@@ -50,10 +51,10 @@ namespace BraqsItems
 
         private static void GlobalEventManager_OnHitEnemy(On.RoR2.GlobalEventManager.orig_OnHitEnemy orig, GlobalEventManager self, DamageInfo damageInfo, GameObject victim)
         {
-            if (!damageInfo.rejected && damageInfo.procCoefficient > 0 && !damageInfo.procChainMask.HasModdedProc(OverkillLightningVoidProc) && (bool)damageInfo.attacker &&
+            if (!damageInfo.rejected && damageInfo.procCoefficient > 0 && !damageInfo.procChainMask.HasModdedProc(procType) && (bool)damageInfo.attacker &&
                 damageInfo.attacker.TryGetComponent(out CharacterBody attackerBody) && attackerBody.TryGetComponent(out BraqsItems_LightningOnOverkillVoidBehavior component) && victim.TryGetComponent(out CharacterBody victimBody))
             {
-                if (victimBody.healthComponent && victimBody.healthComponent.alive)
+                if (victimBody.healthComponent && victimBody.healthComponent.alive && damageInfo.damageType.IsDamageSourceSkillBased)
                 {
                     component.FireVoidLightning(damageInfo, victimBody);
                 }
@@ -68,9 +69,10 @@ namespace BraqsItems
             {
                 int stack = obj.attackerBody.inventory.GetItemCount(itemDef);
                 if (stack <= 0) return;
-                
+
                 //up to 400% base damage, based on how much damage was wasted
-                float multiplier = 4f * (obj.damageDealt - obj.combinedHealthBeforeDamage)/obj.damageDealt;
+                float multiplier = ConfigManager.LightningOnOverkillVoid_damagePercentBase.Value + (stack - 1) * ConfigManager.LightningOnOverkillVoid_damagePercentPerStack.Value;
+                multiplier *= (obj.damageDealt - obj.combinedHealthBeforeDamage)/obj.damageDealt;
                 float damage = RoR2.Util.OnHitProcDamage(obj.attackerBody.damage, obj.attackerBody.baseDamage, 
                     multiplier);
 
@@ -102,7 +104,7 @@ namespace BraqsItems
                 damageBonuses.Add(new DamageBonus 
                 {
                     damage = damage,
-                    hitsLeft = stack,
+                    hitsLeft = ConfigManager.LightningOnOverkillVoid_hitsBase.Value + (stack - 1) * ConfigManager.LightningOnOverkillVoid_hitsPerStack.Value,
                 });
             }
 
@@ -118,7 +120,7 @@ namespace BraqsItems
                 float fractionalDamage = totalDamageBonus  / bonusCount;
 
                 ProcChainMask mask = damageInfo.procChainMask;
-                mask.AddModdedProc(OverkillLightningVoidProc);
+                mask.AddModdedProc(procType);
 
                 VoidLightningOrb voidLightningOrb = new VoidLightningOrb
                 {
