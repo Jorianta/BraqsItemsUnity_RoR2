@@ -32,7 +32,7 @@ namespace BraqsItems
     {
         public const string GUID = "com.Braquen.BraqsItems";
         public const string MODNAME = "Braqs Items";
-        public const string VERSION = "1.0.1";
+        public const string VERSION = "1.5.0";
 
         public static ExpansionDef BraqsItemsExpansion;
 
@@ -72,7 +72,7 @@ namespace BraqsItems
 
             HealFromBleedVoid.Init();
 
-            ConfusionOnHit.Init();
+            //ConfusionOnHit.Init();
             ExplosionFrenzy.Init();
             HundredRendingFists.Init();
             LightningDamageBoost.Init();
@@ -90,7 +90,7 @@ namespace BraqsItems
                 // And then drop our defined item in front of the player.
 
                 Log.Info($"Player pressed F2. Spawning our custom item at coordinates {transform.position}");
-                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(ConfusionOnHit.itemDef.itemIndex), transform.position, transform.forward * 20f);
+                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(LightningOnOverkillVoid.itemDef.itemIndex), transform.position, transform.forward * 20f);
             }
         }
     }

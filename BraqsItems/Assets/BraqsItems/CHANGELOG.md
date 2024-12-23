@@ -1,3 +1,10 @@
+# 1.5.0
+* New Items!
+  * Sunken Chains (Void Jumper Cables)
+  * Royal Tick (Void Jar of Medium Leeches)
+* Tweaks
+  * Leech Jar now gives 5% bleed chance on the first stack.
+
 # 1.0.1
 * Bug Fixes
   * No more NREs when killing an enemy with a bleed stack on you.

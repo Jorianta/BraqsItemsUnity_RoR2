@@ -29,6 +29,13 @@ namespace BraqsItems
         public static ConfigEntry<int> LightningOnOverkill_bounceBase;
         public static ConfigEntry<float> LightningOnOverkill_rangePerStack;
         public static ConfigEntry<float> LightningOnOverkill_rangeBase;
+        //VOID
+        //JumperCables
+        public static ConfigEntry<bool> LightningOnOverkillVoid_isEnabled;
+        public static ConfigEntry<float> LightningOnOverkillVoid_damagePercentPerStack;
+        public static ConfigEntry<float> LightningOnOverkillVoid_damagePercentBase;
+        public static ConfigEntry<int> LightningOnOverkillVoid_hitsPerStack;
+        public static ConfigEntry<int> LightningOnOverkillVoid_hitsBase;
         #endregion
         #region green
         //Bomblet
@@ -119,6 +126,12 @@ namespace BraqsItems
             LightningOnOverkill_bounceBase = Config.Bind("LIGHTNINGONOVERKILL", "Base Bounces", 3, "Number of enemies hit with one stack.");
             LightningOnOverkill_rangePerStack = Config.Bind("LIGHTNINGONOVERKILL", "Range Per Stack", 3f, "Range of the lightning per additional stack.");
             LightningOnOverkill_rangeBase = Config.Bind("LIGHTNINGONOVERKILL", "Range", 12f, "Range of the lightning with one stack.");
+
+            LightningOnOverkillVoid_isEnabled = Config.Bind("LIGHTNINGONOVERKILLVOID", "Enable", true, "Load this item.");
+            LightningOnOverkillVoid_damagePercentPerStack = Config.Bind("LIGHTNINGONOVERKILLVOID", "Damage Per Stack", 0.5f, "Maximum possible bonus base damage per additional stack.");
+            LightningOnOverkillVoid_damagePercentBase = Config.Bind("LIGHTNINGONOVERKILLVOID", "Base Damage", 3f, "Maximum possible bonus base damage dealt on the next hit after kill.");
+            LightningOnOverkillVoid_hitsPerStack = Config.Bind("LIGHTNINGONOVERKILLVOID", "Hits Per Stack", 1, "Number of hits that recieve bonus damage per additional stack.");
+            LightningOnOverkillVoid_hitsBase = Config.Bind("LIGHTNINGONOVERKILLVOID", "Hits with bonus", 2, "Number of hits that recieve bonus damage after kill.");
             #endregion
 
             #region green

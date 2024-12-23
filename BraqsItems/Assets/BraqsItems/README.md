@@ -9,14 +9,20 @@ Increases explosion radius by 5% (+5% per stack).
 For each enemy you have hit, increase attack speed by 1% (+1% per stack) while that enemy lives.
 #### Jumper Cables
 On kill, fire chain lightning for 100% excess damage of the killing blow at 3 (+1 per stack) enemies within 12m (+3m per stack).
+### Void
+#### Sunken Chains
+After kill, your next 2 (+1 per stack)attacks strike an additional time for up to %300 (+50% per stack) base damage, proportional to the amount of excess damage from the killing blow. Multiple bonuses can be applied at once. Corrupts all Jumper Cables.
 
 ## Tier 2
 #### Inert Bomblet
 Explosions scatter up to 3 (+2 per stack) bomblets, each dealing 75% TOTAL damage within 75% of the radius of the original explosion.
 #### Jar of Medium Leeches
-Bleed effects heal 1% (+1% per stack) health per 100% bleed damage dealt.
+Gain 5% bleed chance. Bleed effects heal 1% (+1% per stack) health per 100% bleed damage dealt.
 #### Refabricator
 Repair up to 3 (+3 per stack) broken items on stage advance. May fail for rarer items.
+### Void
+#### Royal Tick
+Gain 5% collapse chance. On Collapse, release a 10m (+5m per stack) healing burst that heals allies 1% (+1% per stack) health per 100% collapse damage dealt. Corrupts all Jars of Medium Leeches.
 
 ## Tier 3
 #### My Manifesto
