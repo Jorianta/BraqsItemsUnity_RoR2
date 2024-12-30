@@ -60,19 +60,21 @@ namespace BraqsItems
 
             BrokenItemRelationships.CreateBrokenItemProvider();
 
-            BiggerExplosions.Init();
             AttackSpeedOnHit.Init();
+            BiggerExplosions.Init();
             LightningOnOverkill.Init();
+            RandomSkillBoost.Init();
 
             LightningOnOverkillVoid.Init();
 
             ExplodeAgain.Init();
-            RepairBrokenItems.Init();
             HealFromBleed.Init();
+            RepairBrokenItems.Init();
+            SkillSaver.Init();
 
             HealFromBleedVoid.Init();
 
-            //ConfusionOnHit.Init();
+            ConfusionOnHit.Init();
             ExplosionFrenzy.Init();
             HundredRendingFists.Init();
             LightningDamageBoost.Init();
@@ -90,7 +92,7 @@ namespace BraqsItems
                 // And then drop our defined item in front of the player.
 
                 Log.Info($"Player pressed F2. Spawning our custom item at coordinates {transform.position}");
-                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(LightningOnOverkillVoid.itemDef.itemIndex), transform.position, transform.forward * 20f);
+                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(ConfusionOnHit.itemDef.itemIndex), transform.position, transform.forward * 20f);
             }
         }
     }

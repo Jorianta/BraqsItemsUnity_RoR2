@@ -21,6 +21,12 @@
     "ITEM_LIGHTNINGONOVERKILL_DESC": "On kill, fire <style=cIsDamage>chain lightning</style> for <style=cIsDamage>%100</style> excess damage of the killing blow at <style=cIsDamage>3</style> <style=cStack>(+1 per stack)</style> enemies within <style=cIsDamage>12m</style> <style=cStack>(+3m per stack)</style>.",
     "ITEM_LIGHTNINGONOVERKILL_LORE": "\"You're going to tell us what we want to know.\"  \n\nThe man struck the alligator clips together, producing a spark that illuminated his face for a moment.  \n\n\"You'll... You'll have to kill me. I'll die before I talk.\"  \n\n\"So be it. After I kill you, I suppose I'll just have to ask your friend what he knows instead.\"",
 
+    "RANDOMSKILLBOOST": "Simon Says",
+    "ITEM_RANDOMSKILLBOOST_NAME": "Simon Says",
+    "ITEM_RANDOMSKILLBOOST_PICKUP": "Recieve a boost to a random skill.",
+    "ITEM_RANDOMSKILLBOOST_DESC": "Recieve a <style=cIsDamage>20%</style> <style=cStack>(+20% per stack)</style> damage increase and a <style=cIsUtility>10%</style> <style=cStack>(+10% per stack)</style> cooldown reduction to a random skill that changes every <style=cIsUtility>5</style> seconds.",
+    "ITEM_RANDOMSKILLBOOST_LORE": "",
+
     "LIGHTNINGONOVERKILLVOID": "Sunken Chains",
     "ITEM_LIGHTNINGONOVERKILLVOID_NAME": "Sunken Chains",
     "ITEM_LIGHTNINGONOVERKILLVOID_PICKUP": "After kill, your next attacks hit an additional time.",
@@ -45,6 +51,12 @@
     "ITEM_REPAIRBROKENITEMS_PICKUP": "Repairs some of your items on stage advance.",
     "ITEM_REPAIRBROKENITEMS_DESC": "Repair up to <style=cIsUtility>3</style> <style=cStack>(+3 per stack)</style> broken items on stage advance. May fail for rarer items.",
     "ITEM_REPAIRBROKENITEMS_LORE": "",
+
+    "SKILLSAVER": "Bison Pills",
+    "ITEM_SKILLSAVER_NAME": "Bison Pills",
+    "ITEM_SKILLSAVER_PICKUP": "After using your skills or equipment, they have a chance to be ready for another round.",
+    "ITEM_SKILLSAVER_DESC": "<style=cIsUtility>13%</style> <style=cStack>(+13% per stack)</style> chance on using a skill or equipment to <style=cIsUtility>not consume a charge</style>.",
+    "ITEM_SKILLSAVER_LORE": "",
 
 
     "HEALFROMBLEEDVOID": "Royal Tick",

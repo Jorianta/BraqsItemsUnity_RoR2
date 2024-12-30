@@ -57,6 +57,9 @@ namespace BraqsItems
         public static ConfigEntry<float> RepairBrokenItems_whiteChance;
         public static ConfigEntry<float> RepairBrokenItems_defaultChance;
         public static ConfigEntry<float> RepairBrokenItems_redChance;
+        //Bison Pills
+        public static ConfigEntry<bool> SkillSaver_isEnabled;
+        public static ConfigEntry<float> SkillSaver_chance;
         //VOID
         //Tick Queen
         public static ConfigEntry<bool> HealFromBleedVoid_isEnabled;
@@ -153,6 +156,9 @@ namespace BraqsItems
             RepairBrokenItems_whiteChance = Config.Bind("REPAIRBROKENITEMS", "White Success Chance", 100f, "Repair success chance for white/void white items.");
             RepairBrokenItems_redChance = Config.Bind("REPAIRBROKENITEMS", "Red Success Chance", 50f, "Repair success chance for red/void red items.");
             RepairBrokenItems_defaultChance = Config.Bind("REPAIRBROKENITEMS", "Default Success Chance", 75f, "Repair success chance for all other items.");
+            
+            SkillSaver_isEnabled = Config.Bind("SKILLSAVER", "Enable", true, "Load this item.");
+            SkillSaver_chance = Config.Bind("SKILLSAVER", "Charge Save Chance", 13f, "Chance to not use a skill/equipment charge per stack of this item. Hyperbolic.");
             //Void
             HealFromBleedVoid_isEnabled = Config.Bind("HEALFROMBLEEDVOID", "Enable", true, "Load this item.");
             HealFromBleedVoid_percentBase = Config.Bind("HEALFROMBLEEDVOID", "Percent Health Healed", 0.01f, "Fraction of health healed for every 100% collapse damage with one stack.");

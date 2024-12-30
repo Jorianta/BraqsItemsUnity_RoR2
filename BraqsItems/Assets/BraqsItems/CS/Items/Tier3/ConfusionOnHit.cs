@@ -20,7 +20,6 @@ namespace BraqsItems
     {
         public static ItemDef itemDef;
         public static BuffDef buffDef;
-        public static DotController.DotIndex dotIndex;
 
         private static GameObject distractionOrbEffect;
 
@@ -46,16 +45,6 @@ namespace BraqsItems
             buffDef.iconSprite = BraqsItemsMain.assetBundle.LoadAsset<Sprite>("texBuffBetrayedIcon");
 
             ContentAddition.AddBuffDef(buffDef);
-
-            //Does no damage, but annoys enemies.
-            DotController.DotDef dotDef = new DotController.DotDef()
-            {
-                interval = 0.2f,
-                damageCoefficient = 0,
-                damageColorIndex = DamageColorIndex.Item,
-                associatedBuff = buffDef,
-            };
-            DotAPI.RegisterDotDef(dotDef);
 
             //EFFECT// 
             distractionOrbEffect = GenerateEffect();
@@ -182,8 +171,6 @@ namespace BraqsItems
             private List<HealthComponent> previousTargetList = new List<HealthComponent>();
 
             private float coinFireTimer = 0f;
-            private float resetListTimer = 0f;
-            private const float resetListInterval = 1f;
             private const float coinFireInterval = 0.5f;
             
             private bool hasBuff => (body.GetBuffCount(buffDef) > 0 && healthComponent);
@@ -208,7 +195,6 @@ namespace BraqsItems
                 if (!hasBuff) Destroy(this);
 
                 coinFireTimer += Time.fixedDeltaTime;
-                resetListTimer += Time.fixedDeltaTime;
                 if(coinFireTimer >= coinFireInterval)
                 {
                     coinFireTimer = 0;
@@ -216,10 +202,6 @@ namespace BraqsItems
                     previousTargetList.Clear();
                     if (healthComponent) previousTargetList.Add(healthComponent);
                 }
-                //if (resetListTimer >= resetListInterval)
-                //{
-                //    resetListTimer = 0;
-                //}
             }
 
             private void FireDistractionOrb()
@@ -305,38 +287,6 @@ namespace BraqsItems
             public override void OnArrival()
             {
                 base.OnArrival();
-                
-                //if (target && target.healthComponent && target.healthComponent.body)
-                //{
-                //    target.healthComponent.body.AddTimedBuff(buffDef, buffDurationOnArrival);
-                //}
-            }
-
-            public static void FireDistractionOrbs(GameObject victim, int count, float buffDuration = 0)
-            {
-                List<HealthComponent> targets = new List<HealthComponent>();
-                if (victim.TryGetComponent(out HealthComponent healthComponent)) targets.Add(healthComponent);
-
-                BullseyeSearch search = new BullseyeSearch();
-
-                for (int i = 0; i < count; i++)
-                {
-                    DistractionOrb distractionOrb = new DistractionOrb();
-                    distractionOrb.search = search;
-                    distractionOrb.origin = victim.transform.position;
-                    distractionOrb.attacker = victim;
-                    distractionOrb.victimTeam = victim.TryGetComponent(out CharacterBody body) ? body.teamComponent.teamIndex : TeamIndex.None;
-                    distractionOrb.bouncedObjects = targets;
-                    HurtBox hurtBox = distractionOrb.PickTarget();
-                    if ((bool)hurtBox)
-                    {
-                        distractionOrb.target = hurtBox;
-                        targets.Add(hurtBox.healthComponent);
-                        RoR2.Orbs.OrbManager.instance.AddOrb(distractionOrb);
-                    }
-
-                    else break;
-                }
             }
         }
     }
