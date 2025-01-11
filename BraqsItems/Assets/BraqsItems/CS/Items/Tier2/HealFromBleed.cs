@@ -38,7 +38,7 @@ namespace BraqsItems
 
         private static void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
         {
-            if (sender.inventory.GetItemCount(itemDef) > 0) 
+            if (sender && sender.inventory && sender.inventory.GetItemCount(itemDef) > 0) 
             {
                 args.bleedChanceAdd += 5f;
             }
