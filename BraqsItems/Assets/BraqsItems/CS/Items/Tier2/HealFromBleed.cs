@@ -44,27 +44,6 @@ namespace BraqsItems
             }
         }
 
-        //private static void GlobalEventManager_ProcessHitEnemy(ILContext il)
-        //{
-        //    ILCursor c = new ILCursor(il);
-
-        //    Log.Debug("HealFromBleed: Adding base bleed chance");
-        //    try
-        //    {
-        //        c.GotoNext(
-        //        MoveType.After,
-        //        x => x.MatchLdarg(1),
-        //        x => x.MatchLdfld<DamageInfo>("procCoefficient"),
-        //        x => x.MatchLdloc(1),
-        //        x => x.MatchCallvirt<CharacterBody>("get_bleedChance")
-        //        );
-        //        c.Emit(OpCodes.Ldloc, 7);
-        //        c.EmitDelegate<Func<Inventory, float>>(GetExtraBleedChance);
-        //        c.Emit(OpCodes.Add);
-        //    }
-        //    catch (Exception e) { ErrorHookFailed("Add base bleed chance", e); }
-        //}
-
         private static float GetExtraBleedChance(Inventory inventory)
         {
             return inventory.GetItemCount(itemDef) > 0 ? 5f : 0f;

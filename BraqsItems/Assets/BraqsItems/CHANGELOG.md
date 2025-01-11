@@ -1,3 +1,7 @@
+# 1.5.1
+* Bug Fixes
+  * Leech Jar no longer causes NREs
+
 # 1.5.0
 * New Items!
   * Sunken Chains (Void Jumper Cables)

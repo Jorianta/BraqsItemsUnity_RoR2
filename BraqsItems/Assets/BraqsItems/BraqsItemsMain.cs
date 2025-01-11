@@ -32,7 +32,7 @@ namespace BraqsItems
     {
         public const string GUID = "com.Braquen.BraqsItems";
         public const string MODNAME = "Braqs Items";
-        public const string VERSION = "1.5.0";
+        public const string VERSION = "1.5.1";
 
         public static ExpansionDef BraqsItemsExpansion;
 
@@ -76,22 +76,6 @@ namespace BraqsItems
             ExplosionFrenzy.Init();
             HundredRendingFists.Init();
             LightningDamageBoost.Init();
-        }
-
-        [Conditional("DEBUG")]
-        private void Update()
-        {
-            // This if statement checks if the player has currently pressed F2.
-            if (Input.GetKeyDown(KeyCode.F2))
-            {
-                // Get the player body to use a position:
-                var transform = PlayerCharacterMasterController.instances[0].master.GetBodyObject().transform;
-
-                // And then drop our defined item in front of the player.
-
-                Log.Info($"Player pressed F2. Spawning our custom item at coordinates {transform.position}");
-                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(LightningOnOverkillVoid.itemDef.itemIndex), transform.position, transform.forward * 20f);
-            }
         }
     }
 }
