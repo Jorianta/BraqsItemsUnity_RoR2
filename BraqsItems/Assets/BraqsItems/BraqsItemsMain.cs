@@ -62,8 +62,8 @@ namespace BraqsItems
 
             AttackSpeedOnHit.Init();
             BiggerExplosions.Init();
+            CooldownOnHurt.Init();
             LightningOnOverkill.Init();
-            RandomSkillBoost.Init();
 
             LightningOnOverkillVoid.Init();
 
@@ -78,6 +78,8 @@ namespace BraqsItems
             ExplosionFrenzy.Init();
             HundredRendingFists.Init();
             LightningDamageBoost.Init();
+
+            LunarAOE.Init();
         }
 
         [Conditional("DEBUG")]
@@ -92,7 +94,7 @@ namespace BraqsItems
                 // And then drop our defined item in front of the player.
 
                 Log.Info($"Player pressed F2. Spawning our custom item at coordinates {transform.position}");
-                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(ConfusionOnHit.itemDef.itemIndex), transform.position, transform.forward * 20f);
+                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(LunarAOE.itemDef.itemIndex), transform.position, transform.forward * 20f);
             }
         }
     }

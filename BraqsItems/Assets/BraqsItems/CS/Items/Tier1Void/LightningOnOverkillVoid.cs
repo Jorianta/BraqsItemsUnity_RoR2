@@ -10,7 +10,7 @@ using static BraqsItems.Util.Helpers;
 
 namespace BraqsItems
 {
-    public class LightningOnOverkillVoid
+    public static class LightningOnOverkillVoid
     {
         public static ItemDef itemDef;
         public static ModdedProcType procType;

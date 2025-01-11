@@ -9,7 +9,7 @@ using static BraqsItems.Util.Helpers;
 
 namespace BraqsItems
 {
-    public class ExplodeAgain
+    public static class ExplodeAgain
     {
         public static ItemDef itemDef;
         public static ModdedProcType procType;

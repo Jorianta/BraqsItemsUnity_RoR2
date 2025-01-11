@@ -12,7 +12,7 @@ using RiskOfOptions.Resources;
 
 namespace BraqsItems
 {
-    public class SkillSaver
+    public static class SkillSaver
     {
         public static ItemDef itemDef;
         public static GameObject pillEffect;
@@ -62,7 +62,10 @@ namespace BraqsItems
             try
             {
                 restockEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Common/VFX/EquipmentRestockEffect.prefab").WaitForCompletion().InstantiateClone("SkillStock");
-                
+
+                var light = restockEffect.transform.Find("Light").gameObject.GetComponent<Light>();
+                light.color = new Color(0.1f, 0.60f, 1f);
+
                 var particles = restockEffect.transform.Find("MotionEmitter").gameObject;
 
                 var squareRender = particles.transform.Find("SquaresEmitter").gameObject.GetComponent<ParticleSystemRenderer>();
@@ -86,6 +89,49 @@ namespace BraqsItems
         {
             IL.RoR2.EquipmentSlot.OnEquipmentExecuted += EquipmentSlot_OnEquipmentExecuted;
             IL.RoR2.Skills.SkillDef.OnExecute += SkillDef_OnExecute;
+            On.RoR2.Skills.MercDashSkillDef.OnExecute += MercDashSkillDef_OnExecute;
+        }
+
+        //mercdash is a special case, and needs two extra lines of code. because mercdashskilldef calls base.execute() so early, I can't just handle it in the other hook. Isn't programming fun?
+        private static void MercDashSkillDef_OnExecute(On.RoR2.Skills.MercDashSkillDef.orig_OnExecute orig, MercDashSkillDef self, GenericSkill skillSlot)
+        {
+            orig(self, skillSlot);
+
+            CharacterBody characterBody = skillSlot.characterBody;
+
+            if (!characterBody) return;
+
+            int stack = characterBody.inventory.GetItemCount(itemDef);
+
+            if (stack > 0)
+            {
+                float chance = ((stack) * ConfigManager.SkillSaver_chance.Value / ((stack) * ConfigManager.SkillSaver_chance.Value + 100)) * 100;
+                Log.Debug("Chance: " + chance);
+
+                if (RoR2.Util.CheckRoll(chance, characterBody.master))
+                {
+                    RoR2.Util.PlaySound("Play_UI_equipment_activate", characterBody.gameObject);
+
+                    EffectData effectData = new EffectData
+                    {
+                        scale = 1,
+                        origin = characterBody.corePosition,
+                    };
+                    EffectManager.SpawnEffect(pillEffect, effectData, true);
+
+                    effectData.SetNetworkedObjectReference(characterBody.gameObject);
+                    EffectManager.SpawnEffect(restockEffect, effectData, true);
+
+                    MercDashSkillDef.InstanceData instanceData = (MercDashSkillDef.InstanceData)skillSlot.skillInstanceData;
+
+                    //Proccing on dash lets you do that same level of dash again.
+                    skillSlot.stock += 1;
+                    Log.Debug("Saving merc dash");
+                    instanceData.waitingForHit = false;
+                    instanceData.hasExtraStock = true;
+                    
+                }
+            }
         }
 
         private static void EquipmentSlot_OnEquipmentExecuted(ILContext il)
@@ -125,9 +171,11 @@ namespace BraqsItems
                 x => x.MatchLdfld<SkillDef>("stockToConsume")
                 );
                 c.Emit(OpCodes.Ldarg_1);
-                //Don't play animations for skills w/o cooldown
-                c.EmitDelegate<Func<int, GenericSkill, int>>((i, c) => { if(c.baseRechargeInterval > 0) return TryPreventStockConsumption(i, c.characterBody);
-                                                                         else return i;});
+                c.EmitDelegate<Func<int, GenericSkill, int>>((i, c) => 
+                { 
+                    if (c.skillDef is MercDashSkillDef || !(c.baseRechargeInterval > 0 || c.rechargeStock == 0)) return i;
+                    return TryPreventStockConsumption(i, c.characterBody); 
+                });
             }
             catch (Exception e) { ErrorHookFailed("Add skill save chance", e); }
         }

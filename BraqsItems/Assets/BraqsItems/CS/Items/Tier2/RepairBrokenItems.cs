@@ -10,7 +10,7 @@ using static BraqsItems.Util.Helpers;
 
 namespace BraqsItems
 {
-    public class RepairBrokenItems
+    public static class RepairBrokenItems
     {
         public static ItemDef itemDef;
 

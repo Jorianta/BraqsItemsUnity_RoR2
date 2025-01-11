@@ -9,7 +9,7 @@ using static BraqsItems.Util.Helpers;
 
 namespace BraqsItems
 {
-    public class HundredRendingFists
+    public static class HundredRendingFists
     {
 
         public static ItemDef itemDef;

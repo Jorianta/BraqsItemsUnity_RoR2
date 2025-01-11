@@ -8,7 +8,7 @@ using static BraqsItems.Util.Helpers;
 
 namespace BraqsItems
 {
-    public class AttackSpeedOnHit
+    public static class AttackSpeedOnHit
     {
         public static ItemDef itemDef;
 

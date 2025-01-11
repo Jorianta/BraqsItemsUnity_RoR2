@@ -10,7 +10,7 @@ using static BraqsItems.Util.Helpers;
 
 namespace BraqsItems
 {
-    public class LightningDamageBoost
+    public static class LightningDamageBoost
     {
         public static ItemDef itemDef;
         private static DamageColorIndex chargedColor;

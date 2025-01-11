@@ -16,7 +16,7 @@ using static BraqsItems.Util.Helpers;
 
 namespace BraqsItems
 {
-    public class ConfusionOnHit
+    public static class ConfusionOnHit
     {
         public static ItemDef itemDef;
         public static BuffDef buffDef;

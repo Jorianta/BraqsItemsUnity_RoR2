@@ -10,7 +10,7 @@ using static BraqsItems.Util.Helpers;
 
 namespace BraqsItems
 {
-    public class LightningOnOverkill
+    public static class LightningOnOverkill
     {
         public static ItemDef itemDef;
 

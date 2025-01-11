@@ -10,7 +10,7 @@ using System;
 
 namespace BraqsItems
 {
-    public class HealFromBleedVoid
+    public static class HealFromBleedVoid
     {
         public static ItemDef itemDef;
         private static GameObject healBurstPrefab;

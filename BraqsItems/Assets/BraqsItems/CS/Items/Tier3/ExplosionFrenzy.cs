@@ -12,7 +12,7 @@ using static BraqsItems.Util.Helpers;
 
 namespace BraqsItems
 {
-    public class ExplosionFrenzy
+    public static class ExplosionFrenzy
     {
         public static ItemDef itemDef;
 

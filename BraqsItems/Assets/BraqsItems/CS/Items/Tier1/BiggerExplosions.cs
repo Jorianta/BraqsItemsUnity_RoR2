@@ -8,7 +8,7 @@ using static BraqsItems.Util.Helpers;
 
 namespace BraqsItems
 {
-    public class BiggerExplosions
+    public static class BiggerExplosions
     {
         public static ItemDef itemDef;
 
