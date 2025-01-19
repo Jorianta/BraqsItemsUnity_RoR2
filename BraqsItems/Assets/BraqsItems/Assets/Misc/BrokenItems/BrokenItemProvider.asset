@@ -13,12 +13,4 @@ MonoBehaviour:
   m_Name: BrokenItemProvider
   m_EditorClassIdentifier: 
   relationshipType: {fileID: 11400000, guid: b5cf634591e5cb04692bf35ca30365d8, type: 2}
-  relationships:
-  - itemDef1: {fileID: 0}
-    itemDef2: {fileID: 0}
-  - itemDef1: {fileID: 0}
-    itemDef2: {fileID: 0}
-  - itemDef1: {fileID: 0}
-    itemDef2: {fileID: 0}
-  - itemDef1: {fileID: 0}
-    itemDef2: {fileID: 0}
+  relationships: []

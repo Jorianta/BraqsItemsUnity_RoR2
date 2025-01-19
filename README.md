@@ -14,6 +14,8 @@ On kill, fire chain lightning for 100% excess damage of the killing blow at 3 (+
 After kill, your next 2 (+1 per stack)attacks strike an additional time for up to %300 (+50% per stack) base damage, proportional to the amount of excess damage from the killing blow. Multiple bonuses can be applied at once. Corrupts all Jumper Cables.
 
 ## Tier 2
+#### Bison Pills
+10% (+10% per stack) chance on using a skill or equipment to get a charge back.
 #### Inert Bomblet
 Explosions scatter up to 3 (+2 per stack) bomblets, each dealing 75% TOTAL damage within 75% of the radius of the original explosion.
 #### Jar of Medium Leeches

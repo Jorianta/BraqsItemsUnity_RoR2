@@ -32,7 +32,7 @@ namespace BraqsItems
     {
         public const string GUID = "com.Braquen.BraqsItems";
         public const string MODNAME = "Braqs Items";
-        public const string VERSION = "1.5.1";
+        public const string VERSION = "1.6.0";
 
         public static ExpansionDef BraqsItemsExpansion;
 
@@ -69,6 +69,7 @@ namespace BraqsItems
             ExplodeAgain.Init();
             RepairBrokenItems.Init();
             HealFromBleed.Init();
+            SkillSaver.Init();
 
             HealFromBleedVoid.Init();
 

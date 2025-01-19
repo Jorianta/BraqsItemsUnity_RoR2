@@ -1,3 +1,9 @@
+# 1.6.0
+* New Item!
+  * Bison Pills: Using a skill or equipment has a chance to grant a charge back.
+* Bug Fixes
+  * No longer conflicts with new content management API release
+
 # 1.5.1
 * Bug Fixes
   * Leech Jar no longer causes NREs
