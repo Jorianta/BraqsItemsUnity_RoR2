@@ -62,7 +62,7 @@ namespace BraqsItems
 
             AttackSpeedOnHit.Init();
             BiggerExplosions.Init();
-            CooldownOnHurt.Init();
+            //CooldownOnHurt.Init();
             LightningOnOverkill.Init();
 
             LightningOnOverkillVoid.Init();
@@ -74,7 +74,7 @@ namespace BraqsItems
 
             HealFromBleedVoid.Init();
 
-            ConfusionOnHit.Init();
+            //ConfusionOnHit.Init();
             ExplosionFrenzy.Init();
             HundredRendingFists.Init();
             LightningDamageBoost.Init();

@@ -123,6 +123,28 @@ namespace BraqsItems
         {
 
             On.RoR2.HealthComponent.TakeDamageProcess += HealthComponent_TakeDamageProcess;
+            On.RoR2.GlobalEventManager.OnHitAllProcess += GlobalEventManager_OnHitAllProcess;
+        }
+
+        private static void GlobalEventManager_OnHitAllProcess(On.RoR2.GlobalEventManager.orig_OnHitAllProcess orig, GlobalEventManager self, DamageInfo damageInfo, GameObject hitObject)
+        {
+            orig(self, damageInfo, hitObject);
+
+            if (damageInfo.procCoefficient == 0f || damageInfo.rejected)
+            {
+                return;
+            }
+            if (!damageInfo.attacker)
+            {
+                return;
+            }
+            //prevent double dipping
+            if(hitObject.GetComponent<HealthComponent>())
+            {
+                return;
+            }
+
+            damageInfo.damage = DamageShareOrb.TryDistributeDamage(damageInfo);
         }
 
         //TODO: make aoe effect teammates in chaos
@@ -163,7 +185,7 @@ namespace BraqsItems
 
             public override void Begin()
             {
-                base.duration = base.distanceToTarget / speed;
+                base.duration = 0.1f;
                 EffectData effectData = new EffectData
                 {
                     scale = scale,
@@ -201,7 +223,7 @@ namespace BraqsItems
                 }
             }
 
-            public static float TryDistributeDamage(DamageInfo damageInfo, HealthComponent victim)
+            public static float TryDistributeDamage(DamageInfo damageInfo, HealthComponent victim = null)
             {
                 Log.Debug("DamageShareOrb:TryDistributeDamage()");
 
@@ -229,7 +251,7 @@ namespace BraqsItems
                 float damage = damageInfo.damage / (enumerable.Count() + (victim?1:0));
 
                 //may change
-                float procCoefficient = damageInfo.procCoefficient / (enumerable.Count() + (victim ? 1 : 0));
+                float procCoefficient = damageInfo.procCoefficient / 2;
 
                 Log.Debug("Distributing " +damageInfo.damage+" damage across "+enumerable.Count()+" extra characters, for "+damage+" damage each.");
 

@@ -158,7 +158,7 @@ namespace BraqsItems
             RepairBrokenItems_defaultChance = Config.Bind("REPAIRBROKENITEMS", "Default Success Chance", 75f, "Repair success chance for all other items.");
             
             SkillSaver_isEnabled = Config.Bind("SKILLSAVER", "Enable", true, "Load this item.");
-            SkillSaver_chance = Config.Bind("SKILLSAVER", "Charge Save Chance", 13f, "Chance to not use a skill/equipment charge per stack of this item. Hyperbolic.");
+            SkillSaver_chance = Config.Bind("SKILLSAVER", "Charge Save Chance", 10f, "Chance to not use a skill/equipment charge per stack of this item. Hyperbolic.");
             //Void
             HealFromBleedVoid_isEnabled = Config.Bind("HEALFROMBLEEDVOID", "Enable", true, "Load this item.");
             HealFromBleedVoid_percentBase = Config.Bind("HEALFROMBLEEDVOID", "Percent Health Healed", 0.01f, "Fraction of health healed for every 100% collapse damage with one stack.");

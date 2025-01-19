@@ -90,6 +90,40 @@ namespace BraqsItems
             IL.RoR2.EquipmentSlot.OnEquipmentExecuted += EquipmentSlot_OnEquipmentExecuted;
             IL.RoR2.Skills.SkillDef.OnExecute += SkillDef_OnExecute;
             On.RoR2.Skills.MercDashSkillDef.OnExecute += MercDashSkillDef_OnExecute;
+            //On.RoR2.GenericSkill.DeductStock += GenericSkill_DeductStock;
+        }
+
+        private static void GenericSkill_DeductStock(On.RoR2.GenericSkill.orig_DeductStock orig, GenericSkill self, int count)
+        {
+            if(self.characterBody && self.characterBody.inventory && self.characterBody.master)
+            {
+                int stack = self.characterBody.inventory.GetItemCount(itemDef);
+
+                if (stack > 0)
+                {
+                    int ogCount = count;
+                    float chance = ((stack) * ConfigManager.SkillSaver_chance.Value / ((stack) * ConfigManager.SkillSaver_chance.Value + 100)) * 100;
+
+                    for (int i = 0; i < count; i++) count -= RoR2.Util.CheckRoll(chance, self.characterBody.master)? 1 : 0;
+
+                    if(ogCount != count)
+                    {
+                        RoR2.Util.PlaySound("Play_UI_equipment_activate", self.characterBody.gameObject);
+
+                        EffectData effectData = new EffectData
+                        {
+                            scale = 1,
+                            origin = self.characterBody.corePosition,
+                        };
+                        EffectManager.SpawnEffect(pillEffect, effectData, true);
+
+                        effectData.SetNetworkedObjectReference(self.characterBody.gameObject);
+                        EffectManager.SpawnEffect(restockEffect, effectData, true);
+                    }
+                }
+            }
+
+            orig(self, count);
         }
 
         //mercdash is a special case, and needs two extra lines of code. because mercdashskilldef calls base.execute() so early, I can't just handle it in the other hook. Isn't programming fun?
