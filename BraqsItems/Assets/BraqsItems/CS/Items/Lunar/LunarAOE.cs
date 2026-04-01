@@ -3,15 +3,11 @@ using R2API;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
-using static BraqsItems.Misc.CharacterEvents;
 using static BraqsItems.Util.Helpers;
-using RoR2.Skills;
 using System;
-using static BraqsItems.RandomSkillBoost;
 using UnityEngine.Networking;
 using System.Linq;
-using static UnityEngine.UI.Image;
-using UnityEngine.UIElements;
+using RoR2.Orbs;
 
 namespace BraqsItems
 {
@@ -20,6 +16,7 @@ namespace BraqsItems
         public static ItemDef itemDef;
 
         private static GameObject lunarMissile;
+        private static GameObject SparkEffect;
 
         public static ModdedProcType procType;
 
@@ -48,14 +45,38 @@ namespace BraqsItems
         private static void GenerateEffect()
         {
 
-            lunarMissile = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/DroneWeapons/MicroMissileOrbEffect.prefab").WaitForCompletion().InstantiateClone("LunarMissile");
+            lunarMissile = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/MissileVoid/MissileVoidOrbEffect.prefab").WaitForCompletion().InstantiateClone("LunarMissile");
+            SparkEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/EliteLightning/LightningStakeNova.prefab").WaitForCompletion().InstantiateClone("LunarAoESpark");
             Texture lunarRamp = Addressables.LoadAssetAsync<Texture>("RoR2/Base/Common/ColorRamps/texRampHelfire.png").WaitForCompletion();
-            Mesh spikeMesh = Addressables.LoadAssetAsync<Mesh>("RoR2/DLC2/FalseSon/mdlFalseSonSpike.fbx").WaitForCompletion();
-            Material falseSonMat = Addressables.LoadAssetAsync<Material>("RoR2/DLC2/FalseSon/matFalseSon.mat").WaitForCompletion();
 
             try
             {
-                var trail = lunarMissile.transform.Find("MissileGhost/Trail").gameObject.GetComponent<TrailRenderer>();
+
+                UnityEngine.Object.Destroy(SparkEffect.transform.Find("Lightning, Spark Center").gameObject);
+                UnityEngine.Object.Destroy(SparkEffect.transform.Find("Nova Sphere").gameObject);
+
+            }
+            catch (Exception e)
+            {
+                Log.Warning("Stats:GenerateEffect() ; Could not create lunar aoe effect." +
+                    "\n" + e);
+            }
+            ContentAddition.AddEffect(SparkEffect);
+
+            try
+            {
+                var orb = lunarMissile.GetComponent<OrbEffect>();
+                orb.endEffect = SparkEffect;
+            }
+            catch (Exception e)
+            {
+                Log.Warning("LunarAOE:GenerateEffect() ; Could not edit missile impact." +
+                    "\n" + e);
+            }
+            try
+            {
+                var trail = lunarMissile.transform.Find("MissileVoidGhost/Trail").gameObject.GetComponent<TrailRenderer>();
+                trail.time = 1f;
                 var trailMaterial = trail.material;
 
                 trailMaterial.SetTexture("_RemapTex", lunarRamp);
@@ -68,36 +89,33 @@ namespace BraqsItems
 
             try
             {
-                var missile = lunarMissile.transform.Find("MissileGhost/missile VFX").gameObject;
+                var flash = lunarMissile.transform.Find("MissileVoidGhost/Point Light").gameObject.GetComponent<Light>();
+                flash.color = new Color(0.53f, 0.52f, 0.76f);
 
-                var missileMesh = missile.GetComponent<MeshFilter>();
-                missileMesh.mesh = spikeMesh;
-
-                var missileRenderer = missile.GetComponent<MeshRenderer>();
-                missileRenderer.SetMaterials(new List<Material>() {falseSonMat});
             }
             catch (Exception e)
             {
-                Log.Warning("LunarAOE:GenerateEffect() ; Could not edit missile mesh." +
+                Log.Warning("LunarAOE:GenerateEffect() ; Could not edit missile light." +
                     "\n" + e);
             }
             try
             {
-                var flare = lunarMissile.transform.Find("MissileGhost/Flare").gameObject.GetComponent<ParticleSystem>();
+                var flare = lunarMissile.transform.Find("MissileVoidGhost/Flare").gameObject.GetComponent<ParticleSystemRenderer>();
 
-                var flareColor = flare.colorOverLifetime;
+                var flareMat = flare.material;
+                flareMat.SetTexture("_RemapTex", lunarRamp);
 
-                Gradient silverGradient = new Gradient();
-                silverGradient.mode = flareColor.color.gradient.mode; ;
-                silverGradient.alphaKeys = flareColor.color.gradient.alphaKeys;
-                silverGradient.colorKeys = new GradientColorKey[]
-                {
-                    new GradientColorKey{color = new Color(1f, 1f, 1f), time = 0f},
-                    new GradientColorKey{color = new Color(0.62f, 0.52f, 0.62f), time = 0.3f},
-                    new GradientColorKey{color = new Color(0.43f, 0.42f, 0.66f), time = 1f},
-                };
+                //Gradient silverGradient = new Gradient();
+                //silverGradient.mode = flareColor.color.gradient.mode; ;
+                //silverGradient.alphaKeys = flareColor.color.gradient.alphaKeys;
+                //silverGradient.colorKeys = new GradientColorKey[]
+                //{
+                //    new GradientColorKey{color = new Color(1f, 1f, 1f), time = 0f},
+                //    new GradientColorKey{color = new Color(0.62f, 0.52f, 0.62f), time = 0.3f},
+                //    new GradientColorKey{color = new Color(0.43f, 0.42f, 0.66f), time = 1f},
+                //};
 
-                flareColor.color = new ParticleSystem.MinMaxGradient(silverGradient);
+                //flareColor.color = new ParticleSystem.MinMaxGradient(silverGradient);
             }
             catch (Exception e)
             {
@@ -105,25 +123,15 @@ namespace BraqsItems
                 "\n" + e);
             }
 
-            try
-            {
-                var light = lunarMissile.transform.Find("MissileGhost/Point Light").gameObject.GetComponent<Light>();
-                light.color = new Color(0.53f, 0.52f, 0.76f);
-            }
-            catch (Exception e)
-            {
-                Log.Warning("LunarAOE:GenerateEffect() ; Could not edit missile light." +
-                "\n" + e);
-            }
-
             ContentAddition.AddEffect(lunarMissile);
+            
         }
 
         private static void Hooks()
         {
 
             On.RoR2.HealthComponent.TakeDamageProcess += HealthComponent_TakeDamageProcess;
-            On.RoR2.GlobalEventManager.OnHitAllProcess += GlobalEventManager_OnHitAllProcess;
+            //On.RoR2.GlobalEventManager.OnHitAllProcess += GlobalEventManager_OnHitAllProcess;
         }
 
         private static void GlobalEventManager_OnHitAllProcess(On.RoR2.GlobalEventManager.orig_OnHitAllProcess orig, GlobalEventManager self, DamageInfo damageInfo, GameObject hitObject)
@@ -182,10 +190,11 @@ namespace BraqsItems
             public float procCoefficient;
 
             public DamageColorIndex damageColorIndex;
+            public DamageTypeCombo damageTypeCombo;
 
             public override void Begin()
             {
-                base.duration = 0.1f;
+                base.duration = base.distanceToTarget / speed;
                 EffectData effectData = new EffectData
                 {
                     scale = scale,
@@ -208,6 +217,7 @@ namespace BraqsItems
                         GameObject gameObject = healthComponent.gameObject;
                         DamageInfo damageInfo = new DamageInfo();
                         damageInfo.damage = damageValue;
+                        damageInfo.damageType = damageTypeCombo;
                         damageInfo.attacker = attacker;
                         damageInfo.inflictor = null;
                         damageInfo.crit = isCrit;
@@ -231,11 +241,13 @@ namespace BraqsItems
                 int stack = body.inventory.GetItemCount(itemDef);
                 if(stack <= 0) return damageInfo.damage;
 
+                float radius = 10f * stack;
+
                 TeamIndex team = body.teamComponent.teamIndex;
 
                 BullseyeSearch bullseyeSearch = new BullseyeSearch();
                 bullseyeSearch.teamMaskFilter = TeamMask.GetEnemyTeams(team);
-                bullseyeSearch.maxDistanceFilter = 10f * stack;
+                bullseyeSearch.maxDistanceFilter = radius;
                 bullseyeSearch.searchOrigin = damageInfo.position;
                 bullseyeSearch.searchDirection = Vector3.zero;
                 bullseyeSearch.sortMode = BullseyeSearch.SortMode.None;
@@ -250,6 +262,12 @@ namespace BraqsItems
                 //add one to account for the original victim
                 float damage = damageInfo.damage / (enumerable.Count() + (victim?1:0));
 
+                EffectData effectData = new EffectData
+                {
+                    origin = damageInfo.position,
+                };
+                EffectManager.SpawnEffect(SparkEffect, effectData, transmit: true);
+
                 //may change
                 float procCoefficient = damageInfo.procCoefficient / 2;
 
@@ -261,6 +279,7 @@ namespace BraqsItems
                     DamageShareOrb DamageShareOrb = new DamageShareOrb();
                     DamageShareOrb.origin = damageInfo.position;
                     DamageShareOrb.damageValue = damage;
+                    DamageShareOrb.damageTypeCombo = damageInfo.damageType;
                     DamageShareOrb.isCrit = damageInfo.crit;
                     DamageShareOrb.teamIndex = team;
                     DamageShareOrb.attacker = damageInfo.attacker;
@@ -269,7 +288,7 @@ namespace BraqsItems
                     DamageShareOrb.procCoefficient = procCoefficient;
                     DamageShareOrb.damageColorIndex = DamageColorIndex.Item;
                     DamageShareOrb.target = item;
-                    RoR2.Orbs.OrbManager.instance.AddOrb(DamageShareOrb);
+                    OrbManager.instance.AddOrb(DamageShareOrb);
 
                 }
 
