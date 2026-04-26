@@ -168,13 +168,6 @@ namespace BraqsItems
             #endregion
 
             #region red
-            ConfusionOnHit_isEnabled = Config.Bind("CONFUSIONONHIT", "Enable", true, "Load this item.");
-            ConfusionOnHit_chanceBase = Config.Bind("CONFUSIONONHIT", "Base Chance", 100f, "Chance to apply betrayed on hit.");
-            ConfusionOnHit_chancePerStack = Config.Bind("CONFUSIONONHIT", "Chance Per Stack", 0f, "Additional chance to apply betrayed on hit per additional stack. Hyperbolic.");
-            ConfusionOnHit_durationBase = Config.Bind("CONFUSIONONHIT", "Base Duration", 2f, "Duration of betrayed with one stack.");
-            ConfusionOnHit_durationPerStack = Config.Bind("CONFUSIONONHIT", "Duration Per Stack", 2f, "Additional duration of betrayed per additional stack.");
-            ConfusionOnHit_enemiesAggroed = Config.Bind("CONFUSIONONHIT", "Enemies Aggroed", 1, "The number of enemies baited to attack a victim on applying betrayed.");
-
             ExplosionFrenzy_isEnabled = Config.Bind("EXPLOSIONFRENZY", "Enable", true, "Load this item.");
             ExplosionFrenzy_igniteDamageBase = Config.Bind("EXPLOSIONFRENZY", "Base Total Damage", 0.5f, "Total Damage dealt by burn effects from explosions.");
             ExplosionFrenzy_igniteDamagePerStack = Config.Bind("EXPLOSIONFRENZY", "Total Damage Per Stack", 0.5f, "Additional Total Damage dealt by burn effects from explosions per additional stack.");
