@@ -97,7 +97,7 @@ namespace BraqsItems
         {
             if(self.characterBody && self.characterBody.inventory && self.characterBody.master)
             {
-                int stack = self.characterBody.inventory.GetItemCount(itemDef);
+                int stack = self.characterBody.inventory.GetItemCountEffective(itemDef);
 
                 if (stack > 0)
                 {
@@ -135,7 +135,7 @@ namespace BraqsItems
 
             if (!characterBody) return;
 
-            int stack = characterBody.inventory.GetItemCount(itemDef);
+            int stack = characterBody.inventory.GetItemCountEffective(itemDef);
 
             if (stack > 0)
             {
@@ -219,7 +219,7 @@ namespace BraqsItems
             Log.Debug("SkillSaver:TryPreventStockConsumption");
             if (stocksToConsume > 0 && characterBody.master && characterBody.inventory)
             {
-                int stack = characterBody.inventory.GetItemCount(itemDef);
+                int stack = characterBody.inventory.GetItemCountEffective(itemDef);
 
                 if (stack > 0)
                 {

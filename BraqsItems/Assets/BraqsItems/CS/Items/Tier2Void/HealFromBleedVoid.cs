@@ -10,7 +10,7 @@ using System;
 
 namespace BraqsItems
 {
-    public class HealFromBleedVoid
+    public static class HealFromBleedVoid
     {
         public static ItemDef itemDef;
         private static GameObject healBurstPrefab;
@@ -156,7 +156,7 @@ namespace BraqsItems
 
         private static float GetExtraCollapseChance(Inventory inventory)
         {
-            return inventory.GetItemCount(itemDef) > 0 ? 5f : 0f;
+            return inventory.GetItemCountEffective(itemDef) > 0 ? 5f : 0f;
         }
 
         //May want to move this to a different hook.
@@ -166,7 +166,7 @@ namespace BraqsItems
             {
                 if ((bool)damageInfo.attacker && damageInfo.attacker.TryGetComponent(out CharacterBody attackerBody) && attackerBody.inventory)
                 {
-                    int stack = attackerBody.inventory.GetItemCount(itemDef);
+                    int stack = attackerBody.inventory.GetItemCountEffective(itemDef);
 
                     if (stack > 0 && attackerBody.healthComponent)
                     {

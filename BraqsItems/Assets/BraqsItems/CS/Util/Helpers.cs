@@ -12,7 +12,29 @@ namespace BraqsItems.Util
     {
         public static ItemDef GetItemDef(string name)
         {
+
             ItemDef itemDef = BraqsItemsMain.assetBundle.LoadAsset<ItemDef>(name);
+
+            if(!itemDef)
+            {
+                itemDef = ScriptableObject.CreateInstance<ItemDef>();
+
+                itemDef.AutoPopulateTokens();
+
+                ItemTierCatalog.availability.CallWhenAvailable(() =>
+                {
+                    if (itemDef) itemDef.tier = ItemTier.Tier1;
+                });
+
+                itemDef.tags = new ItemTag[]
+                {
+                };
+                itemDef.canRemove = true;
+                itemDef.hidden = false;
+
+                itemDef.pickupIconSprite = Addressables.LoadAssetAsync<Sprite>("RoR2/Base/DeathProjectile/texDeathProjectileIcon.png").WaitForCompletion();
+                itemDef.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/DeathProjectile/PickupDeathProjectile.prefab").WaitForCompletion();
+            }
 
             name = name.ToUpper();
 

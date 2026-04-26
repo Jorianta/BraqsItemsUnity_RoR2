@@ -9,7 +9,7 @@ using static BraqsItems.Util.Helpers;
 
 namespace BraqsItems
 {
-    public class HundredRendingFists
+    public static class HundredRendingFists
     {
 
         public static ItemDef itemDef;
@@ -64,7 +64,7 @@ namespace BraqsItems
             if (!damageInfo.rejected && damageInfo.procCoefficient > 0f && (bool)damageInfo.attacker && damageInfo.attacker.TryGetComponent(out CharacterBody attackerBody) && attackerBody.inventory
                 && victim.TryGetComponent(out CharacterBody victimBody) && (bool)victimBody.healthComponent)
             {
-                int stacks = attackerBody.inventory.GetItemCount(itemDef);
+                int stacks = attackerBody.inventory.GetItemCountEffective(itemDef);
 
                 if (stacks > 0 && attackerBody.master)
                 {

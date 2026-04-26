@@ -102,7 +102,7 @@ MonoBehaviour:
   Manifests: []
   ArchiveType: 1
   Source: <Output>
-  Output: <Output>\..\braqsitems.zip
+  Output: <Output>/../braqsitems.zip
 --- !u!114 &8338534755391098008
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -60,15 +60,16 @@ namespace BraqsItems
 
             BrokenItemRelationships.CreateBrokenItemProvider();
 
-            BiggerExplosions.Init();
             AttackSpeedOnHit.Init();
+            BiggerExplosions.Init();
+            //CooldownOnHurt.Init();
             LightningOnOverkill.Init();
 
             LightningOnOverkillVoid.Init();
 
             ExplodeAgain.Init();
-            RepairBrokenItems.Init();
             HealFromBleed.Init();
+            RepairBrokenItems.Init();
             SkillSaver.Init();
 
             HealFromBleedVoid.Init();

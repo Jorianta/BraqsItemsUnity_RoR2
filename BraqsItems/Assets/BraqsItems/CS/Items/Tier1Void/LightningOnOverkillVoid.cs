@@ -10,7 +10,7 @@ using static BraqsItems.Util.Helpers;
 
 namespace BraqsItems
 {
-    public class LightningOnOverkillVoid
+    public static class LightningOnOverkillVoid
     {
         public static ItemDef itemDef;
         public static ModdedProcType procType;
@@ -45,7 +45,7 @@ namespace BraqsItems
 
         private static void CharacterBody_OnInventoryChanged(On.RoR2.CharacterBody.orig_OnInventoryChanged orig, CharacterBody self)
         {
-            self.AddItemBehavior<BraqsItems_LightningOnOverkillVoidBehavior>(self.inventory.GetItemCount(itemDef));
+            self.AddItemBehavior<BraqsItems_LightningOnOverkillVoidBehavior>(self.inventory.GetItemCountEffective(itemDef));
             orig(self);
         }
 
@@ -67,7 +67,7 @@ namespace BraqsItems
         {
             if(obj.attackerBody && obj.attackerBody.TryGetComponent(out BraqsItems_LightningOnOverkillVoidBehavior component))
             {
-                int stack = obj.attackerBody.inventory.GetItemCount(itemDef);
+                int stack = obj.attackerBody.inventory.GetItemCountEffective(itemDef);
                 if (stack <= 0) return;
 
                 //up to 400% base damage, based on how much damage was wasted

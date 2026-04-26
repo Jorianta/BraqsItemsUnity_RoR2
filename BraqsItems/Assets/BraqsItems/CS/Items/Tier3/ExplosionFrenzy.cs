@@ -12,7 +12,7 @@ using static BraqsItems.Util.Helpers;
 
 namespace BraqsItems
 {
-    public class ExplosionFrenzy
+    public static class ExplosionFrenzy
     {
         public static ItemDef itemDef;
 
@@ -59,7 +59,7 @@ namespace BraqsItems
 
         private static void CharacterBody_OnInventoryChanged(On.RoR2.CharacterBody.orig_OnInventoryChanged orig, CharacterBody self)
         {
-            self.AddItemBehavior<BraqsItems_ExplosionFrenzyBehavior>(self.inventory.GetItemCount(itemDef));
+            self.AddItemBehavior<BraqsItems_ExplosionFrenzyBehavior>(self.inventory.GetItemCountEffective(itemDef));
             orig(self);
         }
 
@@ -71,7 +71,7 @@ namespace BraqsItems
 
             if (self.attacker && self.attacker.TryGetComponent(out CharacterBody body) && body.inventory)
             {
-                int stacks = body.inventory.GetItemCount(itemDef);
+                int stacks = body.inventory.GetItemCountEffective(itemDef);
                 if (stacks > 0 && result.hitCount > 0)
                 {
                     float damage = ((stacks - 1) * ConfigManager.ExplosionFrenzy_igniteDamagePerStack.Value + ConfigManager.ExplosionFrenzy_igniteDamageBase.Value) * self.baseDamage;

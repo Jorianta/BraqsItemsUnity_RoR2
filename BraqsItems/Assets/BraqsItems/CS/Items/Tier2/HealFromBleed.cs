@@ -38,7 +38,7 @@ namespace BraqsItems
 
         private static void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
         {
-            if (sender && sender.inventory && sender.inventory.GetItemCount(itemDef) > 0) 
+            if (sender && sender.inventory && sender.inventory.GetItemCountEffective(itemDef) > 0) 
             {
                 args.bleedChanceAdd += 5f;
             }
@@ -46,7 +46,7 @@ namespace BraqsItems
 
         private static float GetExtraBleedChance(Inventory inventory)
         {
-            return inventory.GetItemCount(itemDef) > 0 ? 5f : 0f;
+            return inventory.GetItemCountEffective(itemDef) > 0 ? 5f : 0f;
         }
 
         //May want to move this to a different hook.
@@ -56,7 +56,7 @@ namespace BraqsItems
             {
                 if ((bool)damageInfo.attacker && damageInfo.attacker.TryGetComponent(out CharacterBody attackerBody) && attackerBody.inventory)
                 {
-                    int stack = attackerBody.inventory.GetItemCount(itemDef);
+                    int stack = attackerBody.inventory.GetItemCountEffective(itemDef);
 
                     if (stack > 0)
                     {

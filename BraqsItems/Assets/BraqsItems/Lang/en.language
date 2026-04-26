@@ -55,7 +55,7 @@
     "SKILLSAVER": "Bison Pills",
     "ITEM_SKILLSAVER_NAME": "Bison Pills",
     "ITEM_SKILLSAVER_PICKUP": "After using your skills or equipment, they have a chance to be ready for another round.",
-    "ITEM_SKILLSAVER_DESC": "<style=cIsUtility>10%</style> <style=cStack>(+10% per stack)</style> chance on using a skill or equipment to <style=cIsUtility>get a charge back</style>.",
+    "ITEM_SKILLSAVER_DESC": "<style=cIsUtility>13%</style> <style=cStack>(+13% per stack)</style> chance on using a skill or equipment to <style=cIsUtility>not consume a charge</style>.",
     "ITEM_SKILLSAVER_LORE": "",
 
 

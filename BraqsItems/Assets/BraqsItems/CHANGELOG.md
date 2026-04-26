@@ -1,3 +1,5 @@
+# 1.6.1
+* Compat with temp items
 # 1.6.0
 * New Item!
   * Bison Pills: Using a skill or equipment has a chance to grant a charge back.
@@ -7,7 +9,6 @@
 # 1.5.1
 * Bug Fixes
   * Leech Jar no longer causes NREs
-
 # 1.5.0
 * New Items!
   * Sunken Chains (Void Jumper Cables)
