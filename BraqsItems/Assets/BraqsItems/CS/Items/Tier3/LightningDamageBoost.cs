@@ -46,7 +46,7 @@ namespace BraqsItems
 
             if (self.attacker && self.attacker.TryGetComponent(out CharacterBody body) && body.inventory)
             {
-                int count = body.inventory.GetItemCount(itemDef);
+                int count = body.inventory.GetItemCountEffective(itemDef);
 
                 if (count > 0)
                 {
@@ -67,7 +67,7 @@ namespace BraqsItems
 
             if (self.attacker && self.attacker.TryGetComponent(out CharacterBody body) && body.inventory)
             {
-                int count = body.inventory.GetItemCount(itemDef);
+                int count = body.inventory.GetItemCountEffective(itemDef);
 
                 if (count > 0)
                 {

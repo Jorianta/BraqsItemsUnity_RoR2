@@ -44,7 +44,7 @@ namespace BraqsItems
         {
             orig(self, stage);
 
-            int totalRepairAttempts = self.inventory.GetItemCount(itemDef);
+            int totalRepairAttempts = self.inventory.GetItemCountEffective(itemDef);
             if (totalRepairAttempts <= 0 || !self ||!stage) return;
 
             totalRepairAttempts = (totalRepairAttempts - 1) * ConfigManager.RepairBrokenItems_repairsPerStack.Value + ConfigManager.RepairBrokenItems_repairsBase.Value;
@@ -62,7 +62,7 @@ namespace BraqsItems
             for(int i = 0; i < relationshipCount; i++)
             {
                 ItemDef.Pair pair = relationships[i];
-                int temp = self.inventory.GetItemCount(pair.itemDef2);
+                int temp = self.inventory.GetItemCountEffective(pair.itemDef2);
 
                 if (pair.itemDef1.tier == ItemTier.Tier1 || pair.itemDef1.tier == ItemTier.VoidTier1) chances[i] = ConfigManager.RepairBrokenItems_whiteChance.Value;
                 else if (pair.itemDef1.tier == ItemTier.Tier3 || pair.itemDef1.tier == ItemTier.VoidTier3) chances[i] = ConfigManager.RepairBrokenItems_redChance.Value;
@@ -114,10 +114,10 @@ namespace BraqsItems
             }
             Log.Debug("RepairBrokenItems: Repairing " + count + " " + pair.itemDef2.name);
 
-            count = Math.Min(count, master.inventory.GetItemCount(pair.itemDef2));
+            count = Math.Min(count, master.inventory.GetItemCountEffective(pair.itemDef2));
 
-            master.inventory.RemoveItem(pair.itemDef2, count);
-            master.inventory.GiveItem(pair.itemDef1, count);
+            master.inventory.RemoveItemPermanent(pair.itemDef2, count);
+            master.inventory.GiveItemPermanent(pair.itemDef1, count);
 
             CharacterMasterNotificationQueue.SendTransformNotification(master, pair.itemDef2.itemIndex, pair.itemDef1.itemIndex, CharacterMasterNotificationQueue.TransformationType.RegeneratingScrapRegen);
 

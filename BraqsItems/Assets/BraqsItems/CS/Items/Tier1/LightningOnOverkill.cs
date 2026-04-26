@@ -41,7 +41,7 @@ namespace BraqsItems
         {
             if(obj.attackerBody && obj.attackerBody.inventory)
             {
-                int stack = obj.attackerBody.inventory.GetItemCount(itemDef);
+                int stack = obj.attackerBody.inventory.GetItemCountEffective(itemDef);
                 if (stack <= 0) return;
                 
                 float damage = RoR2.Util.OnHitProcDamage((obj.damageDealt - obj.combinedHealthBeforeDamage), obj.attackerBody.baseDamage, 

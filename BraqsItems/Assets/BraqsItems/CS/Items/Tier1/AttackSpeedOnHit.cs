@@ -53,7 +53,7 @@ namespace BraqsItems
 
         private static void CharacterBody_OnInventoryChanged(On.RoR2.CharacterBody.orig_OnInventoryChanged orig, CharacterBody self)
         {
-            self.AddItemBehavior<BraqsItems_AttackSpeedOnHitTracker>(self.inventory.GetItemCount(itemDef));
+            self.AddItemBehavior<BraqsItems_AttackSpeedOnHitTracker>(self.inventory.GetItemCountEffective(itemDef));
             orig(self);
         }
 

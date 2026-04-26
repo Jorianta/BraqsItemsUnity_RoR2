@@ -49,7 +49,7 @@ namespace BraqsItems
 
             if (NetworkServer.active && self.attacker && self.attacker.TryGetComponent(out CharacterBody body) && body.inventory)
             {
-                var items = body.inventory.GetItemCount(itemDef);
+                var items = body.inventory.GetItemCountEffective(itemDef);
 
                 if(items > 0 && !self.procChainMask.HasModdedProc(procType)) FireChildExplosions(self, body, items);
             }

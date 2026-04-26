@@ -1,3 +1,5 @@
+# 1.5.1
+* Compat with temp items
 # 1.5.0
 * New Items!
   * Sunken Chains (Void Jumper Cables)

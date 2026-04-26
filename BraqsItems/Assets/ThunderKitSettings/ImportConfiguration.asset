@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-9213938895217200992
+--- !u!114 &-9095764116219978407
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f4761da1836bc043a94000ffe25bf40, type: 3}
-  m_Name: Install RoR2 Editor Kit
+  m_Script: {fileID: 11500000, guid: 892ee265a9c0b884c8c9c36e42a802c6, type: 3}
+  m_Name: Install BepInEx
   m_EditorClassIdentifier: 
   enabled: 1
---- !u!114 &-7179052858986338493
+--- !u!114 &-8059944610696598354
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -22,37 +22,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08f74610dc9ac9d4dac443c315f5685d, type: 3}
-  m_Name: Ensure RoR2 Thunderstore Source
+  m_Script: {fileID: 11500000, guid: a4e66fd1b2f0a6b4e951af502eba5a2b, type: 3}
+  m_Name: Create Game Package
   m_EditorClassIdentifier: 
   enabled: 1
---- !u!114 &-6413564977439045018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52610fcf3c7c01e43ad95185897e1eb5, type: 3}
-  m_Name: Prompt Restart
-  m_EditorClassIdentifier: 
-  enabled: 1
---- !u!114 &-4639496603407286885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a87a9f1780c348d4080afaf9971d3a7e, type: 3}
-  m_Name: Import Assemblies
-  m_EditorClassIdentifier: 
-  enabled: 1
---- !u!114 &-2909485786413847892
+--- !u!114 &-7594531736278318054
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -82,8 +56,8 @@ MonoBehaviour:
     isHardDependency: 1
     dependencies:
     - BepInExPack
-    - HookGenPatcher
     - R2API_Core
+    - HookGenPatcher
   - submoduleName: R2API_Addressables
     description: R2API_Addressables
     dependedncyID: RiskofThunder-R2API_Addressables
@@ -91,8 +65,8 @@ MonoBehaviour:
     isHardDependency: 1
     dependencies:
     - BepInExPack
-    - HookGenPatcher
     - R2API_Core
+    - HookGenPatcher
   - submoduleName: R2API_Animations
     description: R2API_Animations
     dependedncyID: RiskofThunder-R2API_Animations
@@ -104,30 +78,47 @@ MonoBehaviour:
   - submoduleName: R2API_ArtifactCode
     description: R2API_ArtifactCode
     dependedncyID: RiskofThunder-R2API_ArtifactCode
-    shouldInstall: 0
-    isHardDependency: 0
-    dependencies:
-    - BepInExPack
-    - HookGenPatcher
-    - R2API_Core
-  - submoduleName: R2API_Colors
-    description: R2API_Colors
-    dependedncyID: RiskofThunder-R2API_Colors
     shouldInstall: 1
     isHardDependency: 1
     dependencies:
     - BepInExPack
-    - HookGenPatcher
     - R2API_Core
-  - submoduleName: R2API_CommandHelper
-    description: R2API_CommandHelper
-    dependedncyID: RiskofThunder-R2API_CommandHelper
-    shouldInstall: 0
+    - HookGenPatcher
+  - submoduleName: R2API_Buffs
+    description: R2API_Buffs
+    dependedncyID: RiskofThunder-R2API_Buffs
+    shouldInstall: 1
+    isHardDependency: 1
+    dependencies:
+    - R2API_Core
+    - HookGenPatcher
+  - submoduleName: R2API_CharacterBody
+    description: R2API_CharacterBody
+    dependedncyID: RiskofThunder-R2API_CharacterBody
+    shouldInstall: 1
     isHardDependency: 0
     dependencies:
     - BepInExPack
-    - HookGenPatcher
     - R2API_Core
+    - HookGenPatcher
+  - submoduleName: R2API_Colors
+    description: R2API_Colors
+    dependedncyID: RiskofThunder-R2API_Colors
+    shouldInstall: 1
+    isHardDependency: 0
+    dependencies:
+    - BepInExPack
+    - R2API_Core
+    - HookGenPatcher
+  - submoduleName: R2API_CommandHelper
+    description: R2API_CommandHelper
+    dependedncyID: RiskofThunder-R2API_CommandHelper
+    shouldInstall: 1
+    isHardDependency: 0
+    dependencies:
+    - BepInExPack
+    - R2API_Core
+    - HookGenPatcher
   - submoduleName: R2API_DamageType
     description: R2API_DamageType
     dependedncyID: RiskofThunder-R2API_DamageType
@@ -135,36 +126,36 @@ MonoBehaviour:
     isHardDependency: 0
     dependencies:
     - BepInExPack
-    - HookGenPatcher
     - R2API_Core
+    - HookGenPatcher
   - submoduleName: R2API_Deployable
     description: R2API_Deployable
     dependedncyID: RiskofThunder-R2API_Deployable
-    shouldInstall: 0
+    shouldInstall: 1
     isHardDependency: 0
     dependencies:
     - BepInExPack
-    - HookGenPatcher
     - R2API_Core
+    - HookGenPatcher
   - submoduleName: R2API_Difficulty
     description: R2API_Difficulty
     dependedncyID: RiskofThunder-R2API_Difficulty
-    shouldInstall: 0
+    shouldInstall: 1
     isHardDependency: 0
     dependencies:
     - BepInExPack
-    - HookGenPatcher
     - R2API_Core
+    - HookGenPatcher
   - submoduleName: R2API_Director
     description: R2API_Director
     dependedncyID: RiskofThunder-R2API_Director
-    shouldInstall: 0
+    shouldInstall: 1
     isHardDependency: 0
     dependencies:
     - BepInExPack
     - R2API_Addressables
-    - HookGenPatcher
     - R2API_Core
+    - HookGenPatcher
   - submoduleName: R2API_Dot
     description: R2API_Dot
     dependedncyID: RiskofThunder-R2API_Dot
@@ -172,18 +163,27 @@ MonoBehaviour:
     isHardDependency: 0
     dependencies:
     - BepInExPack
-    - HookGenPatcher
     - R2API_Core
+    - HookGenPatcher
   - submoduleName: R2API_Elites
     description: R2API_Elites
     dependedncyID: RiskofThunder-R2API_Elites
-    shouldInstall: 0
+    shouldInstall: 1
     isHardDependency: 0
     dependencies:
     - BepInExPack
-    - HookGenPatcher
-    - R2API_Core
     - R2API_ContentManagement
+    - R2API_Core
+    - HookGenPatcher
+  - submoduleName: R2API_Execute
+    description: R2API_Execute
+    dependedncyID: RiskofThunder-R2API_Execute
+    shouldInstall: 1
+    isHardDependency: 0
+    dependencies:
+    - BepInExPack
+    - R2API_Core
+    - HookGenPatcher
   - submoduleName: R2API_Items
     description: R2API_Items
     dependedncyID: RiskofThunder-R2API_Items
@@ -191,9 +191,9 @@ MonoBehaviour:
     isHardDependency: 0
     dependencies:
     - BepInExPack
-    - HookGenPatcher
-    - R2API_Core
     - R2API_ContentManagement
+    - R2API_Core
+    - HookGenPatcher
   - submoduleName: R2API_Language
     description: R2API_Language
     dependedncyID: RiskofThunder-R2API_Language
@@ -201,19 +201,19 @@ MonoBehaviour:
     isHardDependency: 0
     dependencies:
     - BepInExPack
-    - HookGenPatcher
     - R2API_Core
+    - HookGenPatcher
   - submoduleName: R2API_Loadout
     description: R2API_Loadout
     dependedncyID: RiskofThunder-R2API_Loadout
-    shouldInstall: 0
+    shouldInstall: 1
     isHardDependency: 0
     dependencies:
     - BepInExPack
-    - HookGenPatcher
+    - R2API_ContentManagement
     - R2API_Core
     - R2API_Skins
-    - R2API_ContentManagement
+    - HookGenPatcher
   - submoduleName: R2API_LobbyConfig
     description: R2API_LobbyConfig
     dependedncyID: RiskofThunder-R2API_LobbyConfig
@@ -221,17 +221,17 @@ MonoBehaviour:
     isHardDependency: 0
     dependencies:
     - BepInExPack
-    - HookGenPatcher
     - R2API_Core
+    - HookGenPatcher
   - submoduleName: R2API_Networking
     description: R2API_Networking
     dependedncyID: RiskofThunder-R2API_Networking
-    shouldInstall: 1
+    shouldInstall: 0
     isHardDependency: 0
     dependencies:
     - BepInExPack
-    - HookGenPatcher
     - R2API_Core
+    - HookGenPatcher
   - submoduleName: R2API_Orb
     description: R2API_Orb
     dependedncyID: RiskofThunder-R2API_Orb
@@ -239,8 +239,8 @@ MonoBehaviour:
     isHardDependency: 0
     dependencies:
     - BepInExPack
-    - HookGenPatcher
     - R2API_Core
+    - HookGenPatcher
   - submoduleName: R2API_Prefab
     description: R2API_Prefab
     dependedncyID: RiskofThunder-R2API_Prefab
@@ -248,9 +248,9 @@ MonoBehaviour:
     isHardDependency: 0
     dependencies:
     - BepInExPack
-    - HookGenPatcher
-    - R2API_Core
     - R2API_ContentManagement
+    - R2API_Core
+    - HookGenPatcher
   - submoduleName: R2API_ProcType
     description: R2API_ProcType
     dependedncyID: RiskofThunder-R2API_ProcType
@@ -258,8 +258,8 @@ MonoBehaviour:
     isHardDependency: 0
     dependencies:
     - BepInExPack
-    - HookGenPatcher
     - R2API_Core
+    - HookGenPatcher
   - submoduleName: R2API_RecalculateStats
     description: R2API_RecalculateStats
     dependedncyID: RiskofThunder-R2API_RecalculateStats
@@ -267,8 +267,8 @@ MonoBehaviour:
     isHardDependency: 0
     dependencies:
     - BepInExPack
-    - HookGenPatcher
     - R2API_Core
+    - HookGenPatcher
   - submoduleName: R2API_Rulebook
     description: R2API_Rulebook
     dependedncyID: RiskofThunder-R2API_Rulebook
@@ -276,26 +276,35 @@ MonoBehaviour:
     isHardDependency: 0
     dependencies:
     - BepInExPack
-    - HookGenPatcher
     - R2API_Core
+    - HookGenPatcher
   - submoduleName: R2API_SceneAsset
     description: R2API_SceneAsset
     dependedncyID: RiskofThunder-R2API_SceneAsset
-    shouldInstall: 0
+    shouldInstall: 1
     isHardDependency: 0
     dependencies:
     - BepInExPack
-    - HookGenPatcher
     - R2API_Core
+    - HookGenPatcher
+  - submoduleName: R2API_Skills
+    description: R2API_Skills
+    dependedncyID: RiskofThunder-R2API_Skills
+    shouldInstall: 1
+    isHardDependency: 0
+    dependencies:
+    - BepInExPack
+    - R2API_Core
+    - HookGenPatcher
   - submoduleName: R2API_Skins
     description: R2API_Skins
     dependedncyID: RiskofThunder-R2API_Skins
-    shouldInstall: 0
+    shouldInstall: 1
     isHardDependency: 0
     dependencies:
     - BepInExPack
-    - HookGenPatcher
     - R2API_Core
+    - HookGenPatcher
   - submoduleName: R2API_Sound
     description: R2API_Sound
     dependedncyID: RiskofThunder-R2API_Sound
@@ -303,27 +312,36 @@ MonoBehaviour:
     isHardDependency: 0
     dependencies:
     - BepInExPack
-    - HookGenPatcher
-    - R2API_Core
     - R2API_ContentManagement
+    - R2API_Core
+    - HookGenPatcher
   - submoduleName: R2API_Stages
     description: R2API_Stages
     dependedncyID: RiskofThunder-R2API_Stages
-    shouldInstall: 0
+    shouldInstall: 1
     isHardDependency: 0
     dependencies:
     - BepInExPack
-    - HookGenPatcher
     - R2API_Core
+    - HookGenPatcher
   - submoduleName: R2API_StringSerializerExtensions
     description: R2API_StringSerializerExtensions
     dependedncyID: RiskofThunder-R2API_StringSerializerExtensions
+    shouldInstall: 1
+    isHardDependency: 0
+    dependencies:
+    - BepInExPack
+    - R2API_Core
+    - HookGenPatcher
+  - submoduleName: R2API_Teams
+    description: R2API_Teams
+    dependedncyID: RiskofThunder-R2API_Teams
     shouldInstall: 0
     isHardDependency: 0
     dependencies:
     - BepInExPack
-    - HookGenPatcher
     - R2API_Core
+    - HookGenPatcher
   - submoduleName: R2API_TempVisualEffect
     description: R2API_TempVisualEffect
     dependedncyID: RiskofThunder-R2API_TempVisualEffect
@@ -331,9 +349,9 @@ MonoBehaviour:
     isHardDependency: 0
     dependencies:
     - BepInExPack
-    - HookGenPatcher
-    - R2API_Core
     - R2API_ContentManagement
+    - R2API_Core
+    - HookGenPatcher
   - submoduleName: R2API_Unlockable
     description: R2API_Unlockable
     dependedncyID: RiskofThunder-R2API_Unlockable
@@ -341,127 +359,10 @@ MonoBehaviour:
     isHardDependency: 0
     dependencies:
     - BepInExPack
-    - HookGenPatcher
-    - R2API_Core
     - R2API_ContentManagement
---- !u!114 &-2086178266056191835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 892ee265a9c0b884c8c9c36e42a802c6, type: 3}
-  m_Name: Install BepInEx
-  m_EditorClassIdentifier: 
-  enabled: 1
---- !u!114 &-1320450614281282700
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d0e45bf5627b554081a563dac04ff6a, type: 3}
-  m_Name: Set Deferred Shading
-  m_EditorClassIdentifier: 
-  enabled: 1
---- !u!114 &-198433452543796624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4e66fd1b2f0a6b4e951af502eba5a2b, type: 3}
-  m_Name: Create Game Package
-  m_EditorClassIdentifier: 
-  enabled: 1
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc02a62d93c1105498092e320b2f0f46, type: 3}
-  m_Name: ImportConfiguration
-  m_EditorClassIdentifier: 
-  ConfigurationExecutors:
-  - {fileID: 5338814100688919688}
-  - {fileID: 5615938509965889920}
-  - {fileID: 6436359016429048993}
-  - {fileID: 2422976839920208659}
-  - {fileID: 3194899953871021814}
-  - {fileID: -4639496603407286885}
-  - {fileID: 871387219071594120}
-  - {fileID: -1320450614281282700}
-  - {fileID: -198433452543796624}
-  - {fileID: 5595347187811803588}
-  - {fileID: 624332556643282875}
-  - {fileID: -7179052858986338493}
-  - {fileID: -2086178266056191835}
-  - {fileID: -2909485786413847892}
-  - {fileID: 6055337920602467836}
-  - {fileID: -9213938895217200992}
-  - {fileID: 9179711594190239438}
-  - {fileID: 6138286038407318060}
-  - {fileID: -6413564977439045018}
-  configurationIndex: 19
-  totalImportExtensionCount: 19
---- !u!114 &624332556643282875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 782d5ab1acc2056478f835108aa9474b, type: 3}
-  m_Name: Configure Addressable Graphics Settings
-  m_EditorClassIdentifier: 
-  enabled: 1
---- !u!114 &871387219071594120
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b40885578be10f4785f1fa347e9fefa, type: 3}
-  m_Name: Import Project Settings
-  m_EditorClassIdentifier: 
-  enabled: 1
-  IncludedSettings: -1
---- !u!114 &2422976839920208659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2636f9900aca35942b349a07d34faaf4, type: 3}
-  m_Name: Assembly Publicizer
-  m_EditorClassIdentifier: 
-  enabled: 1
-  assemblyNames:
-  - RoR2.dll
-  - KinematicCharacterController.dll
-  NStripExecutable: {fileID: 102900000, guid: 39e2644fdd2b31844bb745cba95889bb, type: 3}
---- !u!114 &3194899953871021814
+    - R2API_Core
+    - HookGenPatcher
+--- !u!114 &-1493728252282816615
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -478,7 +379,7 @@ MonoBehaviour:
   - RoR2.dll
   - KinematicCharacterController.dll
   hookGenExecutable: {fileID: 102900000, guid: e441941fc2ce18f4cb8ae6dc66c65a21, type: 3}
---- !u!114 &5338814100688919688
+--- !u!114 &-518358875440341320
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -487,63 +388,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dcb1359c6da7c049b1063e3561a1ecf, type: 3}
-  m_Name: Check Unity Version
+  m_Script: {fileID: 11500000, guid: 52610fcf3c7c01e43ad95185897e1eb5, type: 3}
+  m_Name: Prompt Restart
   m_EditorClassIdentifier: 
   enabled: 1
---- !u!114 &5595347187811803588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bb24ae4d588a7b4fbc1757e2fb5fd78, type: 3}
-  m_Name: Import Addressable Catalog
-  m_EditorClassIdentifier: 
-  enabled: 1
---- !u!114 &5615938509965889920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 208b77589c09e314aa3dbfae9117393a, type: 3}
-  m_Name: Disable Assembly Updater
-  m_EditorClassIdentifier: 
-  enabled: 1
---- !u!114 &6055337920602467836
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6a6266570ba40d41bad5cf59676ab77, type: 3}
-  m_Name: Install RoR2MultiplayerHLAPI
-  m_EditorClassIdentifier: 
-  enabled: 1
---- !u!114 &6138286038407318060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cf0398e0ff60b641a1c9a78c649cbae, type: 3}
-  m_Name: Beep
-  m_EditorClassIdentifier: 
-  enabled: 1
---- !u!114 &6436359016429048993
+--- !u!114 &-55827811952818680
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -556,7 +405,202 @@ MonoBehaviour:
   m_Name: PostProcessing Unity Package Installer
   m_EditorClassIdentifier: 
   enabled: 1
---- !u!114 &9179711594190239438
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc02a62d93c1105498092e320b2f0f46, type: 3}
+  m_Name: ImportConfiguration
+  m_EditorClassIdentifier: 
+  ConfigurationExecutors:
+  - {fileID: 1331453603349385212}
+  - {fileID: 8002713011578227223}
+  - {fileID: -55827811952818680}
+  - {fileID: 2905986561437119616}
+  - {fileID: -1493728252282816615}
+  - {fileID: 2893001231541204356}
+  - {fileID: 1495070718109417399}
+  - {fileID: 4102001586546561039}
+  - {fileID: -8059944610696598354}
+  - {fileID: 6561248627295041941}
+  - {fileID: 2590329082182996724}
+  - {fileID: 7713899114365321738}
+  - {fileID: -9095764116219978407}
+  - {fileID: -7594531736278318054}
+  - {fileID: 3401576162597840560}
+  - {fileID: 628605825475429038}
+  - {fileID: 9182068687598641103}
+  - {fileID: 5068340584010880010}
+  - {fileID: -518358875440341320}
+  configurationIndex: -1
+  totalImportExtensionCount: 19
+--- !u!114 &628605825475429038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f4761da1836bc043a94000ffe25bf40, type: 3}
+  m_Name: Install RoR2 Editor Kit
+  m_EditorClassIdentifier: 
+  enabled: 1
+--- !u!114 &1331453603349385212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dcb1359c6da7c049b1063e3561a1ecf, type: 3}
+  m_Name: Check Unity Version
+  m_EditorClassIdentifier: 
+  enabled: 1
+--- !u!114 &1495070718109417399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b40885578be10f4785f1fa347e9fefa, type: 3}
+  m_Name: Import Project Settings
+  m_EditorClassIdentifier: 
+  enabled: 1
+  IncludedSettings: -1
+--- !u!114 &2590329082182996724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 782d5ab1acc2056478f835108aa9474b, type: 3}
+  m_Name: Configure Addressable Graphics Settings
+  m_EditorClassIdentifier: 
+  enabled: 1
+--- !u!114 &2893001231541204356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a87a9f1780c348d4080afaf9971d3a7e, type: 3}
+  m_Name: Import Assemblies
+  m_EditorClassIdentifier: 
+  enabled: 1
+--- !u!114 &2905986561437119616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2636f9900aca35942b349a07d34faaf4, type: 3}
+  m_Name: Assembly Publicizer
+  m_EditorClassIdentifier: 
+  enabled: 0
+  assemblyNames:
+  - RoR2.dll
+  - KinematicCharacterController.dll
+  NStripExecutable: {fileID: 102900000, guid: 39e2644fdd2b31844bb745cba95889bb, type: 3}
+--- !u!114 &3401576162597840560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6a6266570ba40d41bad5cf59676ab77, type: 3}
+  m_Name: Install RoR2MultiplayerHLAPI
+  m_EditorClassIdentifier: 
+  enabled: 1
+--- !u!114 &4102001586546561039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d0e45bf5627b554081a563dac04ff6a, type: 3}
+  m_Name: Set Deferred Shading
+  m_EditorClassIdentifier: 
+  enabled: 1
+--- !u!114 &5068340584010880010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cf0398e0ff60b641a1c9a78c649cbae, type: 3}
+  m_Name: Beep
+  m_EditorClassIdentifier: 
+  enabled: 1
+--- !u!114 &6561248627295041941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb24ae4d588a7b4fbc1757e2fb5fd78, type: 3}
+  m_Name: Import Addressable Catalog
+  m_EditorClassIdentifier: 
+  enabled: 1
+--- !u!114 &7713899114365321738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08f74610dc9ac9d4dac443c315f5685d, type: 3}
+  m_Name: Ensure RoR2 Thunderstore Source
+  m_EditorClassIdentifier: 
+  enabled: 1
+--- !u!114 &8002713011578227223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 208b77589c09e314aa3dbfae9117393a, type: 3}
+  m_Name: Disable Assembly Updater
+  m_EditorClassIdentifier: 
+  enabled: 1
+--- !u!114 &9182068687598641103
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -238,7 +238,7 @@ namespace BraqsItems
                 Log.Debug("DamageShareOrb:TryDistributeDamage()");
 
                 if(!damageInfo.attacker.TryGetComponent(out CharacterBody body) || damageInfo.procChainMask.HasModdedProc(procType)) return damageInfo.damage;
-                int stack = body.inventory.GetItemCount(itemDef);
+                int stack = body.inventory.GetItemCountEffective(itemDef);
                 if(stack <= 0) return damageInfo.damage;
 
                 float radius = 10f * stack;

@@ -40,7 +40,7 @@ namespace BraqsItems
             {
                 if (args.Stats.inventory)
                 {
-                    int stack = args.Stats.inventory.GetItemCount(itemDef);
+                    int stack = args.Stats.inventory.GetItemCountEffective(itemDef);
                     if (stack > 0) {
                         args.Stats.blastRadiusBoostAdd *= 1 + (stack-1) * ConfigManager.BiggerExplosions_percentPerStack.Value + ConfigManager.BiggerExplosions_percentBase.Value;
                     }
